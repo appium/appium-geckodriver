@@ -1,0 +1,50 @@
+{
+  "name": "appium-geckodriver",
+  "description": "Node.js wrapper around geckodriver.",
+  "keywords": [
+    "appium",
+    "firefox",
+    "geckodriver",
+    "geckoview",
+    "android"
+  ],
+  "version": "0.0.0-alpha",
+  "author": "appium",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/appium/appium-geckodriver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/appium/appium-geckodriver/issues"
+  },
+  "engines": [
+    "node"
+  ],
+  "main": "./build/index.js",
+  "bin": {},
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+  ],
+  "dependencies": {
+    "appium-base-driver": "^3.0.0",
+    "appium-support": "^2.8.0"
+  },
+  "pre-commit": [
+    "precommit-msg",
+    "precommit-test"
+  ],
+  "scripts": {
+  },
+  "devDependencies": {
+    "appium-gulp-plugins": "^4.0.0",
+    "eslint-config-appium": "^4.0.1",
+    "gulp": "^4.0.0",
+    "pre-commit": "^1.1.3"
+  },
+  "greenkeeper": {
+    "ignore": []
+  }
+}
