@@ -35,6 +35,7 @@ describe('Geckodriver simple test', function () {
   it('should start a session', async function () {
     await driver.start(caps);
     should.exist(driver.jwproxy.sessionId);
+    driver.state.should.equal(Geckodriver.STATE_ONLINE);
   });
 
   it('stop geckodriver', async function () {
