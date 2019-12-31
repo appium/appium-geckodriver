@@ -1,0 +1,17 @@
+language: android
+jdk: oraclejdk8
+
+env:
+  global:
+    # used in Travis config
+    - MOCHA_TIMEOUT=900000
+  matrix:
+    - TEST=unit
+install:
+  # node stuff
+  - nvm install 10.15
+
+  # npm stuff
+  - npm install
+script:
+  - npm run lint && npm run mocha -- -t $MOCHA_TIMEOUT -R spec $RECURSIVE build/test/$TEST -i -g @skip-ci
