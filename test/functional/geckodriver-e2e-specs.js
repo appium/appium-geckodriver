@@ -13,11 +13,14 @@ const caps = {
       browserName: 'firefox',
       'moz:firefoxOptions': {
         prefs: {
-          'javascript.options.showInConsole': false
+          'browser.startup.page': 0,
+          'startup.homepage_welcome_url': 'about:blank',
+          'startup.homepage_welcome_url.additional': '',
+          'browser.startup.homepage_override.mstone': 'ignore',
+          'browser.firstrun-content.dismissed': true,
         },
       }
     },
-    firefoxInitialUrl: 'http://google.com',
   }
 };
 
