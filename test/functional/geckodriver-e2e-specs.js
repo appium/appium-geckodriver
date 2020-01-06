@@ -41,7 +41,11 @@ describe('Geckodriver simple test', function () {
     driver.state.should.equal(Geckodriver.STATE_ONLINE);
   });
 
-  it('stop geckodriver', async function () {
+  it('should delete session', async function () {
+    await driver.deleteSession();
+  });
+
+  it.skip('stop geckodriver', async function () {
     await driver.stop();
     driver.state.should.equal(Geckodriver.STATE_STOPPED);
   });
