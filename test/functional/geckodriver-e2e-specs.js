@@ -41,11 +41,18 @@ describe('Geckodriver simple test', function () {
     driver.state.should.equal(Geckodriver.STATE_ONLINE);
   });
 
-  it('should delete session', async function () {
-    await driver.deleteSession();
+  it('should open an url', async function () {
+    await driver.sendCommand('/url', 'POST', {url: 'https://saucelabs.github.io/training-test-page/'});
+    let url = await driver.sendCommand('/url', 'GET', {});
+    url.should.equal('https://saucelabs.github.io/training-test-page/');
   });
 
-  it.skip('stop geckodriver', async function () {
+  it('should be able to locate an element', async function () {
+    let el = await driver.sendCommand('/element', 'POST', {'using': 'css selector', 'value': '#i_am_an_id'});
+    el.should.not.equal(null);
+  });
+
+  it('stop geckodriver', async function () {
     await driver.stop();
     driver.state.should.equal(Geckodriver.STATE_STOPPED);
   });
