@@ -79,7 +79,7 @@ describe('Geckodriver simple test', function () {
     el.should.not.equal(null);
   });
 
-  it.skip('should delete the current session', async function () {
+  it('should delete the current session', async function () {
     await driver.deleteSession();
     driver.jwproxy.sessionId().should.equal(null);
   });
