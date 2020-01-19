@@ -13,7 +13,11 @@ const driver = new Geckodriver({
 });
 
 describe('geckodriver', function () {
-  describe('unit tests', withMocks({driver}, function (mocks) {
+  const jwproxy = driver.jwproxy;
+  describe('unit tests', withMocks({driver, jwproxy}, function (mocks) {
+    afterEach(function () {
+      mocks.driver.restore();
+    });
     it('should exists and set properties', function () {
       should.exist(driver);
       driver.geckodriverExecutable.should.equal('/path/to/geckodriver');
@@ -47,6 +51,22 @@ describe('geckodriver', function () {
       await driver.start(caps);
       driver.state.should.equal(Geckodriver.STATE_ONLINE);
       mocks.driver.verify();
+    });
+    it('should call jwproxy /session to try to start a session', async function () {
+      let caps = {
+        alwaysMatch: {
+          'moz:firefoxOptions': {
+            androidPackage: 'com.android.firefox.some.package'
+          }
+        }
+      };
+      driver.capabilities = caps;
+      mocks.jwproxy
+      .expects('command')
+      .once()
+      .withExactArgs('/session', 'POST', {capabilities: caps});
+      await driver.startSession();
+      mocks.jwproxy.verify();
     });
   }));
 });
