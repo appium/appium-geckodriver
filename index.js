@@ -1,3 +1,3 @@
-import { default as Geckodriver } from './lib/geckodriver';
+import { default as Geckodriver } from './lib/driver';
 
 export default Geckodriver;

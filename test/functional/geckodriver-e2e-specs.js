@@ -1,6 +1,6 @@
 // transpile:mocha
 
-import Geckodriver from '../../lib/geckodriver';
+import Geckodriver from '../../lib/driver';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import _ from 'lodash';
@@ -14,18 +14,16 @@ chai.use(chaiAsPromised);
 // const FENIX_NIGHTLY_MAIN_ACTIVITY = 'org.mozilla.fenix.nightly.App';
 
 const baseCaps = {
-  capabilities: {
-    alwaysMatch: {
-      browserName: 'firefox',
-      'moz:firefoxOptions': {
-        prefs: {
-          'browser.startup.page': 0,
-          'startup.homepage_welcome_url': 'about:blank',
-          'startup.homepage_welcome_url.additional': '',
-          'browser.startup.homepage_override.mstone': 'ignore',
-          'browser.firstrun-content.dismissed': true,
-        },
-      }
+  platformName: 'android',
+  deviceName: 'Android',
+  browserName: 'firefox',
+  'moz:firefoxOptions': {
+    prefs: {
+      'browser.startup.page': 0,
+      'startup.homepage_welcome_url': 'about:blank',
+      'startup.homepage_welcome_url.additional': '',
+      'browser.startup.homepage_override.mstone': 'ignore',
+      'browser.firstrun-content.dismissed': true,
     },
   }
 };
@@ -49,21 +47,18 @@ function buildReqRes (url, method, body) {
   return [req, res];
 }
 
-describe('Geckodriver simple test on Firefox production release', function () {
+// eslint-disable-next-line mocha/no-exclusive-tests
+describe.only('Geckodriver simple test on Firefox production release', function () {
   this.timeout(20000);
   let driver;
   before(function () {
     driver = new Geckodriver();
   });
 
-  it('should have STOPPED state on construction', function () {
-    driver.state.should.equal(Geckodriver.STATE_STOPPED);
-  });
-
+  // eslint-disable-next-line mocha/no-exclusive-tests
   it('should start a session', async function () {
-    await driver.start(baseCaps);
+    await driver.createSession(baseCaps);
     should.exist(driver.jwproxy.sessionId);
-    driver.state.should.equal(Geckodriver.STATE_ONLINE);
   });
 
   it('should open an url', async function () {
@@ -87,28 +82,21 @@ describe('Geckodriver simple test on Firefox production release', function () {
 
   it('should delete the current session', async function () {
     await driver.deleteSession();
-    chai.expect(driver.sessionId()).to.equal(null);
+    chai.expect(driver.gecko).to.equal(null);
+    chai.expect(driver.jwproxy).to.equal(null);
+    chai.expect(driver.isProxyActive).to.equal(false);
   });
 
-  it('should stop geckodriver', async function () {
-    await driver.stop();
-    driver.state.should.equal(Geckodriver.STATE_STOPPED);
-  });
 });
 
 const FENIX_PACKAGE = 'org.mozilla.fenix';
 const FENIX_MAIN_ACTIVITY = 'org.mozilla.fenix.IntentReceiverActivity';
 
-// eslint-disable-next-line mocha/no-exclusive-tests
-describe.only('Geckodriver simple test on Firefox beta release(Fenix)', function () {
+describe('Geckodriver simple test on Firefox beta release(Fenix)', function () {
   this.timeout(20000);
   let driver;
   before(function () {
     driver = new Geckodriver();
-  });
-
-  it('should have STOPPED state on construction', function () {
-    driver.state.should.equal(Geckodriver.STATE_STOPPED);
   });
 
   it('should start a session', async function () {
@@ -117,14 +105,16 @@ describe.only('Geckodriver simple test on Firefox beta release(Fenix)', function
         alwaysMatch: {
           'moz:firefoxOptions': {
             androidPackage: FENIX_PACKAGE,
-            androidActivity: FENIX_MAIN_ACTIVITY
+            androidActivity: FENIX_MAIN_ACTIVITY,
+            androidIntentArguments: [
+              '-d', 'http://saucelabs.github.io/training-test-page/'
+            ],
           }
         }
       }
     });
     await driver.start(caps);
     should.exist(driver.jwproxy.sessionId);
-    driver.state.should.equal(Geckodriver.STATE_ONLINE);
   });
 
   it('should open an url', async function () {
@@ -153,6 +143,5 @@ describe.only('Geckodriver simple test on Firefox beta release(Fenix)', function
 
   it('should stop geckodriver', async function () {
     await driver.stop();
-    driver.state.should.equal(Geckodriver.STATE_STOPPED);
   });
 });
