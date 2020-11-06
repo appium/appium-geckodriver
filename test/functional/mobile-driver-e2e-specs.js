@@ -27,7 +27,7 @@ describe('Mobile GeckoDriver', function () {
   before(async function () {
     if (process.env.CI) {
       // Figure out a way to run this on Azure
-      return this.skip()
+      return this.skip();
     }
     server = await startServer(PORT, HOST);
   });
