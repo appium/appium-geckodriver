@@ -2,13 +2,11 @@ import wd from 'wd';
 import { startServer } from '../..';
 import chaiAsPromised from 'chai-as-promised';
 import chai from 'chai';
+import { HOST, PORT, MOCHA_TIMEOUT } from '../utils';
 
 chai.should();
 chai.use(chaiAsPromised);
 
-const HOST = '127.0.0.1';
-const PORT = 4567;
-const MOCHA_TIMEOUT = 240000;
 const DEVICE_NAME = process.env.DEVICE_NAME || 'emulator-5554';
 // The Firefox binary could be retrieved from https://www.mozilla.org/en-GB/firefox/all/#product-android-release
 const CAPS = {

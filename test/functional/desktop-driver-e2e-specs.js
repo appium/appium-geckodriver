@@ -2,17 +2,18 @@ import wd from 'wd';
 import { startServer } from '../..';
 import chaiAsPromised from 'chai-as-promised';
 import chai from 'chai';
+import { HOST, PORT, MOCHA_TIMEOUT } from '../utils';
 
 chai.should();
 chai.use(chaiAsPromised);
 
-const HOST = '127.0.0.1';
-const PORT = 4567;
 const CAPS = {
   browserName: 'MozillaFirefox',
 };
 
 describe('Desktop Gecko Driver', function () {
+  this.timeout(MOCHA_TIMEOUT);
+
   let server;
   let driver;
   before(async function () {
