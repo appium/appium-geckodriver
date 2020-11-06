@@ -17,7 +17,6 @@ stages:
     - script: npm install
     - script: npm run test
 
-# TODO: Figure out how to install Firefox and geckodriver on the VM
 - stage: Integration_Tests
   jobs:
   - job: Node_Integration_Tests
