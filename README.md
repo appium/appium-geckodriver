@@ -2,7 +2,7 @@ appium-geckodriver
 ====
 
 This is Appium driver for automating Firefox on different platforms, including Android.
-The driver only supports Firefox automation using [W3C WebDriver protocol](https://www.w3.org/TR/webdriver/).
+The driver only supports Firefox and Gecko-based web views (Android only) automation using [W3C WebDriver protocol](https://www.w3.org/TR/webdriver/).
 Under the hood this driver is a wrapper/proxy over `geckodriver` binary. Check the driver [release notes](https://github.com/mozilla/geckodriver/releases) and the [official documentation](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities) to get more details on the supported features and possible pitfalls.
 
 
@@ -24,6 +24,7 @@ platformName | Gecko Driver supports the following platforms: `Mac`, `Linux`, `W
 browserName | Any value passed to this capability will be changed to 'firefox'.
 browserVersion | Provide the version number of the browser to automate if there are multiple versions installed on the same machine where the driver is running.
 automationName | Must always be set to `Gecko`.
+noReset | Being set to `true` adds the `--connect-existing` argument to the server, that allows to connect to an existing browser instance instead of starting a new browser instance on session startup.
 systemPort | The number of the port for the driver to listen on. Must be unique for each session. If not provided then Appium will try to detect it automatically.
 verbosity | The verbosity level of driver logging. By default minimum verbosity is applied. Possible values are `debug` or `trace`.
 androidStorage | See https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html#code-android-storage-var-android-storage-var-code
