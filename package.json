@@ -1,6 +1,6 @@
 {
   "name": "appium-geckodriver",
-  "description": "Appium driver for Gecko-based browsers",
+  "description": "Appium driver for Gecko-based browsers and web views",
   "keywords": [
     "appium",
     "gecko",
