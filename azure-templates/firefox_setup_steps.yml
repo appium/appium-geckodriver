@@ -1,0 +1,14 @@
+steps:
+- script: |
+    sudo cp azure-templates/xvfb.sh /etc/init.d/xvfb
+    sudo chmod +x /etc/init.d/xvfb
+    sudo update-rc.d xvfb defaults
+    sudo service xvfb start
+  displayName: 'Start X Virtual Frame Buffer'
+- script: sudo apt-get install firefox
+  displayName: 'Install Firefox'
+- script: |
+    curl -L https://github.com/mozilla/geckodriver/releases/download/v$(GECKO_DRIVER_VERSION)/geckodriver-v$(GECKO_DRIVER_VERSION)-linux64.tar.gz --output /tmp/geckodriver.tar.gz
+    tar -xzf /tmp/geckodriver.tar.gz
+    sudo mv geckodriver /usr/bin/
+  displayName: 'Deploy Gecko Driver'
