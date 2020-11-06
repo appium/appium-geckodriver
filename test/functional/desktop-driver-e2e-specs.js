@@ -10,7 +10,6 @@ const HOST = '127.0.0.1';
 const PORT = 4567;
 const CAPS = {
   browserName: 'MozillaFirefox',
-  platformName: 'mac',
 };
 
 describe('Desktop Gecko Driver', function () {
