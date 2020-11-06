@@ -19,7 +19,7 @@ const CAPS = {
   },
 };
 
-describe('Mobile SafariDriver', function () {
+describe('Mobile GeckoDriver', function () {
   this.timeout(MOCHA_TIMEOUT);
 
   let server;
