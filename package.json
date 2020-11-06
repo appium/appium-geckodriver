@@ -24,6 +24,7 @@
     "driverName": "gecko",
     "automationName": "Gecko",
     "platformNames": [
+      "Linux",
       "Mac",
       "Android",
       "Windows"
