@@ -23,6 +23,7 @@ stages:
     variables:
       CI: true
       DISPLAY: :10
+      _FORCE_LOGS: 1
     steps:
     - template: azure-templates/node_setup_steps.yml
     - template: azure-templates/firefox_setup_steps.yml
