@@ -8,13 +8,15 @@ Under the hood this driver is a wrapper/proxy over `geckodriver` binary. Check t
 
 ## Usage
 
-It is mandatory to have both Firefox browser installed and the geckodriver binary downloaded on the platform where automated tests are going to be executed. Firefox could be downloaded from the [official download site](https://www.mozilla.org/en-GB/firefox/all/) and the driver binary could be retrieved from the GitHub [releases page](https://github.com/mozilla/geckodriver/releases). The binary must be put into one of the folders included to PATH environment variable. On Mac OS it also might be necessary to run `xcattr -cr "<binary_path>"` to avoid [notarization](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html) issues.
+It is mandatory to have both Firefox browser installed and the geckodriver binary downloaded on the platform where automated tests are going to be executed. Firefox could be downloaded from the [official download site](https://www.mozilla.org/en-GB/firefox/all/) and the driver binary could be retrieved from the GitHub [releases page](https://github.com/mozilla/geckodriver/releases). The binary must be put into one of the folders included to PATH environment variable. On macOS it also might be necessary to run `xcattr -cr "<binary_path>"` to avoid [notarization](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html) issues.
 
 Then you need to decide where the automated test is going to be executed. Gecko driver supports the following target platforms:
- - Mac OS
+ - macOS
  - Windows
  - Linux
  - Android
+
+In order to run your automated tests on Android it is necessary to have [Android SDK](https://developer.android.com/studio) installed, so the destination device is marked as `online` in the `adb devices -l` output.
 
 Gecko driver allows to define multiple criterions for platform selection and also to fine-tune your automation session properties. This could be done via the following session capabilities:
 
