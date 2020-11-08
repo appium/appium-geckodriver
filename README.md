@@ -16,7 +16,7 @@ Then you need to decide where the automated test is going to be executed. Gecko 
  - Linux
  - Android
 
-In order to run your automated tests on Android it is necessary to have [Android SDK](https://developer.android.com/studio) installed, so the destination device is marked as `online` in the `adb devices -l` output.
+In order to run your automated tests on Android it is necessary to have [Android SDK](https://developer.android.com/studio) installed, so the destination device is marked as `online` in the `adb devices -l` command output.
 
 Gecko driver allows to define multiple criterions for platform selection and also to fine-tune your automation session properties. This could be done via the following session capabilities:
 
