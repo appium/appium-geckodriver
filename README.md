@@ -8,13 +8,15 @@ Under the hood this driver is a wrapper/proxy over `geckodriver` binary. Check t
 
 ## Usage
 
-It is mandatory to have both Firefox browser installed and the geckodriver binary downloaded on the platform where automated tests are going to be executed. Firefox could be downloaded from the [official download site](https://www.mozilla.org/en-GB/firefox/all/) and the driver binary could be retrieved from the GitHub [releases page](https://github.com/mozilla/geckodriver/releases). The binary must be put into one of the folders included to PATH environment variable. On Mac OS it also might be necessary to run `xcattr -cr "<binary_path>"` to avoid [notarization](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html) issues.
+It is mandatory to have both Firefox browser installed and the geckodriver binary downloaded on the platform where automated tests are going to be executed. Firefox could be downloaded from the [official download site](https://www.mozilla.org/en-GB/firefox/all/) and the driver binary could be retrieved from the GitHub [releases page](https://github.com/mozilla/geckodriver/releases). The binary must be put into one of the folders included to PATH environment variable. On macOS it also might be necessary to run `xcattr -cr "<binary_path>"` to avoid [notarization](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html) issues.
 
 Then you need to decide where the automated test is going to be executed. Gecko driver supports the following target platforms:
- - Mac OS
+ - macOS
  - Windows
  - Linux
  - Android
+
+In order to run your automated tests on Android it is necessary to have [Android SDK](https://developer.android.com/studio) installed, so the destination device is marked as `online` in the `adb devices -l` command output.
 
 Gecko driver allows to define multiple criterions for platform selection and also to fine-tune your automation session properties. This could be done via the following session capabilities:
 
@@ -40,14 +42,15 @@ unhandledPromptBehavior | See https://www.w3.org/TR/webdriver/#capabilities
 ## Example
 
 ```python
-# python
-from selenium.webdriver.common.by import By
-from appium import webdriver
-import unittest
+# Python3 + PyTest
+import pytest
 import time
 
+from appium import webdriver
+from selenium.webdriver.common.by import By
 
-def setup_module(module):
+
+def generate_caps():
     common_caps = {
         # It does not really matter what to put there, although setting 'Firefox' might cause a failure
         # depending on the particular client library
@@ -69,58 +72,72 @@ def setup_module(module):
         **common_caps,
         'platformName': 'Mac',
     }
-
-    WebKitFeatureStatusTest.driver = webdriver.Remote('http://localhost:4723/wd/hub', simulator_caps)
-
-
-def teardown_module(module):
-    WebKitFeatureStatusTest.driver.quit()
+    return [android_caps, desktop_browser_caps]
 
 
-class WebKitFeatureStatusTest(unittest.TestCase):
-
-    def test_feature_status_page_search(self):
-        self.driver.get("https://webkit.org/status/")
-
-        # Enter "CSS" into the search box.
-        # Ensures that at least one result appears in search
-        # !!! Remember there are no ID and NAME locators in W3C standard
-        # These two have been superseded by CSS ones
-        search_box = self.driver.find_element_by_css("#search")
-        search_box.send_keys("CSS")
-        value = search_box.get_attribute("value")
-        self.assertTrue(len(value) > 0)
-        search_box.submit()
-        time.sleep(1)
-        # Count the visible results when filters are applied
-        # so one result shows up in at most one filter
-        feature_count = self.shown_feature_count()
-        self.assertTrue(feature_count > 0)
-
-    def test_feature_status_page_filters(self):
-        self.driver.get("https://webkit.org/status/")
-
-        time.sleep(1)
-        filters = self.driver.execute_script("return document.querySelectorAll('.filter-toggle')")
-        self.assertTrue(len(filters) is 7)
-
-        # Make sure every filter is turned off.
-        for checked_filter in filter(lambda f: f.is_selected(), filters):
-            checked_filter.click()
-
-        # Make sure you can select every filter.
-        for filt in filters:
-            filt.click()
-            self.assertTrue(filt.is_selected())
-            filt.click()
-
-    def shown_feature_count(self):
-                return len(self.driver.execute_script("return document.querySelectorAll('li.feature:not(.is-hidden)')"))
+@pytest.fixture(params=generate_caps())
+def driver(request):
+    drv = webdriver.Remote('http://localhost:4723/wd/hub', request.param)
+    yield drv
+    drv.quit()
 
 
-if __name__ == "__main__":
-    unittest.main()
+class TimeoutError(Exception):
+    pass
+
+
+def wait_until_truthy(func, timeout_sec=5.0, interval_sec=0.5):
+    started = time.time()
+    original_error = None
+    while time.time() - started < timeout_sec:
+        original_error = None
+        try:
+            result = func()
+            if result:
+                return result
+        except Exception as e:
+            original_error = e
+        time.sleep(interval_sec)
+    if original_error is None:
+        raise TimeoutError(f'Condition unmet after {timeout_sec}s timeout')
+    raise original_error
+
+
+def test_feature_status_page_search(driver):
+    driver.get('https://webkit.org/status/')
+
+    # Enter "CSS" into the search box.
+    # Ensures that at least one result appears in search
+    # !!! Remember there are no ID and NAME locators in W3C standard
+    # These two have been superseded by CSS ones
+    search_box = driver.find_element_by_css('#search')
+    search_box.send_keys('CSS')
+    value = search_box.get_attribute('value')
+    assert len(value) > 0
+    search_box.submit()
+    # Count the visible results when filters are applied
+    # so one result shows up in at most one filter
+    assert wait_until_truthy(
+        lambda: len(driver.execute_script("return document.querySelectorAll('li.feature:not(.is-hidden)')")) > 0)
+
+
+def test_feature_status_page_filters(driver):
+    driver.get('https://webkit.org/status/')
+
+    assert wait_until_truthy(
+        lambda: len(driver.execute_script("return document.querySelectorAll('.filter-toggle')")) == 7)
+
+    # Make sure every filter is turned off.
+    for checked_filter in filter(lambda f: f.is_selected(), filters):
+        checked_filter.click()
+
+    # Make sure you can select every filter.
+    for filt in filters:
+        filt.click()
+        assert filt.is_selected()
+        filt.click()
 ```
+
 
 ## Development
 
