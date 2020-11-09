@@ -9,7 +9,7 @@ chai.use(chaiAsPromised);
 
 const CAPS = {
   browserName: 'MozillaFirefox',
-  platformName: 'Linux',
+  platformName: 'linux',
 };
 
 describe('Desktop Gecko Driver', function () {
