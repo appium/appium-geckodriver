@@ -10,7 +10,8 @@ chai.use(chaiAsPromised);
 const DEVICE_NAME = process.env.DEVICE_NAME || 'emulator-5554';
 // The Firefox binary could be retrieved from https://www.mozilla.org/en-GB/firefox/all/#product-android-release
 const CAPS = {
-  platformName: 'android',
+  platformName: 'linux',
+  // platformName: 'mac',
   verbosity: 'trace',
   'moz:firefoxOptions': {
     androidDeviceSerial: DEVICE_NAME,
