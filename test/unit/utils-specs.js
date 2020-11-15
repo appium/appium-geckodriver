@@ -13,7 +13,7 @@ describe('formatCapsForServer', function () {
     const result = formatCapsForServer({
       browserName: 'yolo',
       browserVersion: '52',
-      platformName: 'mac',
+      platformName: 'Mac',
     });
     result.should.eql({
       browserName: 'firefox',

@@ -22,7 +22,7 @@ Gecko driver allows to define multiple criterions for platform selection and als
 
 Capability Name | Description
 --- | ---
-platformName | Gecko Driver supports the following platforms: `mac`, `linux`, `windows`. The fact your test must be executed on Android is detected based on `moz:firefoxOptions` entry values. Values of platformName are compared case-sensitively.
+platformName | Gecko Driver supports the following platforms: `mac`, `linux`, `windows`. The fact your test must be executed on Android is detected based on `moz:firefoxOptions` entry values. Values of platformName are compared case-insensitively.
 browserName | Any value passed to this capability will be changed to 'firefox'.
 browserVersion | Provide the version number of the browser to automate if there are multiple versions installed on the same machine where the driver is running.
 automationName | Must always be set to `Gecko`.
