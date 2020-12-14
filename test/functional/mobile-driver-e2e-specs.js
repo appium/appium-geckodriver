@@ -17,6 +17,7 @@ const CAPS = {
     androidDeviceSerial: DEVICE_NAME,
     androidPackage: 'org.mozilla.firefox',
   },
+  androidStorage: 'internal',
 };
 
 describe('Mobile GeckoDriver', function () {
