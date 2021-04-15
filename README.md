@@ -14,7 +14,7 @@ Then you need to decide where the automated test is going to be executed. Gecko 
  - macOS
  - Windows
  - Linux
- - Android
+ - Android (note that `android` *cannot* be passed as a value to `platformName` capability; it should always equal to the *host* platform name)
 
 In order to run your automated tests on Android it is necessary to have [Android SDK](https://developer.android.com/studio) installed, so the destination device is marked as `online` in the `adb devices -l` command output.
 
