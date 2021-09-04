@@ -25,12 +25,12 @@ Capability Name | Description
 platformName | Gecko Driver supports the following platforms: `mac`, `linux`, `windows`. The fact your test must be executed on Android is detected based on `moz:firefoxOptions` entry values. Values of platformName are compared case-insensitively.
 browserName | Any value passed to this capability will be changed to 'firefox'.
 browserVersion | Provide the version number of the browser to automate if there are multiple versions installed on the same machine where the driver is running.
-automationName | Must always be set to `Gecko`.
-noReset | Being set to `true` adds the [--connect-existing](https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html#code-connect-existing-code) argument to the server, that allows to connect to an existing browser instance instead of starting a new browser instance on session startup. You could also provide a custom value to `marionettePort` capability, otherwise the default value `2828` is going to be used.
-marionettePort | Selects the port for Geckodriver’s connection to the Marionette remote protocol. The existing Firefox instance must have Marionette enabled. To enable the remote protocol in Firefox, you can pass the `-marionette` flag. Unless the `marionette.port` preference has been user-set, Marionette will listen on port `2828`, which is the default value for this capability.
-systemPort | The number of the port for the driver to listen on. Must be unique for each session. If not provided then Appium will try to detect it automatically.
-verbosity | The verbosity level of driver logging. By default minimum verbosity is applied. Possible values are `debug` or `trace`.
-androidStorage | See https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html#code-android-storage-var-android-storage-var-code
+appium:automationName | Must always be set to `Gecko`.
+appium:noReset | Being set to `true` adds the `--connect-existing` argument to the server, that allows to connect to an existing browser instance instead of starting a new browser instance on session startup.
+appium:marionettePort | Selects the port for Geckodriver’s connection to the Marionette remote protocol. The existing Firefox instance must have Marionette enabled. To enable the remote protocol in Firefox, you can pass the `-marionette` flag. Unless the `marionette.port` preference has been user-set, Marionette will listen on port `2828`, which is the default value for this capability.
+appium:systemPort | The number of the port for the driver to listen on. Must be unique for each session. If not provided then Appium will try to detect it automatically.
+appium:verbosity | The verbosity level of driver logging. By default minimum verbosity is applied. Possible values are `debug` or `trace`.
+appium:androidStorage | See https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html#code-android-storage-var-android-storage-var-code
 moz:firefoxOptions | See https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions
 acceptInsecureCerts | See https://www.w3.org/TR/webdriver/#capabilities
 pageLoadStrategy | See https://www.w3.org/TR/webdriver/#capabilities
