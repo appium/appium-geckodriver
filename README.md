@@ -1,4 +1,4 @@
-appium-geckodriver
+Appium Geckodriver
 ====
 
 This is Appium driver for automating Firefox on different platforms, including Android.
@@ -17,6 +17,8 @@ Then you need to decide where the automated test is going to be executed. Gecko 
  - Android (note that `android` *cannot* be passed as a value to `platformName` capability; it should always equal to the *host* platform name)
 
 In order to run your automated tests on Android it is necessary to have [Android SDK](https://developer.android.com/studio) installed, so the destination device is marked as `online` in the `adb devices -l` command output.
+
+Since the version 1.0.0 this driver is only compatible with Appium 2. Use the `appium driver install gecko` CLI command to add it to your server dist.
 
 Gecko driver allows to define multiple criterions for platform selection and also to fine-tune your automation session properties. This could be done via the following session capabilities:
 
