@@ -154,4 +154,3 @@ def test_feature_status_page_filters(driver):
 npm install
 gulp watch
 ```
-
