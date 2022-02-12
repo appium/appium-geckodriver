@@ -1,6 +1,9 @@
 Appium Geckodriver
 ====
 
+[![NPM version](http://img.shields.io/npm/v/appium-geckodriver.svg)](https://npmjs.org/package/appium-geckodriver)
+[![Downloads](http://img.shields.io/npm/dm/appium-geckodriver.svg)](https://npmjs.org/package/appium-geckodriver)
+
 [![Release](https://github.com/appium/appium-geckodriver/actions/workflows/publish.js.yml/badge.svg)](https://github.com/appium/appium-geckodriver/actions/workflows/publish.js.yml)
 
 This is Appium driver for automating Firefox on different platforms, including Android.
