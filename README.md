@@ -1,6 +1,8 @@
 Appium Geckodriver
 ====
 
+[![Release](https://github.com/appium/appium-geckodriver/actions/workflows/publish.js.yml/badge.svg)](https://github.com/appium/appium-geckodriver/actions/workflows/publish.js.yml)
+
 This is Appium driver for automating Firefox on different platforms, including Android.
 The driver only supports Firefox and Gecko-based web views (Android only) automation using [W3C WebDriver protocol](https://www.w3.org/TR/webdriver/).
 Under the hood this driver is a wrapper/proxy over `geckodriver` binary. Check the driver [release notes](https://github.com/mozilla/geckodriver/releases) and the [official documentation](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities) to get more details on the supported features and possible pitfalls.
