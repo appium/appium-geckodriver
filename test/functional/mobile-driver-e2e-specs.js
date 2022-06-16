@@ -11,13 +11,14 @@ const DEVICE_NAME = process.env.DEVICE_NAME || 'emulator-5554';
 // The Firefox binary could be retrieved from https://www.mozilla.org/en-GB/firefox/all/#product-android-release
 const CAPS = {
   platformName: 'linux',
+  'appium:automationName': 'Gecko',
   // platformName: 'mac',
-  verbosity: 'trace',
+  'appiuim:verbosity': 'trace',
   'moz:firefoxOptions': {
     androidDeviceSerial: DEVICE_NAME,
     androidPackage: 'org.mozilla.firefox',
   },
-  androidStorage: 'internal',
+  'appium:androidStorage': 'internal',
 };
 
 describe('Mobile GeckoDriver', function () {
