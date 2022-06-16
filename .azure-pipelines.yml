@@ -1,7 +1,7 @@
 variables:
   # https://github.com/Microsoft/azure-pipelines-image-generation/blob/master/images/
   VM_IMAGE: ubuntu-18.04
-  DEFAULT_NODE_VERSION: "12.x"
+  DEFAULT_NODE_VERSION: "16.x"
   # https://github.com/mozilla/geckodriver/releases
   GECKO_DRIVER_VERSION: "0.28.0"
 

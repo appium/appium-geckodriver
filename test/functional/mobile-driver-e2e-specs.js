@@ -1,5 +1,5 @@
 import { remote } from 'webdriverio';
-import { startServer } from '../..';
+import { startServer } from '../server';
 import chaiAsPromised from 'chai-as-promised';
 import chai from 'chai';
 import { HOST, PORT, MOCHA_TIMEOUT } from '../utils';
