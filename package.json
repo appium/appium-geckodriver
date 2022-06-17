@@ -36,9 +36,10 @@
   "directories": {
     "lib": "lib"
   },
+  "peerDependencies": {
+    "appium": "^2.0.0-beta.40"
+  },
   "dependencies": {
-    "@appium/base-driver": "^8.3.0",
-    "@appium/support": "^2.55.3",
     "@babel/runtime": "^7.0.0",
     "asyncbox": "^2.0.2",
     "bluebird": "^3.5.1",
@@ -71,6 +72,8 @@
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
     "@semantic-release/git": "^10.0.1",
+    "appium": "^2.0.0-beta.40",
+    "appium-geckodriver": "file:.",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "eslint-config-prettier": "^8.5.0",
