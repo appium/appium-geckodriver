@@ -14,7 +14,9 @@ stages:
   - job: Node_Unit_Tests
     steps:
     - template: azure-templates/node_setup_steps.yml
-    - script: npm install
+    - script: |
+        npm install -g appium@next
+        npm install
     - script: npm run test
 
 - stage: Integration_Tests
@@ -27,5 +29,7 @@ stages:
     steps:
     - template: azure-templates/node_setup_steps.yml
     - template: azure-templates/firefox_setup_steps.yml
-    - script: npm install
+    - script: |
+        npm install -g appium@next
+        npm install
     - script: npm run e2e-test
