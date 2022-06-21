@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { SubProcess } from 'teen_process';
 
 async function startServer (port, address, relaxedSecurityEnabled = false) {
@@ -13,7 +14,7 @@ async function startServer (port, address, relaxedSecurityEnabled = false) {
     args.push('--relaxed-security');
   }
   const process = new SubProcess('appium', args);
-  await process.start();
+  await process.start((stdout) => _.includes(stdout, 'listener started'));
   return {
     close: async () => { await process.stop(); }
   };
