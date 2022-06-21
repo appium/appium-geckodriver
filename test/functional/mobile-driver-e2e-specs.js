@@ -1,5 +1,4 @@
 import { remote } from 'webdriverio';
-import { startServer } from '../server';
 import chaiAsPromised from 'chai-as-promised';
 import chai from 'chai';
 import { HOST, PORT, MOCHA_TIMEOUT } from '../utils';
@@ -24,19 +23,11 @@ const CAPS = {
 describe('Mobile GeckoDriver', function () {
   this.timeout(MOCHA_TIMEOUT);
 
-  let server;
   let driver;
-  before(async function () {
+  before(function () {
     if (process.env.CI) {
       // Figure out a way to run this on Azure
       return this.skip();
-    }
-    server = await startServer(PORT, HOST);
-  });
-  after(async function () {
-    if (server) {
-      await server.close();
-      server = null;
     }
   });
   beforeEach(async function () {
