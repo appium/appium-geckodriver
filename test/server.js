@@ -13,10 +13,12 @@ async function startServer (port, address, relaxedSecurityEnabled = false) {
   if (relaxedSecurityEnabled) {
     args.push('--relaxed-security');
   }
-  const process = new SubProcess('appium', args);
-  await process.start((stdout) => _.includes(stdout, 'listener started'));
+  const proc = new SubProcess('appium', args, {
+    cwd: process.env.HOME
+  });
+  await proc.start((stdout) => _.includes(stdout, 'listener started'));
   return {
-    close: async () => { await process.stop(); }
+    close: async () => { await proc.stop(); }
   };
 }
 
