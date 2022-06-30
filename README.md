@@ -55,37 +55,34 @@ import pytest
 import time
 
 from appium import webdriver
+# Options are available in Python client since v2.6.0
+from appium.options.gecko import GeckoOptions
 from selenium.webdriver.common.by import By
 
 
-def generate_caps():
+def generate_options():
     common_caps = {
         # It does not really matter what to put there, although setting 'Firefox' might cause a failure
         # depending on the particular client library
         'browserName': 'MozillaFirefox',
-        # automationName capability presence is mandatory for this Gecko Driver to be selected
-        'automationName': 'Gecko',
         # Should have the name of the host platform, where the geckodriver binary is deployed
         'platformName': 'mac',
     }
-    android_caps = {
-        **common_caps,
-        'moz:firefoxOptions': {
-            'androidDeviceSerial': '<device/emulator serial>',
-            # These capabilities depend on what you are going to automate
-            # Refer Mozilla documentation at https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions for more details
-            'androidPackage': 'org.mozilla.firefox',
-        },
+    android_options = GeckoOptions().load_capabilities(common_caps)
+    android_options.firefox_options = {
+        'androidDeviceSerial': '<device/emulator serial>',
+        # These capabilities depend on what you are going to automate
+        # Refer Mozilla documentation at https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions for more details
+        'androidPackage': 'org.mozilla.firefox',
     }
-    desktop_browser_caps = {
-        **common_caps,
-    }
-    return [android_caps, desktop_browser_caps]
+    desktop_options = GeckoOptions().load_capabilities(common_caps)
+    return [android_options, desktop_options]
 
 
-@pytest.fixture(params=generate_caps())
+@pytest.fixture(params=generate_options())
 def driver(request):
-    drv = webdriver.Remote('http://localhost:4723/wd/hub', request.param)
+    # The default URL is http://127.0.0.1:4723/wd/hub in Appium1
+    drv = webdriver.Remote('http://127.0.0.1:4723', options=request.param)
     yield drv
     drv.quit()
 
