@@ -1,6 +1,6 @@
 variables:
   # https://github.com/Microsoft/azure-pipelines-image-generation/blob/master/images/
-  VM_IMAGE: ubuntu-18.04
+  VM_IMAGE: ubuntu-latest
   DEFAULT_NODE_VERSION: "16.x"
   # https://github.com/mozilla/geckodriver/releases
   GECKO_DRIVER_VERSION: "0.28.0"
@@ -14,9 +14,8 @@ stages:
   - job: Node_Unit_Tests
     steps:
     - template: azure-templates/node_setup_steps.yml
-    - script: |
-        npm install -g appium@next
-        npm install
+    - script: npm install
+    - script: npm run lint
     - script: npm run test
 
 - stage: Integration_Tests
@@ -30,7 +29,7 @@ stages:
     - template: azure-templates/node_setup_steps.yml
     - template: azure-templates/firefox_setup_steps.yml
     - script: |
-        npm install -g appium@next
+        npm i -g appium@next
         npm install
     - script: |
         export APPIUM_TEST_SERVER_PORT=4567

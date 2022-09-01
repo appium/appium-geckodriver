@@ -1,4 +1,4 @@
-import GeckoDriver from '../..';
+import GeckoDriver from '../../lib/driver';
 import chai from 'chai';
 const should = chai.should();
 
