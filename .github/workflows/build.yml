@@ -45,9 +45,8 @@ jobs:
     - run: sudo apt-get install firefox
       name: Install Firefox
     - run: |
-        sudo apt-get install jq
         latest_release="$(curl https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r .name)"
-        curl -L "https://github.com/mozilla/geckodriver/releases/download/v${latest_release}/geckodriver-${latest_release}-linux64.tar.gz" \
+        curl -L "https://github.com/mozilla/geckodriver/releases/download/v${latest_release}/geckodriver-v${latest_release}-linux64.tar.gz" \
           --output /tmp/geckodriver.tar.gz
         tar -xzf /tmp/geckodriver.tar.gz
         sudo mv geckodriver /usr/bin/
