@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/appium/appium-geckodriver/compare/v1.1.6...v1.1.7) (2023-01-13)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump rimraf from 3.0.2 to 4.0.4 ([#49](https://github.com/appium/appium-geckodriver/issues/49)) ([ae37b96](https://github.com/appium/appium-geckodriver/commit/ae37b96bf0c77050e241d96d457cb1dabe26c6a9))
+
 ## [1.1.6](https://github.com/appium/appium-geckodriver/compare/v1.1.5...v1.1.6) (2022-12-05)
 
 
