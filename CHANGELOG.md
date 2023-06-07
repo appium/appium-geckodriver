@@ -1,3 +1,10 @@
+## [1.1.10](https://github.com/appium/appium-geckodriver/compare/v1.1.9...v1.1.10) (2023-06-07)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump conventional-changelog-conventionalcommits ([#56](https://github.com/appium/appium-geckodriver/issues/56)) ([7bc81c4](https://github.com/appium/appium-geckodriver/commit/7bc81c4cd9c0195596a42f6e240b55b3e3dce823))
+
 ## [1.1.9](https://github.com/appium/appium-geckodriver/compare/v1.1.8...v1.1.9) (2023-04-10)
 
 
