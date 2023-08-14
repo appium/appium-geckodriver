@@ -1,3 +1,10 @@
+## [1.1.11](https://github.com/appium/appium-geckodriver/compare/v1.1.10...v1.1.11) (2023-08-14)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump lint-staged from 13.3.0 to 14.0.0 ([#60](https://github.com/appium/appium-geckodriver/issues/60)) ([bf354c0](https://github.com/appium/appium-geckodriver/commit/bf354c06fdf019702919d25dc7d0f3042883e995))
+
 ## [1.1.10](https://github.com/appium/appium-geckodriver/compare/v1.1.9...v1.1.10) (2023-06-07)
 
 
