@@ -15,6 +15,7 @@ const CAPS = {
 describe('Desktop Gecko Driver', function () {
   this.timeout(MOCHA_TIMEOUT);
 
+  /** @type {import('webdriverio').Browser} */
   let driver;
   beforeEach(async function () {
     driver = await remote({
@@ -32,8 +33,8 @@ describe('Desktop Gecko Driver', function () {
 
   it('should start and stop a session', async function () {
     await driver.url('https://appium.io/');
-    const button = await driver.$('#downloadLink');
-    await button.getText().should.eventually.eql('Download Appium');
+    const input = await driver.$('input[data-md-component="search-query"]');
+    (await input.isExisting()).should.be.true;
   });
 });
 
