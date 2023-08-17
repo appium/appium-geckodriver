@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/appium/appium-geckodriver/compare/v1.1.11...v1.2.0) (2023-08-17)
+
+
+### Features
+
+* Switch babel to typescript ([#61](https://github.com/appium/appium-geckodriver/issues/61)) ([5993a04](https://github.com/appium/appium-geckodriver/commit/5993a0444fdde1fe26c20e7285dcf971476e2065))
+
 ## [1.1.11](https://github.com/appium/appium-geckodriver/compare/v1.1.10...v1.1.11) (2023-08-14)
 
 
