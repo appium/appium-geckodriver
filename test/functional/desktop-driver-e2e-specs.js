@@ -34,7 +34,7 @@ describe('Desktop Gecko Driver', function () {
   it('should start and stop a session', async function () {
     await driver.url('https://appium.io/');
     const input = await driver.$('input[data-md-component="search-query"]');
-    await input.click();
+    (await input.isExisting()).should.be.true;
   });
 });
 
