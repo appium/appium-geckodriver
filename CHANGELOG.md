@@ -1,3 +1,11 @@
+## [1.2.3](https://github.com/appium/appium-geckodriver/compare/v1.2.2...v1.2.3) (2023-10-17)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump @types/teen_process from 2.0.0 to 2.0.1 ([e3c047c](https://github.com/appium/appium-geckodriver/commit/e3c047c278deb8faa5a84a253ce2613bc3faee59))
+* **deps-dev:** bump sinon from 15.2.0 to 16.0.0 ([#71](https://github.com/appium/appium-geckodriver/issues/71)) ([336baac](https://github.com/appium/appium-geckodriver/commit/336baac94cee8210cdad2254fe6a13c1862c1362))
+
 ## [1.2.2](https://github.com/appium/appium-geckodriver/compare/v1.2.1...v1.2.2) (2023-08-28)
 
 
