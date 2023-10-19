@@ -1,3 +1,15 @@
+## [1.2.4](https://github.com/appium/appium-geckodriver/compare/v1.2.3...v1.2.4) (2023-10-19)
+
+
+### Miscellaneous Chores
+
+* Always use latest types ([024c33f](https://github.com/appium/appium-geckodriver/commit/024c33f472e0e6e781379b41b54bfce14342e92a))
+* **deps-dev:** bump @types/teen_process from 2.0.1 to 2.0.2 ([#84](https://github.com/appium/appium-geckodriver/issues/84)) ([33c1f2b](https://github.com/appium/appium-geckodriver/commit/33c1f2b015b0a92dd9ffdc3d2ef0f02811ea27b9))
+* **deps-dev:** bump eslint-config-prettier from 8.10.0 to 9.0.0 ([#82](https://github.com/appium/appium-geckodriver/issues/82)) ([850422d](https://github.com/appium/appium-geckodriver/commit/850422dbd68e6e39ed42b536628b8d1b0a537e0e))
+* **deps-dev:** bump lint-staged from 14.0.1 to 15.0.2 ([#83](https://github.com/appium/appium-geckodriver/issues/83)) ([b17a7a9](https://github.com/appium/appium-geckodriver/commit/b17a7a9f9a7b4a3e8b78d336c8d79c0630fa41ad))
+* **deps-dev:** bump semantic-release from 21.1.2 to 22.0.5 ([#75](https://github.com/appium/appium-geckodriver/issues/75)) ([5dcc09b](https://github.com/appium/appium-geckodriver/commit/5dcc09bf07776a69ef979331c5b40b7f9ea20155))
+* Use latest teen_process types ([527c027](https://github.com/appium/appium-geckodriver/commit/527c027a3a60e2a288cb7e709b8261b4d29afa91))
+
 ## [1.2.3](https://github.com/appium/appium-geckodriver/compare/v1.2.2...v1.2.3) (2023-10-17)
 
 
