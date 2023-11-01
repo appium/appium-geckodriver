@@ -1,3 +1,10 @@
+## [1.2.7](https://github.com/appium/appium-geckodriver/compare/v1.2.6...v1.2.7) (2023-11-01)
+
+
+### Miscellaneous Chores
+
+* **deps:** bump asyncbox from 2.9.4 to 3.0.0 ([#87](https://github.com/appium/appium-geckodriver/issues/87)) ([2d4815d](https://github.com/appium/appium-geckodriver/commit/2d4815d2f4185291f18542b9048ebe2d3e6dfde9))
+
 ## [1.2.6](https://github.com/appium/appium-geckodriver/compare/v1.2.5...v1.2.6) (2023-10-25)
 
 
