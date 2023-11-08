@@ -1,3 +1,10 @@
+## [1.2.9](https://github.com/appium/appium-geckodriver/compare/v1.2.8...v1.2.9) (2023-11-08)
+
+
+### Miscellaneous Chores
+
+* update readme to kick a repease once ([9f814eb](https://github.com/appium/appium-geckodriver/commit/9f814eb8a2216a24cd3381d71b0e2c656df2cb48))
+
 ## [1.2.8](https://github.com/appium/appium-geckodriver/compare/v1.2.7...v1.2.8) (2023-11-07)
 
 
