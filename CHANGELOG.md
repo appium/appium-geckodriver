@@ -1,3 +1,10 @@
+## [1.2.10](https://github.com/appium/appium-geckodriver/compare/v1.2.9...v1.2.10) (2023-12-02)
+
+
+### Miscellaneous Chores
+
+* update publish.js.yml ([#92](https://github.com/appium/appium-geckodriver/issues/92)) ([d1e4005](https://github.com/appium/appium-geckodriver/commit/d1e40051cce95a2050a20fc158e265c3f68c0bf6))
+
 ## [1.2.9](https://github.com/appium/appium-geckodriver/compare/v1.2.8...v1.2.9) (2023-11-08)
 
 
