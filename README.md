@@ -12,13 +12,12 @@ Under the hood this driver is a wrapper/proxy over `geckodriver` binary. Check t
 
 > **Note**
 >
-> Since version 1.0.0 Gecko driver has dropped the support of Appium 1, and is only compatible to Appium 2. Use the `appium driver install gecko` 
+> Since version 1.0.0 Gecko driver has dropped the support of Appium 1, and is only compatible to Appium 2. Use the `appium driver install gecko`
 > command to add it to your Appium 2 dist.
 
+## Requirements
 
-## Usage
-
-It is mandatory to have both Firefox browser installed and the geckodriver binary downloaded on the platform where automated tests are going to be executed. Firefox could be downloaded from the [official download site](https://www.mozilla.org/en-GB/firefox/all/) and the driver binary could be retrieved from the GitHub [releases page](https://github.com/mozilla/geckodriver/releases). The binary must be put into one of the folders included to PATH environment variable. On macOS it also might be necessary to run `xcattr -cr "<binary_path>"` to avoid [notarization](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html) issues.
+It is mandatory to have both Firefox browser installed and the geckodriver binary downloaded on the platform where automated tests are going to be executed. Firefox could be downloaded from the [official download site](https://www.mozilla.org/en-GB/firefox/all/) and the driver binary could be retrieved from the GitHub [releases page](https://github.com/mozilla/geckodriver/releases). The binary must be put into one of the folders included to PATH environment variable. On macOS it also might be necessary to run `xattr -cr "<binary_path>"` to avoid [notarization](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html) issues.
 
 Then you need to decide where the automated test is going to be executed. Gecko driver supports the following target platforms:
  - macOS
@@ -26,9 +25,17 @@ Then you need to decide where the automated test is going to be executed. Gecko 
  - Linux
  - Android (note that `android` *cannot* be passed as a value to `platformName` capability; it should always equal to the *host* platform name)
 
-In order to run your automated tests on Android it is necessary to have [Android SDK](https://developer.android.com/studio) installed, so the destination device is marked as `online` in the `adb devices -l` command output.
+In order to run your automated tests on an Android device it is necessary to have [Android SDK](https://developer.android.com/studio) installed, so the destination device is marked as `online` in the `adb devices -l` command output.
 
-Gecko driver allows to define multiple criterions for platform selection and also to fine-tune your automation session properties. This could be done via the following session capabilities:
+### Doctor
+
+Since driver version 1.3.0 you can automate the validation for the most of the above
+requirements as well as various optional ones needed by driver extensions by running the
+`appium driver doctor gecko` server command.
+
+## Capabilities
+
+Gecko driver allows defining of multiple criterions for platform selection and also to fine-tune your automation session properties. This could be done via the following session capabilities:
 
 Capability Name | Description
 --- | ---
@@ -48,7 +55,6 @@ proxy | See https://www.w3.org/TR/webdriver/#capabilities
 setWindowRect | See https://www.w3.org/TR/webdriver/#capabilities
 timeouts | See https://www.w3.org/TR/webdriver/#capabilities
 unhandledPromptBehavior | See https://www.w3.org/TR/webdriver/#capabilities
-
 
 ## Example
 
@@ -145,7 +151,6 @@ def test_feature_status_page_filters(driver):
         assert filt.is_selected()
         filt.click()
 ```
-
 
 ## Development
 
