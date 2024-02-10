@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/appium/appium-geckodriver/compare/v1.2.11...v1.3.0) (2024-02-10)
+
+
+### Features
+
+* Add doctor checks ([#97](https://github.com/appium/appium-geckodriver/issues/97)) ([c256614](https://github.com/appium/appium-geckodriver/commit/c2566146fab45a9057eb10eedc91c9b8a7597126))
+
 ## [1.2.11](https://github.com/appium/appium-geckodriver/compare/v1.2.10...v1.2.11) (2024-01-16)
 
 
