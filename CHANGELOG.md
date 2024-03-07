@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/appium/appium-geckodriver/compare/v1.3.0...v1.3.1) (2024-03-07)
+
+
+### Miscellaneous Chores
+
+* bump typescript ([b7ab295](https://github.com/appium/appium-geckodriver/commit/b7ab295c049abc0eebbab968243974954ea72958))
+
 ## [1.3.0](https://github.com/appium/appium-geckodriver/compare/v1.2.11...v1.3.0) (2024-02-10)
 
 
