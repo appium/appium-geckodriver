@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/appium/appium-geckodriver/compare/v1.3.1...v1.3.2) (2024-04-09)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump @typescript-eslint/parser from 6.21.0 to 7.6.0 ([#108](https://github.com/appium/appium-geckodriver/issues/108)) ([fd6b5ba](https://github.com/appium/appium-geckodriver/commit/fd6b5bad89b41b6d2cf9c433adf9ff4dff7bec30))
+
 ## [1.3.1](https://github.com/appium/appium-geckodriver/compare/v1.3.0...v1.3.1) (2024-03-07)
 
 
