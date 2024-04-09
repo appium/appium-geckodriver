@@ -42,7 +42,7 @@ jobs:
         sudo mv geckodriver /usr/bin/
       name: Deploy Gecko driver
     - run: |
-        npm install -g appium@next
+        npm install -g appium
         npm install
       name: Install dev dependencies
     - run: |
