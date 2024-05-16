@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/appium/appium-geckodriver/compare/v1.3.3...v1.3.4) (2024-05-16)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump sinon from 17.0.2 to 18.0.0 ([#112](https://github.com/appium/appium-geckodriver/issues/112)) ([5ca36da](https://github.com/appium/appium-geckodriver/commit/5ca36da7d41027867f3421721d9e06a7088f98ed))
+
 ## [1.3.3](https://github.com/appium/appium-geckodriver/compare/v1.3.2...v1.3.3) (2024-04-09)
 
 
