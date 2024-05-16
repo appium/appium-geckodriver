@@ -1,3 +1,10 @@
+## [1.3.5](https://github.com/appium/appium-geckodriver/compare/v1.3.4...v1.3.5) (2024-05-16)
+
+
+### Miscellaneous Chores
+
+* Update dev dependencies ([a6daa47](https://github.com/appium/appium-geckodriver/commit/a6daa475179477364745033c80eb9117940c5218))
+
 ## [1.3.4](https://github.com/appium/appium-geckodriver/compare/v1.3.3...v1.3.4) (2024-05-16)
 
 
