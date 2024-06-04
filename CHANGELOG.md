@@ -1,3 +1,9 @@
+## [1.3.6](https://github.com/appium/appium-geckodriver/compare/v1.3.5...v1.3.6) (2024-06-04)
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump semantic-release from 23.1.1 to 24.0.0 and conventional-changelog-conventionalcommits to 8.0.0 ([#113](https://github.com/appium/appium-geckodriver/issues/113)) ([549dfd4](https://github.com/appium/appium-geckodriver/commit/549dfd4487e05774d0d14196692553af81bcdae9))
+
 ## [1.3.5](https://github.com/appium/appium-geckodriver/compare/v1.3.4...v1.3.5) (2024-05-16)
 
 
