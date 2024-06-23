@@ -1,10 +1,5 @@
 import { remote } from 'webdriverio';
-import chaiAsPromised from 'chai-as-promised';
-import chai from 'chai';
 import { HOST, PORT, MOCHA_TIMEOUT } from '../utils';
-
-chai.should();
-chai.use(chaiAsPromised);
 
 const DEVICE_NAME = process.env.DEVICE_NAME || 'emulator-5554';
 // The Firefox binary could be retrieved from https://www.mozilla.org/en-GB/firefox/all/#product-android-release
@@ -24,7 +19,15 @@ describe('Mobile GeckoDriver', function () {
   this.timeout(MOCHA_TIMEOUT);
 
   let driver;
-  before(function () {
+  let chai;
+
+  before(async function () {
+    chai = await import('chai');
+    const chaiAsPromised = await import('chai-as-promised');
+
+    chai.should();
+    chai.use(chaiAsPromised.default);
+
     if (process.env.CI) {
       // Figure out a way to run this on Azure
       return this.skip();

@@ -1,10 +1,5 @@
 import { remote } from 'webdriverio';
-import chaiAsPromised from 'chai-as-promised';
-import chai from 'chai';
 import { HOST, PORT, MOCHA_TIMEOUT } from '../utils';
-
-chai.should();
-chai.use(chaiAsPromised);
 
 const CAPS = {
   browserName: 'MozillaFirefox',
@@ -17,6 +12,16 @@ describe('Desktop Gecko Driver', function () {
 
   /** @type {import('webdriverio').Browser} */
   let driver;
+  let chai;
+
+  before(async function () {
+    chai = await import('chai');
+    const chaiAsPromised = await import('chai-as-promised');
+
+    chai.should();
+    chai.use(chaiAsPromised.default);
+  });
+
   beforeEach(async function () {
     driver = await remote({
       hostname: HOST,
