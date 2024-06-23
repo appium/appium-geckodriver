@@ -1,3 +1,9 @@
+## [1.3.7](https://github.com/appium/appium-geckodriver/compare/v1.3.6...v1.3.7) (2024-06-23)
+
+### Miscellaneous Chores
+
+* Bump chai and chai-as-promised ([#115](https://github.com/appium/appium-geckodriver/issues/115)) ([03f06b3](https://github.com/appium/appium-geckodriver/commit/03f06b355b5c992510664fc06e18342d88f7e2e3))
+
 ## [1.3.6](https://github.com/appium/appium-geckodriver/compare/v1.3.5...v1.3.6) (2024-06-04)
 
 ### Miscellaneous Chores
