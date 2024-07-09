@@ -1,3 +1,9 @@
+## [1.3.8](https://github.com/appium/appium-geckodriver/compare/v1.3.7...v1.3.8) (2024-07-09)
+
+### Miscellaneous Chores
+
+* Remove extra import ([b5783fe](https://github.com/appium/appium-geckodriver/commit/b5783fe581aa4d3bcab9374c8ec6a49acb91f32e))
+
 ## [1.3.7](https://github.com/appium/appium-geckodriver/compare/v1.3.6...v1.3.7) (2024-06-23)
 
 ### Miscellaneous Chores
