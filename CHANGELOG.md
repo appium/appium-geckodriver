@@ -1,3 +1,9 @@
+## [1.3.9](https://github.com/appium/appium-geckodriver/compare/v1.3.8...v1.3.9) (2024-07-29)
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump @types/node from 20.14.13 to 22.0.0 ([#118](https://github.com/appium/appium-geckodriver/issues/118)) ([9856be7](https://github.com/appium/appium-geckodriver/commit/9856be79bd23ffb57146d675938212f1d55cbb96))
+
 ## [1.3.8](https://github.com/appium/appium-geckodriver/compare/v1.3.7...v1.3.8) (2024-07-09)
 
 ### Miscellaneous Chores
