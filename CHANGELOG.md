@@ -1,3 +1,9 @@
+## [1.3.10](https://github.com/appium/appium-geckodriver/compare/v1.3.9...v1.3.10) (2024-08-21)
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump webdriverio from 8.40.3 to 9.0.5 ([#121](https://github.com/appium/appium-geckodriver/issues/121)) ([853e924](https://github.com/appium/appium-geckodriver/commit/853e924257706d72f977f83faac7a87235fd9840))
+
 ## [1.3.9](https://github.com/appium/appium-geckodriver/compare/v1.3.8...v1.3.9) (2024-07-29)
 
 ### Miscellaneous Chores
