@@ -187,16 +187,17 @@ function selectAsset(release) {
   const candidates = [];
   const dstPlatform = PLATFORM_MAPPING[process.platform];
   const dstArch = ARCH_MAPPING[process.arch];
+  log.info(`Operating system: ${process.platform}@${process.arch}`);
   // Try to find an exact match
   for (const asset of release.assets) {
     if (!dstPlatform || !_.includes(asset.name, `-${dstPlatform}`)) {
       continue;
     }
     const nameWoExt = asset.name.replace(EXT_REGEXP, '');
-    log.info(`${nameWoExt} -> ${dstPlatform} :: ${dstArch}`);
     if (
       (dstArch === 'aarch64' && _.endsWith(nameWoExt, `-${dstArch}`))
-      || (['64', '32'].includes(dstArch) && _.endsWith(nameWoExt, `${dstArch}.`))
+      || ('64' === dstArch && _.endsWith(nameWoExt, `${dstArch}.`))
+      || ('32' === dstArch && _.endsWith(nameWoExt, `${dstArch}.`))
     ) {
       candidates.push(asset);
     }
