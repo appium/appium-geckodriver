@@ -11,6 +11,7 @@ import {
   extractFileFromZip,
 } from '../build/lib/utils.js';
 import fs from 'node:fs/promises';
+import { exec } from 'teen_process';
 
 const OWNER = 'mozilla';
 const REPO = 'geckodriver';
@@ -32,6 +33,17 @@ const PLATFORM_MAPPING = Object.freeze({
   darwin: 'macos',
   linux: 'linux',
 });
+
+/**
+ *
+ * @param {string} dstPath
+ * @returns {Promise<void>}
+ */
+async function clearNotarization(dstPath) {
+  if (process.platform === 'darwin') {
+    await exec('xattr', ['-cr', dstPath]);
+  }
+}
 
 /**
  *
@@ -250,6 +262,7 @@ async function installGeckodriver(version) {
       executablePath = path.join(dstFolder, 'geckodriver.exe');
       await extractFileFromZip(archivePath, path.basename(executablePath), executablePath);
     }
+    await clearNotarization(executablePath);
     log.info(`The driver is now available at '${executablePath}'`);
   } finally {
     try {

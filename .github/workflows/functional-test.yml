@@ -35,13 +35,6 @@ jobs:
     - run: sudo apt-get install firefox
       name: Install Firefox
     - run: |
-        latest_release="$(curl https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r .name)"
-        curl -L "https://github.com/mozilla/geckodriver/releases/download/v${latest_release}/geckodriver-v${latest_release}-linux64.tar.gz" \
-          --output /tmp/geckodriver.tar.gz
-        tar -xzf /tmp/geckodriver.tar.gz
-        sudo mv geckodriver /usr/bin/
-      name: Deploy Gecko driver
-    - run: |
         npm install -g appium
         npm install
       name: Install dev dependencies
@@ -50,6 +43,8 @@ jobs:
         pushd "$cwd"
         cd ~
         appium driver install --source=local "$cwd"
+        appium driver run gecko install-geckodriver
+        export PATH="$PATH:/usr/local/bin"
         nohup appium server \
           --port=$APPIUM_TEST_SERVER_PORT \
           --address=$APPIUM_TEST_SERVER_HOST \
