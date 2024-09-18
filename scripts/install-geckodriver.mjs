@@ -183,41 +183,40 @@ function selectAsset(release) {
   if (_.isEmpty(release.assets)) {
     throw new Error(`GeckoDriver v${release.version} does not contain any matching releases`);
   }
-  /** @type {ReleaseAsset[]} */
-  const candidates = [];
   const dstPlatform = PLATFORM_MAPPING[process.platform];
   const dstArch = ARCH_MAPPING[process.arch];
   log.info(`Operating system: ${process.platform}@${process.arch}`);
-  // Try to find an exact match
-  for (const asset of release.assets) {
-    if (!dstPlatform || !_.includes(asset.name, `-${dstPlatform}`)) {
-      continue;
-    }
-    const nameWoExt = asset.name.replace(EXT_REGEXP, '');
-    if (
-      (dstArch === 'aarch64' && _.endsWith(nameWoExt, `-${dstArch}`))
-      || (['64', '32'].includes(dstArch) && _.endsWith(nameWoExt, `-${dstPlatform}${dstArch}`))
-    ) {
-      candidates.push(asset);
-    }
-  }
-  // If no exact match has been been found then try a loose one
-  if (_.isEmpty(candidates)) {
+  /** @type {(filterFunc: (string) => boolean) => null|ReleaseAsset}  */
+  const findAssetMatch = (filterFunc) => {
     for (const asset of release.assets) {
       if (!dstPlatform || !_.includes(asset.name, `-${dstPlatform}`)) {
         continue;
       }
       const nameWoExt = asset.name.replace(EXT_REGEXP, '');
-      if (
-        _.endsWith(nameWoExt, `-${dstPlatform}`)
-        || (dstArch === '64' && _.endsWith(nameWoExt, `-${dstPlatform}32`))
-      ) {
-        candidates.push(asset);
+      if (filterFunc(nameWoExt)) {
+        return asset;
       }
     }
+    return null;
+  };
+
+  // Try to find an exact match
+  const exactMatch = findAssetMatch(
+    (nameWoExt) =>
+      (dstArch === 'aarch64' && _.endsWith(nameWoExt, `-${dstArch}`))
+      || (['64', '32'].includes(dstArch) && _.endsWith(nameWoExt, `-${dstPlatform}${dstArch}`))
+  );
+  if (exactMatch) {
+    return exactMatch;
   }
-  if (!_.isEmpty(candidates)) {
-    return candidates[0];
+  // If no exact match has been been found then try a loose one
+  const looseMatch = findAssetMatch(
+    (nameWoExt) =>
+      _.endsWith(nameWoExt, `-${dstPlatform}`)
+      || (dstArch === '64' && _.endsWith(nameWoExt, `-${dstPlatform}32`))
+  );
+  if (looseMatch) {
+    return looseMatch;
   }
   throw new Error(
     `GeckoDriver v${release.version} does not contain any release matching the ` +
