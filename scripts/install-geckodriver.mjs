@@ -196,8 +196,7 @@ function selectAsset(release) {
     const nameWoExt = asset.name.replace(EXT_REGEXP, '');
     if (
       (dstArch === 'aarch64' && _.endsWith(nameWoExt, `-${dstArch}`))
-      || ('64' === dstArch && _.endsWith(nameWoExt, dstArch))
-      || ('32' === dstArch && _.endsWith(nameWoExt, dstArch))
+      || (['64', '32'].includes(dstArch) && _.endsWith(nameWoExt, `-${dstPlatform}${dstArch}`))
     ) {
       candidates.push(asset);
     }
