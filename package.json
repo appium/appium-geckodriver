@@ -35,6 +35,9 @@
       "Android",
       "Windows"
     ],
+    "scripts": {
+      "install-geckodriver": "./scripts/install-geckodriver.mjs"
+    },
     "mainClass": "GeckoDriver"
   },
   "main": "./build/index.js",
@@ -42,16 +45,28 @@
   "directories": {
     "lib": "lib"
   },
+  "files": [
+    "index.js",
+    "lib",
+    "build",
+    "CHANGELOG.md",
+    "LICENSE",
+    "npm-shrinkwrap.json",
+    "scripts/*.mjs"
+  ],
   "peerDependencies": {
     "appium": "^2.4.1"
   },
   "dependencies": {
     "appium-adb": "^12.0.3",
     "asyncbox": "^3.0.0",
+    "axios": "^1.7.7",
     "bluebird": "^3.5.1",
     "lodash": "^4.17.4",
     "portscanner": "2.2.0",
+    "semver": "^7.6.3",
     "source-map-support": "^0.x",
+    "tar-stream": "^3.1.7",
     "teen_process": "^2.0.0"
   },
   "scripts": {
