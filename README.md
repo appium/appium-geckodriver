@@ -19,6 +19,9 @@ Under the hood this driver is a wrapper/proxy over `geckodriver` binary. Check t
 
 It is mandatory to have both Firefox browser installed and the geckodriver binary downloaded on the platform where automated tests are going to be executed. Firefox could be downloaded from the [official download site](https://www.mozilla.org/en-GB/firefox/all/) and the driver binary could be retrieved from the GitHub [releases page](https://github.com/mozilla/geckodriver/releases). The binary must be put into one of the folders included to PATH environment variable. On macOS it also might be necessary to run `xattr -cr "<binary_path>"` to avoid [notarization](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html) issues.
 
+Since driver version 1.4.0 the geckodriver binary deployment could be automated via the
+[install-geckodriver](#install-geckodriver) driver script.
+
 Then you need to decide where the automated test is going to be executed. Gecko driver supports the following target platforms:
  - macOS
  - Windows
@@ -55,6 +58,21 @@ proxy | See https://www.w3.org/TR/webdriver/#capabilities
 setWindowRect | See https://www.w3.org/TR/webdriver/#capabilities
 timeouts | See https://www.w3.org/TR/webdriver/#capabilities
 unhandledPromptBehavior | See https://www.w3.org/TR/webdriver/#capabilities
+
+## Scripts
+
+### install-geckodriver
+
+This script is used to install the given or latest stable version of Geckodriver server from
+the [GitHub releases](https://github.com/mozilla/geckodriver/release) page.
+Run `appium driver run gecko install-geckodriver <optional_version>`, where `optional_version`
+must be either valid Geckodriver version number or should not be present (the latest stable version is used then).
+By default, the script will download and unpack the binary into `/usr/local/bin/geckodriver`
+on macOS and Linux or into `%LOCALAPPDATA%\Mozilla\geckodriver.exe` on Windows.
+You must also make sure the `%LOCALAPPDATA%\Mozilla` (Windows) or `/usr/local/bin/` (Linux & macOS)
+folder is present in the PATH environment variable before
+starting an actual automation session. The deployment script should also show a warning message if
+it is unable to find the parent folder in the PATH folders list.
 
 ## Example
 
