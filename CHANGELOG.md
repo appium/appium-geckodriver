@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/appium/appium-geckodriver/compare/v1.3.10...v1.4.0) (2024-09-18)
+
+### Features
+
+* Add geckodriver download script ([#122](https://github.com/appium/appium-geckodriver/issues/122)) ([9f3fa7d](https://github.com/appium/appium-geckodriver/commit/9f3fa7dd6722357c4e2e6a1df2920c086b89a22e))
+
 ## [1.3.10](https://github.com/appium/appium-geckodriver/compare/v1.3.9...v1.3.10) (2024-08-21)
 
 ### Miscellaneous Chores
