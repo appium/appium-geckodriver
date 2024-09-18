@@ -205,11 +205,14 @@ function selectAsset(release) {
   // If no exact match has been been found then try a loose one
   if (_.isEmpty(candidates)) {
     for (const asset of release.assets) {
-      const nameWoExt = asset.name.replace(EXT_REGEXP, '');
-      if (dstPlatform && _.endsWith(nameWoExt, `-${dstPlatform}`)) {
-        candidates.push(asset);
+      if (!dstPlatform || !_.includes(asset.name, `-${dstPlatform}`)) {
+        continue;
       }
-      if (dstArch === '64' && _.endsWith(nameWoExt, `-${dstPlatform}32`)) {
+      const nameWoExt = asset.name.replace(EXT_REGEXP, '');
+      if (
+        _.endsWith(nameWoExt, `-${dstPlatform}`)
+        || (dstArch === '64' && _.endsWith(nameWoExt, `-${dstPlatform}32`))
+      ) {
         candidates.push(asset);
       }
     }
