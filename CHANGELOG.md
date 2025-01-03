@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/appium/appium-geckodriver/compare/v1.4.0...v1.4.1) (2025-01-03)
+
+### Miscellaneous Chores
+
+* bump eslint-config-appium-ts ([#124](https://github.com/appium/appium-geckodriver/issues/124)) ([67052f7](https://github.com/appium/appium-geckodriver/commit/67052f78d82ca0f6d790cf009151ac56584e841e))
+
 ## [1.4.0](https://github.com/appium/appium-geckodriver/compare/v1.3.10...v1.4.0) (2024-09-18)
 
 ### Features
