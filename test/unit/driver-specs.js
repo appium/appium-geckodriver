@@ -1,4 +1,4 @@
-import GeckoDriver from '../../lib/driver';
+import { GeckoDriver } from '../../lib/driver';
 
 describe('GeckoDriver', function () {
   let chai;
