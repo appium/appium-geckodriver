@@ -1,3 +1,9 @@
+## [1.4.2](https://github.com/appium/appium-geckodriver/compare/v1.4.1...v1.4.2) (2025-02-02)
+
+### Miscellaneous Chores
+
+* Improve typing ([#128](https://github.com/appium/appium-geckodriver/issues/128)) ([cbf8a7e](https://github.com/appium/appium-geckodriver/commit/cbf8a7e36bdb4206d553662e9494b3545e4d2da1))
+
 ## [1.4.1](https://github.com/appium/appium-geckodriver/compare/v1.4.0...v1.4.1) (2025-01-03)
 
 ### Miscellaneous Chores
