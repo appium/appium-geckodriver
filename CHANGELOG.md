@@ -1,3 +1,9 @@
+## [1.4.3](https://github.com/appium/appium-geckodriver/compare/v1.4.2...v1.4.3) (2025-02-21)
+
+### Bug Fixes
+
+* Pass reqBasePath option to the proxy ([#129](https://github.com/appium/appium-geckodriver/issues/129)) ([133738f](https://github.com/appium/appium-geckodriver/commit/133738f8a7ad560cc25c41cd269fb6f4a5662e38))
+
 ## [1.4.2](https://github.com/appium/appium-geckodriver/compare/v1.4.1...v1.4.2) (2025-02-02)
 
 ### Miscellaneous Chores
