@@ -55,7 +55,7 @@
     "scripts/*.mjs"
   ],
   "peerDependencies": {
-    "appium": "^2.4.1"
+    "appium": "^3.0.0-rc.2"
   },
   "dependencies": {
     "appium-adb": "^13.0.0",
