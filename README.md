@@ -10,10 +10,9 @@ This is Appium driver for automating Firefox on different platforms, including A
 The driver only supports Firefox and Gecko-based web views (Android only) automation using [W3C WebDriver protocol](https://www.w3.org/TR/webdriver/).
 Under the hood this driver is a wrapper/proxy over `geckodriver` binary. Check the driver [release notes](https://github.com/mozilla/geckodriver/releases) and the [official documentation](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities) to get more details on the supported features and possible pitfalls.
 
-> **Note**
->
-> Since version 1.0.0 Gecko driver has dropped the support of Appium 1, and is only compatible to Appium 2. Use the `appium driver install gecko`
-> command to add it to your Appium 2 dist.
+> [!IMPORTANT]
+> Since major version *2.0.0*, this driver is only compatible with Appium 3. Use the `appium driver install gecko`
+> command to add it to your distribution.
 
 ## Requirements
 
