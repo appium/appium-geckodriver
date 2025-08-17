@@ -1,3 +1,15 @@
+## [2.0.0](https://github.com/appium/appium-geckodriver/compare/v1.4.4...v2.0.0) (2025-08-17)
+
+### ⚠ BREAKING CHANGES
+
+* Required Node.js version has been bumped to ^20.19.0 || ^22.12.0 || >=24.0.0
+* Required npm version has been bumped to >=10
+* Required Appium server version has been bumped to >=3.0.0-rc.2
+
+### Features
+
+* Update server compatibility ([#131](https://github.com/appium/appium-geckodriver/issues/131)) ([95e4a93](https://github.com/appium/appium-geckodriver/commit/95e4a93f6c8f4298ca7b89cbeb95a7707f8706be))
+
 ## [1.4.4](https://github.com/appium/appium-geckodriver/compare/v1.4.3...v1.4.4) (2025-08-17)
 
 ### Miscellaneous Chores
