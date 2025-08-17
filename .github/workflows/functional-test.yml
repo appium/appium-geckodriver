@@ -35,7 +35,8 @@ jobs:
     - run: sudo apt-get install firefox
       name: Install Firefox
     - run: |
-        npm install -g appium
+        appium_ver=$(node -p "require('./package.json').peerDependencies?.appium")
+        npm install -g "appium@$appium_ver"
         npm install
       name: Install dev dependencies
     - run: |
