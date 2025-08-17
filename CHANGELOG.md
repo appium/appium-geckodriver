@@ -1,3 +1,9 @@
+## [2.0.1](https://github.com/appium/appium-geckodriver/compare/v2.0.0...v2.0.1) (2025-08-17)
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump mocha from 10.8.2 to 11.1.0 ([#126](https://github.com/appium/appium-geckodriver/issues/126)) ([f998e22](https://github.com/appium/appium-geckodriver/commit/f998e22a293520ae5491b4b90a5642634e379f06))
+
 ## [2.0.0](https://github.com/appium/appium-geckodriver/compare/v1.4.4...v2.0.0) (2025-08-17)
 
 ### ⚠ BREAKING CHANGES
