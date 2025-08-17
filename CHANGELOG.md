@@ -1,3 +1,9 @@
+## [1.4.4](https://github.com/appium/appium-geckodriver/compare/v1.4.3...v1.4.4) (2025-08-17)
+
+### Miscellaneous Chores
+
+* drop rimraf deps from dev deps as no references ([#132](https://github.com/appium/appium-geckodriver/issues/132)) ([99e2686](https://github.com/appium/appium-geckodriver/commit/99e2686aa14727fa4e7f5914cfb00d5ff374bb1f))
+
 ## [1.4.3](https://github.com/appium/appium-geckodriver/compare/v1.4.2...v1.4.3) (2025-02-21)
 
 ### Bug Fixes
