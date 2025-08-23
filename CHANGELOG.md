@@ -1,3 +1,9 @@
+## [2.0.4](https://github.com/appium/appium-geckodriver/compare/v2.0.3...v2.0.4) (2025-08-23)
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump chai from 5.3.2 to 6.0.0 ([#135](https://github.com/appium/appium-geckodriver/issues/135)) ([4858e0e](https://github.com/appium/appium-geckodriver/commit/4858e0e0724dba167bac02a3223e349787c88edc))
+
 ## [2.0.3](https://github.com/appium/appium-geckodriver/compare/v2.0.2...v2.0.3) (2025-08-20)
 
 ### Miscellaneous Chores
