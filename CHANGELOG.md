@@ -1,3 +1,9 @@
+## [2.0.5](https://github.com/appium/appium-geckodriver/compare/v2.0.4...v2.0.5) (2025-10-17)
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump semantic-release from 24.2.9 to 25.0.0 ([#136](https://github.com/appium/appium-geckodriver/issues/136)) ([c75f198](https://github.com/appium/appium-geckodriver/commit/c75f198cf93d9ed24e00999e622965f50e27ef62))
+
 ## [2.0.4](https://github.com/appium/appium-geckodriver/compare/v2.0.3...v2.0.4) (2025-08-23)
 
 ### Miscellaneous Chores
