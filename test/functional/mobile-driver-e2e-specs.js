@@ -1,13 +1,13 @@
 import { remote } from 'webdriverio';
-import { HOST, PORT, MOCHA_TIMEOUT } from '../utils';
+import { HOST, PORT, MOCHA_TIMEOUT, getPlatformName } from '../utils';
+import { waitForCondition } from 'asyncbox';
 
 const DEVICE_NAME = process.env.DEVICE_NAME || 'emulator-5554';
 // The Firefox binary could be retrieved from https://www.mozilla.org/en-GB/firefox/all/#product-android-release
 const CAPS = {
-  platformName: 'linux',
+  platformName: getPlatformName(),
   'appium:automationName': 'Gecko',
-  // platformName: 'mac',
-  'appiuim:verbosity': 'trace',
+  'appium:verbosity': 'trace',
   'moz:firefoxOptions': {
     androidDeviceSerial: DEVICE_NAME,
     androidPackage: 'org.mozilla.firefox',
@@ -49,8 +49,21 @@ describe('Mobile GeckoDriver', function () {
 
   it('should start and stop a session', async function () {
     await driver.url('https://appium.io/');
-    const button = await driver.$('#downloadLink');
-    await button.getText().should.eventually.eql('Download Appium');
+    try {
+      await waitForCondition(async () => {
+        try {
+          const button = await driver.$('#downloadLink');
+          return (await button.getText()) === 'Download Appium';
+        } catch {
+          return false;
+        }
+      }, {
+        waitMs: 10000,
+        intervalMs: 500,
+      });
+    } catch {
+      this.fail('Timeout waiting for download button to load');
+    }
   });
 });
 

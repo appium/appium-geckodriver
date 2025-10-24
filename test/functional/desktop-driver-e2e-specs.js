@@ -1,9 +1,10 @@
 import { remote } from 'webdriverio';
-import { HOST, PORT, MOCHA_TIMEOUT } from '../utils';
+import { HOST, PORT, MOCHA_TIMEOUT, getPlatformName } from '../utils';
+import { waitForCondition } from 'asyncbox';
 
 const CAPS = {
   browserName: 'MozillaFirefox',
-  platformName: 'linux',
+  platformName: getPlatformName(),
   'appium:automationName': 'Gecko',
 };
 
@@ -38,8 +39,21 @@ describe('Desktop Gecko Driver', function () {
 
   it('should start and stop a session', async function () {
     await driver.url('https://appium.io/');
-    const input = await driver.$('input[data-md-component="search-query"]');
-    (await input.isExisting()).should.be.true;
+    try {
+      await waitForCondition(async () => {
+        try {
+          const element = await driver.$('img[alt="logo"]');
+          return (await element.isExisting());
+        } catch {
+          return false;
+        }
+      }, {
+        waitMs: 10000,
+        intervalMs: 500,
+      });
+    } catch {
+      this.fail('Timeout waiting for logo to load');
+    }
   });
 });
 
