@@ -1,3 +1,9 @@
+## [2.0.6](https://github.com/appium/appium-geckodriver/compare/v2.0.5...v2.0.6) (2025-10-24)
+
+### Miscellaneous Chores
+
+* **deps:** bump appium-adb from 13.0.11 to 14.0.0 ([#137](https://github.com/appium/appium-geckodriver/issues/137)) ([d9aa79f](https://github.com/appium/appium-geckodriver/commit/d9aa79fd12f3d3f06d69d462a55370ae4d4788d1))
+
 ## [2.0.5](https://github.com/appium/appium-geckodriver/compare/v2.0.4...v2.0.5) (2025-10-17)
 
 ### Miscellaneous Chores
