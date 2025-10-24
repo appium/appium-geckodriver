@@ -58,7 +58,7 @@
     "appium": "^3.0.0-rc.2"
   },
   "dependencies": {
-    "appium-adb": "^13.0.0",
+    "appium-adb": "^14.0.0",
     "asyncbox": "^3.0.0",
     "axios": "^1.7.7",
     "bluebird": "^3.5.1",
