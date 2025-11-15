@@ -1,3 +1,9 @@
+## [2.0.7](https://github.com/appium/appium-geckodriver/compare/v2.0.6...v2.0.7) (2025-11-15)
+
+### Miscellaneous Chores
+
+* publish via trusted publisher ([#139](https://github.com/appium/appium-geckodriver/issues/139)) ([2f2be0e](https://github.com/appium/appium-geckodriver/commit/2f2be0e2cc5f66e1bcede35dbbe26e66e27c13fb))
+
 ## [2.0.6](https://github.com/appium/appium-geckodriver/compare/v2.0.5...v2.0.6) (2025-10-24)
 
 ### Miscellaneous Chores
