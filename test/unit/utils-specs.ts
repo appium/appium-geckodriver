@@ -1,17 +1,10 @@
 import { formatCapsForServer } from '../../lib/utils';
-
+import { expect } from 'chai';
 
 describe('formatCapsForServer', function () {
-  let chai;
-
-  before(async function () {
-    chai = await import('chai');
-    chai.should();
-  });
-
   it('should format empty caps', function () {
     const result = formatCapsForServer({});
-    result.should.eql({});
+    expect(result).to.eql({});
   });
 
   it('should assign default caps', function () {
@@ -20,7 +13,7 @@ describe('formatCapsForServer', function () {
       browserVersion: '52',
       platformName: 'Mac',
     });
-    result.should.eql({
+    expect(result).to.eql({
       browserName: 'firefox',
       browserVersion: '52',
       platformName: 'mac',
@@ -35,9 +28,10 @@ describe('formatCapsForServer', function () {
       'webkit:yolo': '567',
       'appium:bar': '789',
     });
-    result.should.eql({
+    expect(result).to.eql({
       browserVersion: '52',
       'moz:foo': '1234',
     });
   });
 });
+
