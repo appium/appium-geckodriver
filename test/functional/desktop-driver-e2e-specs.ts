@@ -1,6 +1,11 @@
 import { remote } from 'webdriverio';
 import { HOST, PORT, MOCHA_TIMEOUT, getPlatformName } from '../utils';
 import { waitForCondition } from 'asyncbox';
+import type { Browser } from 'webdriverio';
+import * as chai from 'chai';
+import * as chaiAsPromised from 'chai-as-promised';
+
+chai.use(chaiAsPromised.default);
 
 const CAPS = {
   browserName: 'MozillaFirefox',
@@ -11,17 +16,7 @@ const CAPS = {
 describe('Desktop Gecko Driver', function () {
   this.timeout(MOCHA_TIMEOUT);
 
-  /** @type {import('webdriverio').Browser} */
-  let driver;
-  let chai;
-
-  before(async function () {
-    chai = await import('chai');
-    const chaiAsPromised = await import('chai-as-promised');
-
-    chai.should();
-    chai.use(chaiAsPromised.default);
-  });
+  let driver: Browser | null = null;
 
   beforeEach(async function () {
     driver = await remote({
@@ -38,12 +33,12 @@ describe('Desktop Gecko Driver', function () {
   });
 
   it('should start and stop a session', async function () {
-    await driver.url('https://appium.io/');
+    await driver!.url('https://appium.io/');
     try {
       await waitForCondition(async () => {
         try {
-          const element = await driver.$('img[alt="logo"]');
-          return (await element.isExisting());
+          const element = await driver!.$('img[alt="logo"]');
+          return await element.isExisting();
         } catch {
           return false;
         }
@@ -56,5 +51,4 @@ describe('Desktop Gecko Driver', function () {
     }
   });
 });
-
 
