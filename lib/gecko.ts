@@ -18,13 +18,6 @@ const GECKO_SERVER_GUARD = util.getLockFileGuard(
   {timeout: 5, tryRecovery: true}
 );
 const DEFAULT_MARIONETTE_PORT = 2828;
-const PROCESS_SPECIFIC_OPTION_NAMES_MAP = Object.freeze({
-  noReset: 'noReset',
-  verbosity: 'verbosity',
-  androidStorage: 'androidStorage',
-  marionettePort: 'marionettePort',
-  systemPort: 'port',
-} as const);
 export const GECKO_SERVER_HOST = '127.0.0.1';
 
 export interface SessionOptions {
@@ -54,11 +47,12 @@ class GeckoDriverProcess {
   private _proc: SubProcess | null = null;
 
   constructor (log: AppiumLogger, opts: StringRecord = {}) {
-    for (const [optName, propName] of _.toPairs(PROCESS_SPECIFIC_OPTION_NAMES_MAP)) {
-      (this as any)[propName] = opts[optName];
-    }
+    this.noReset = opts.noReset;
+    this.verbosity = opts.verbosity;
+    this.androidStorage = opts.androidStorage;
+    this.marionettePort = opts.marionettePort;
+    this._port = opts.systemPort;
     this.log = log;
-    this._proc = null;
   }
 
   get isRunning (): boolean {
