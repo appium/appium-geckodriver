@@ -1,3 +1,9 @@
+## [2.1.0](https://github.com/appium/appium-geckodriver/compare/v2.0.7...v2.1.0) (2025-11-23)
+
+### Features
+
+* Migrate sources to typescript ([#141](https://github.com/appium/appium-geckodriver/issues/141)) ([da79064](https://github.com/appium/appium-geckodriver/commit/da790643bc8a454b2cf46ed2d1808e158332cf81))
+
 ## [2.0.7](https://github.com/appium/appium-geckodriver/compare/v2.0.6...v2.0.7) (2025-11-15)
 
 ### Miscellaneous Chores
