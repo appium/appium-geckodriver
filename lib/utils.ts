@@ -4,8 +4,9 @@ import tar from 'tar-stream';
 import zlib from 'node:zlib';
 import B from 'bluebird';
 import path from 'node:path';
+import type { StringRecord } from '@appium/types';
 
-const GECKO_CAP_PREFIXES = ['moz:'];
+const GECKO_CAP_PREFIXES = ['moz:'] as const;
 // https://www.w3.org/TR/webdriver/#capabilities
 const STANDARD_CAPS = [
   'browserVersion',
@@ -17,20 +18,18 @@ const STANDARD_CAPS = [
   'timeouts',
   'unhandledPromptBehavior',
   'webSocketUrl',
-];
+] as const;
 
 /**
- *
- * @param {import('@appium/types').StringRecord} caps
- * @returns {import('@appium/types').StringRecord}
+ * Format capabilities for Gecko server
  */
-export function formatCapsForServer (caps) {
-  const result = {};
+export function formatCapsForServer (caps: StringRecord): StringRecord {
+  const result: StringRecord = {};
   if (caps.browserName) {
     result.browserName = 'firefox';
   }
   for (const [name, value] of _.toPairs(caps)) {
-    if (GECKO_CAP_PREFIXES.some((prefix) => name.startsWith(prefix)) || STANDARD_CAPS.includes(name)) {
+    if (GECKO_CAP_PREFIXES.some((prefix) => name.startsWith(prefix)) || STANDARD_CAPS.includes(name as any)) {
       result[name] = value;
     }
   }
@@ -42,38 +41,29 @@ export function formatCapsForServer (caps) {
 }
 
 /**
- *
- * @param {string} srcUrl
- * @param {string} dstPath
- * @returns {Promise<void>}
+ * Download a file from URL to local path
  */
-export async function downloadToFile(srcUrl, dstPath) {
+export async function downloadToFile(srcUrl: string, dstPath: string): Promise<void> {
   await net.downloadFile(srcUrl, dstPath);
 }
 
 /**
- *
- * @param {string} p
- * @returns {Promise<void>}
+ * Create directory recursively
  */
-export async function mkdirp(p) {
+export async function mkdirp(p: string): Promise<void> {
   await fs.mkdirp(p);
 }
 
 /**
- *
- * @param {string} srcAcrhive
- * @param {string} fileToExtract
- * @param {string} dstPath
- * @returns {Promise<void>}
+ * Extract a specific file from a tar.gz archive
  */
-export async function extractFileFromTarGz(srcAcrhive, fileToExtract, dstPath) {
-  const chunks = [];
+export async function extractFileFromTarGz(srcAcrhive: string, fileToExtract: string, dstPath: string): Promise<void> {
+  const chunks: Buffer[] = [];
   const extract = tar.extract();
-  const extractPromise = new B((resolve, reject) => {
+  const extractPromise = new B<void>((resolve, reject) => {
     extract.on('entry', (header, stream, next) => {
       if (header.name === fileToExtract) {
-        stream.on('data', (chunk) => {
+        stream.on('data', (chunk: Buffer) => {
           chunks.push(chunk);
         });
       }
@@ -107,13 +97,9 @@ export async function extractFileFromTarGz(srcAcrhive, fileToExtract, dstPath) {
 }
 
 /**
- *
- * @param {string} srcAcrhive
- * @param {string} fileToExtract
- * @param {string} dstPath
- * @returns {Promise<void>}
+ * Extract a specific file from a zip archive
  */
-export async function extractFileFromZip(srcAcrhive, fileToExtract, dstPath) {
+export async function extractFileFromZip(srcAcrhive: string, fileToExtract: string, dstPath: string): Promise<void> {
   let didFindEntry = false;
   await zip.readEntries(srcAcrhive, async ({entry, extractEntryTo}) => {
     if (didFindEntry || entry.fileName !== fileToExtract) {
@@ -133,3 +119,4 @@ export async function extractFileFromZip(srcAcrhive, fileToExtract, dstPath) {
     throw new Error(`The file '${fileToExtract}' could not be found in the '${srcAcrhive}' archive`);
   }
 }
+
