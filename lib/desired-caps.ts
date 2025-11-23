@@ -1,6 +1,7 @@
+import type { Constraints } from '@appium/types';
 import { VERBOSITY } from './constants';
 
-export const desiredCapConstraints = {
+const DESIRED_CAP_CONSTRAINTS = {
   browserName: {
     isString: true
   },
@@ -33,7 +34,7 @@ export const desiredCapConstraints = {
   },
   verbosity: {
     isString: true,
-    inclusionCaseInsensitive: Object.values(VERBOSITY)
+    inclusionCaseInsensitive: Object.values(VERBOSITY) as [string, ...string[]]
   },
   androidStorage: {
     isString: true,
@@ -42,4 +43,7 @@ export const desiredCapConstraints = {
   'moz:firefoxOptions': {
     isObject: true
   }
-};
+} as const satisfies Constraints;
+
+export const desiredCapConstraints = DESIRED_CAP_CONSTRAINTS;
+

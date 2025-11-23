@@ -1,26 +1,23 @@
 import {system, fs, doctor} from '@appium/support';
 import {getAndroidBinaryPath, getSdkRootFromEnv} from 'appium-adb';
+import type {IDoctorCheck, AppiumLogger} from '@appium/types';
 
 const ENVIRONMENT_VARS_TUTORIAL_URL =
   'https://github.com/appium/java-client/blob/master/docs/environment.md';
 const ANDROID_SDK_LINK1 = 'https://developer.android.com/studio#cmdline-tools';
 const ANDROID_SDK_LINK2 = 'https://developer.android.com/studio/intro/update#sdk-manager';
 
-/**
- * @typedef EnvVarCheckOptions
- * @property {boolean} [expectDir] If set to true then
- * the path is expected to be a valid folder
- * @property {boolean} [expectFile] If set to true then
- * the path is expected to be a valid file
- */
+interface EnvVarCheckOptions {
+  expectDir?: boolean;
+  expectFile?: boolean;
+}
 
-/** @satisfies {import('@appium/types').IDoctorCheck} */
-class EnvVarAndPathCheck {
-  /**
-   * @param {string} varName
-   * @param {EnvVarCheckOptions} [opts={}]
-   */
-  constructor(varName, opts = {}) {
+class EnvVarAndPathCheck implements IDoctorCheck {
+  log!: AppiumLogger;
+  private varName: string;
+  private opts: EnvVarCheckOptions;
+
+  constructor(varName: string, opts: EnvVarCheckOptions = {}) {
     this.varName = varName;
     this.opts = opts;
   }
@@ -72,12 +69,10 @@ class EnvVarAndPathCheck {
 }
 export const androidHomeCheck = new EnvVarAndPathCheck('ANDROID_HOME', {expectDir: true});
 
-/** @satisfies {import('@appium/types').IDoctorCheck} */
-export class AndroidSdkCheck {
-  /** @type {import('@appium/types').AppiumLogger} */
-  log;
+export class AndroidSdkCheck implements IDoctorCheck {
+  log!: AppiumLogger;
 
-  TOOL_NAMES = ['adb', 'emulator'];
+  TOOL_NAMES = ['adb', 'emulator'] as const;
 
   async diagnose() {
     const listOfTools = this.TOOL_NAMES.join(', ');
@@ -87,7 +82,7 @@ export class AndroidSdkCheck {
     }
 
     this.log.info(`   Checking ${listOfTools}`);
-    const missingBinaries = [];
+    const missingBinaries: string[] = [];
     for (const binary of this.TOOL_NAMES) {
       try {
         this.log.info(`     '${binary}' exists in ${await getAndroidBinaryPath(binary)}`);
@@ -120,3 +115,4 @@ export class AndroidSdkCheck {
   }
 }
 export const androidSdkCheck = new AndroidSdkCheck();
+

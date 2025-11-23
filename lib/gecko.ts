@@ -7,11 +7,12 @@ import { SubProcess } from 'teen_process';
 import { waitForCondition } from 'asyncbox';
 import { findAPortNotInUse } from 'portscanner';
 import { execSync } from 'child_process';
+import type { AppiumLogger, StringRecord, HTTPMethod, HTTPBody } from '@appium/types';
 import { VERBOSITY } from './constants';
 
 const GD_BINARY = `geckodriver${system.isWindows() ? '.exe' : ''}`;
 const STARTUP_TIMEOUT_MS = 10000; // 10 seconds
-const GECKO_PORT_RANGE = [5200, 5300];
+const GECKO_PORT_RANGE: [number, number] = [5200, 5300];
 const GECKO_SERVER_GUARD = util.getLockFileGuard(
   path.resolve(os.tmpdir(), 'gecko_server_guard.lock'),
   {timeout: 5, tryRecovery: true}
@@ -23,15 +24,17 @@ const PROCESS_SPECIFIC_OPTION_NAMES_MAP = Object.freeze({
   androidStorage: 'androidStorage',
   marionettePort: 'marionettePort',
   systemPort: 'port',
-});
+} as const);
 export const GECKO_SERVER_HOST = '127.0.0.1';
 
+export interface SessionOptions {
+  reqBasePath?: string;
+}
 
 export class GeckoProxy extends JWProxy {
-  /** @type {boolean|undefined} */
-  didProcessExit;
+  didProcessExit?: boolean;
 
-  async proxyCommand (url, method, body = null) {
+  override async proxyCommand (url: string, method: HTTPMethod, body: HTTPBody = null) {
     if (this.didProcessExit) {
       throw new errors.InvalidContextError(
         `'${method} ${url}' cannot be proxied to Gecko Driver server because ` +
@@ -42,48 +45,44 @@ export class GeckoProxy extends JWProxy {
 }
 
 class GeckoDriverProcess {
-  /** @type {boolean|undefined} */
-  noReset;
+  private readonly noReset?: boolean;
+  private readonly verbosity?: string;
+  private readonly androidStorage?: string;
+  private readonly marionettePort?: number;
+  private _port?: number;
+  private readonly log: AppiumLogger;
+  private _proc: SubProcess | null = null;
 
-  /** @type {string|undefined} */
-  verbosity;
-
-  /** @type {string|undefined} */
-  androidStorage;
-
-  /** @type {number|undefined} */
-  marionettePort;
-
-  /** @type {number|undefined} */
-  port;
-
-  /**
-   *
-   * @param {import('@appium/types').AppiumLogger} log
-   * @param {import('@appium/types').StringRecord} opts
-   */
-  constructor (log, opts = {}) {
+  constructor (log: AppiumLogger, opts: StringRecord = {}) {
     for (const [optName, propName] of _.toPairs(PROCESS_SPECIFIC_OPTION_NAMES_MAP)) {
-      this[propName] = opts[optName];
+      (this as any)[propName] = opts[optName];
     }
     this.log = log;
-    this.proc = null;
+    this._proc = null;
   }
 
-  get isRunning () {
-    return !!(this.proc?.isRunning);
+  get isRunning (): boolean {
+    return !!(this._proc?.isRunning);
   }
 
-  async init () {
+  get port (): number | undefined {
+    return this._port;
+  }
+
+  get proc (): SubProcess | null {
+    return this._proc;
+  }
+
+  async init (): Promise<void> {
     if (this.isRunning) {
       return;
     }
 
-    if (!this.port) {
+    if (!this._port) {
       await GECKO_SERVER_GUARD(async () => {
         const [startPort, endPort] = GECKO_PORT_RANGE;
         try {
-          this.port = await findAPortNotInUse(startPort, endPort);
+          this._port = await findAPortNotInUse(startPort, endPort);
         } catch {
           throw new Error(
             `Cannot find any free port in range ${startPort}..${endPort}. ` +
@@ -93,15 +92,14 @@ class GeckoDriverProcess {
       });
     }
 
-    let driverBin;
+    let driverBin: string;
     try {
       driverBin = await fs.which(GD_BINARY);
     } catch {
       throw new Error(`${GD_BINARY} binary cannot be found in PATH. ` +
         `Please make sure it is present on your system`);
     }
-    /** @type {string[]} */
-    const args = [];
+    const args: string[] = [];
     /* #region Options */
     switch (_.toLower(this.verbosity)) {
       case VERBOSITY.DEBUG:
@@ -124,85 +122,81 @@ class GeckoDriverProcess {
     }
     /* #endregion */
 
-    args.push('-p', `${this.port}`);
+    args.push('-p', `${this._port}`);
     if (this.androidStorage) {
       args.push('--android-storage', this.androidStorage);
     }
-    this.proc = new SubProcess(driverBin, args);
-    this.proc.on('output', (stdout, stderr) => {
+    this._proc = new SubProcess(driverBin, args);
+    this._proc.on('output', (stdout, stderr) => {
       const line = _.trim(stdout || stderr);
       if (line) {
         this.log.debug(`[${GD_BINARY}] ${line}`);
       }
     });
-    this.proc.on('exit', (code, signal) => {
+    this._proc.on('exit', (code, signal) => {
       this.log.info(`${GD_BINARY} has exited with code ${code}, signal ${signal}`);
     });
     this.log.info(`Starting '${driverBin}' with args ${JSON.stringify(args)}`);
-    await this.proc.start(0);
+    await this._proc.start(0);
   }
 
-  async stop () {
+  async stop (): Promise<void> {
     if (this.isRunning) {
-      await this.proc?.stop('SIGTERM');
+      await this._proc?.stop('SIGTERM');
     }
   }
 
-  async kill () {
+  async kill (): Promise<void> {
     if (this.isRunning) {
       try {
-        await this.proc?.stop('SIGKILL');
+        await this._proc?.stop('SIGKILL');
       } catch {}
     }
   }
 }
 
-const RUNNING_PROCESS_IDS = [];
+const RUNNING_PROCESS_IDS: (number | undefined)[] = [];
 process.once('exit', () => {
   if (_.isEmpty(RUNNING_PROCESS_IDS)) {
     return;
   }
 
   const command = system.isWindows()
-    ? ('taskkill.exe ' + RUNNING_PROCESS_IDS.map((pid) => `/PID ${pid}`).join(' '))
-    : `kill ${RUNNING_PROCESS_IDS.join(' ')}`;
+    ? ('taskkill.exe ' + RUNNING_PROCESS_IDS.filter((pid): pid is number => pid !== undefined).map((pid) => `/PID ${pid}`).join(' '))
+    : `kill ${RUNNING_PROCESS_IDS.filter((pid): pid is number => pid !== undefined).join(' ')}`;
   try {
     execSync(command);
   } catch {}
 });
 
 export class GeckoDriverServer {
-  /** @type {GeckoProxy} */
-  proxy;
+  private _proxy: GeckoProxy | null = null;
+  private readonly _process: GeckoDriverProcess;
+  private readonly log: AppiumLogger;
 
-  /**
-   *
-   * @param {import('@appium/types').AppiumLogger} log
-   * @param {import('@appium/types').StringRecord} caps
-   */
-  constructor (log, caps) {
-    this.process = new GeckoDriverProcess(log, caps);
+  constructor (log: AppiumLogger, caps: StringRecord) {
+    this._process = new GeckoDriverProcess(log, caps);
     this.log = log;
-    // @ts-ignore That's ok
-    this.proxy = null;
+    this._proxy = null;
   }
 
-  get isRunning () {
-    return !!(this.process?.isRunning);
+  get proxy (): GeckoProxy {
+    if (!this._proxy) {
+      throw new Error('Gecko proxy is not initialized');
+    }
+    return this._proxy;
   }
 
-  /**
-   *
-   * @param {import('@appium/types').StringRecord} geckoCaps
-   * @param {SessionOptions} [opts={}]
-   * @returns {Promise<import('@appium/types').StringRecord>}
-   */
-  async start (geckoCaps, opts = {}) {
-    await this.process.init();
+  get isRunning (): boolean {
+    return !!(this._process?.isRunning);
+  }
 
-    const proxyOpts = {
+  async start (geckoCaps: StringRecord, opts: SessionOptions = {}): Promise<StringRecord> {
+    await this._process.init();
+
+    const proxyOpts: any = {
       server: GECKO_SERVER_HOST,
-      port: this.process.port,
+      port: this._process.port,
       log: this.log,
       base: '',
       keepAlive: true,
@@ -210,21 +204,21 @@ export class GeckoDriverServer {
     if (opts.reqBasePath) {
       proxyOpts.reqBasePath = opts.reqBasePath;
     }
-    this.proxy = new GeckoProxy(proxyOpts);
-    this.proxy.didProcessExit = false;
-    this.process?.proc?.on('exit', () => {
-      if (this.proxy) {
-        this.proxy.didProcessExit = true;
+    this._proxy = new GeckoProxy(proxyOpts);
+    this._proxy.didProcessExit = false;
+    this._process?.proc?.on('exit', () => {
+      if (this._proxy) {
+        this._proxy.didProcessExit = true;
       }
     });
 
     try {
       await waitForCondition(async () => {
         try {
-          await this.proxy?.command('/status', 'GET');
+          await this._proxy?.command('/status', 'GET');
           return true;
-        } catch (err) {
-          if (this.proxy?.didProcessExit) {
+        } catch (err: any) {
+          if (this._proxy?.didProcessExit) {
             throw new Error(err.message);
           }
           return false;
@@ -233,10 +227,10 @@ export class GeckoDriverServer {
         waitMs: STARTUP_TIMEOUT_MS,
         intervalMs: 1000,
       });
-    } catch (e) {
-      if (this.process.isRunning) {
+    } catch (e: any) {
+      if (this._process.isRunning) {
         // avoid "frozen" processes,
-        await this.process.kill();
+        await this._process.kill();
       }
       if (/Condition unmet/.test(e.message)) {
         throw new Error(`Gecko Driver server is not listening within ${STARTUP_TIMEOUT_MS}ms timeout. ` +
@@ -244,46 +238,42 @@ export class GeckoDriverServer {
       }
       throw e;
     }
-    const pid = this.process.proc?.pid;
-    RUNNING_PROCESS_IDS.push(pid);
-    this.process.proc?.on('exit', () => void _.pull(RUNNING_PROCESS_IDS, pid));
+    const pid = this._process.proc?.pid;
+    if (pid !== undefined) {
+      RUNNING_PROCESS_IDS.push(pid);
+      this._process.proc?.on('exit', () => void _.pull(RUNNING_PROCESS_IDS, pid));
+    }
 
-    return /** @type {import('@appium/types').StringRecord} */ (
-      await this.proxy.command('/session', 'POST', {
-        capabilities: {
-          firstMatch: [{}],
-          alwaysMatch: geckoCaps,
-        }
-      })
-    );
+    return await this._proxy.command('/session', 'POST', {
+      capabilities: {
+        firstMatch: [{}],
+        alwaysMatch: geckoCaps,
+      }
+    }) as StringRecord;
   }
 
-  async stop () {
+  async stop (): Promise<void> {
     if (!this.isRunning) {
       this.log.info(`Gecko Driver session cannot be stopped, because the server is not running`);
       return;
     }
 
-    if (this.proxy?.sessionId) {
+    if (this._proxy?.sessionId) {
       try {
-        await this.proxy.command(`/session/${this.proxy.sessionId}`, 'DELETE');
-      } catch (e) {
+        await this._proxy.command(`/session/${this._proxy.sessionId}`, 'DELETE');
+      } catch (e: any) {
         this.log.info(`Gecko Driver session cannot be deleted. Original error: ${e.message}`);
       }
     }
 
     try {
-      await this.process.stop();
-    } catch (e) {
+      await this._process.stop();
+    } catch (e: any) {
       this.log.warn(`Gecko Driver process cannot be stopped (${e.message}). Killing it forcefully`);
-      await this.process.kill();
+      await this._process.kill();
     }
   }
 }
 
 export default GeckoDriverServer;
 
-/**
- * @typedef {Object} SessionOptions
- * @property {string} [reqBasePath]
- */
