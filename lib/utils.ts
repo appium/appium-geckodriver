@@ -5,20 +5,9 @@ import zlib from 'node:zlib';
 import B from 'bluebird';
 import path from 'node:path';
 import type { StringRecord } from '@appium/types';
+import { STANDARD_CAPS } from 'appium/driver';
 
 const GECKO_CAP_PREFIXES = ['moz:'] as const;
-// https://www.w3.org/TR/webdriver/#capabilities
-const STANDARD_CAPS = [
-  'browserVersion',
-  'platformName',
-  'acceptInsecureCerts',
-  'pageLoadStrategy',
-  'proxy',
-  'setWindowRect',
-  'timeouts',
-  'unhandledPromptBehavior',
-  'webSocketUrl',
-] as const;
 
 /**
  * Format capabilities for Gecko server
@@ -29,7 +18,7 @@ export function formatCapsForServer (caps: StringRecord): StringRecord {
     result.browserName = 'firefox';
   }
   for (const [name, value] of _.toPairs(caps)) {
-    if (GECKO_CAP_PREFIXES.some((prefix) => name.startsWith(prefix)) || STANDARD_CAPS.includes(name as any)) {
+    if (GECKO_CAP_PREFIXES.some((prefix) => name.startsWith(prefix)) || STANDARD_CAPS.has(name as any)) {
       result[name] = value;
     }
   }
