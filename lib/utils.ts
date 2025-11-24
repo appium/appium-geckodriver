@@ -14,13 +14,13 @@ const GECKO_CAP_PREFIXES = ['moz:'] as const;
  */
 export function formatCapsForServer (caps: StringRecord): StringRecord {
   const result: StringRecord = {};
-  if (caps.browserName) {
-    result.browserName = 'firefox';
-  }
   for (const [name, value] of _.toPairs(caps)) {
     if (GECKO_CAP_PREFIXES.some((prefix) => name.startsWith(prefix)) || STANDARD_CAPS.has(name as any)) {
       result[name] = value;
     }
+  }
+  if (caps.browserName) {
+    result.browserName = 'firefox';
   }
   if (result.platformName) {
     // Geckodriver only supports lowercase platform names
