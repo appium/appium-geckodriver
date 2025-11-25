@@ -1,3 +1,9 @@
+## [2.1.1](https://github.com/appium/appium-geckodriver/compare/v2.1.0...v2.1.1) (2025-11-25)
+
+### Miscellaneous Chores
+
+* Import standard caps from base driver ([#142](https://github.com/appium/appium-geckodriver/issues/142)) ([43293a8](https://github.com/appium/appium-geckodriver/commit/43293a85d65619213a14a1562c51a399d69468df))
+
 ## [2.1.0](https://github.com/appium/appium-geckodriver/compare/v2.0.7...v2.1.0) (2025-11-23)
 
 ### Features
