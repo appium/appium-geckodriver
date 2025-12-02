@@ -1,3 +1,9 @@
+## [2.1.2](https://github.com/appium/appium-geckodriver/compare/v2.1.1...v2.1.2) (2025-12-02)
+
+### Miscellaneous Chores
+
+* **deps:** bump actions/setup-node from 3 to 6 ([#144](https://github.com/appium/appium-geckodriver/issues/144)) ([bff26e8](https://github.com/appium/appium-geckodriver/commit/bff26e80c2930bce7dc3406edfe1e5a65f968afa))
+
 ## [2.1.1](https://github.com/appium/appium-geckodriver/compare/v2.1.0...v2.1.1) (2025-11-25)
 
 ### Miscellaneous Chores
