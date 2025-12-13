@@ -1,3 +1,9 @@
+## [2.1.4](https://github.com/appium/appium-geckodriver/compare/v2.1.3...v2.1.4) (2025-12-13)
+
+### Miscellaneous Chores
+
+* **deps:** remove source-map-support ([#147](https://github.com/appium/appium-geckodriver/issues/147)) ([44aa490](https://github.com/appium/appium-geckodriver/commit/44aa490bd0630b31447771c475cc04c9d34babf3))
+
 ## [2.1.3](https://github.com/appium/appium-geckodriver/compare/v2.1.2...v2.1.3) (2025-12-11)
 
 ### Miscellaneous Chores
