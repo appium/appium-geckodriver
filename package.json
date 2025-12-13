@@ -65,7 +65,6 @@
     "lodash": "^4.17.4",
     "portscanner": "2.2.0",
     "semver": "^7.6.3",
-    "source-map-support": "^0.x",
     "tar-stream": "^3.1.7",
     "teen_process": "^3.0.0"
   },
