@@ -1,3 +1,9 @@
+## [2.1.6](https://github.com/appium/appium-geckodriver/compare/v2.1.5...v2.1.6) (2025-12-21)
+
+### Miscellaneous Chores
+
+* bump teen_process ([#149](https://github.com/appium/appium-geckodriver/issues/149)) ([fb8d65a](https://github.com/appium/appium-geckodriver/commit/fb8d65aac660138f935a83732eae456f16da2b01))
+
 ## [2.1.5](https://github.com/appium/appium-geckodriver/compare/v2.1.4...v2.1.5) (2025-12-18)
 
 ### Miscellaneous Chores
