@@ -233,7 +233,7 @@ export class GeckoDriverServer {
       throw e;
     }
     const pid = this._process.proc?.pid;
-    if (pid !== undefined) {
+    if (pid) {
       RUNNING_PROCESS_IDS.push(pid);
       this._process.proc?.on('exit', () => void _.pull(RUNNING_PROCESS_IDS, pid));
     }
