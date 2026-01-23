@@ -1,3 +1,9 @@
+## [2.1.7](https://github.com/appium/appium-geckodriver/compare/v2.1.6...v2.1.7) (2026-01-23)
+
+### Miscellaneous Chores
+
+* Exclude tests from published dist ([0c83690](https://github.com/appium/appium-geckodriver/commit/0c83690682e19367ac7e1781a545afc573b0b064))
+
 ## [2.1.6](https://github.com/appium/appium-geckodriver/compare/v2.1.5...v2.1.6) (2025-12-21)
 
 ### Miscellaneous Chores
