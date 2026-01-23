@@ -1,3 +1,9 @@
+## [2.1.8](https://github.com/appium/appium-geckodriver/compare/v2.1.7...v2.1.8) (2026-01-23)
+
+### Miscellaneous Chores
+
+* Migrate index to typescript ([#152](https://github.com/appium/appium-geckodriver/issues/152)) ([f3709d1](https://github.com/appium/appium-geckodriver/commit/f3709d17cdfd29a2a874cfaa478fdc62bb457d4e))
+
 ## [2.1.7](https://github.com/appium/appium-geckodriver/compare/v2.1.6...v2.1.7) (2026-01-23)
 
 ### Miscellaneous Chores
