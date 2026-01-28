@@ -1,3 +1,9 @@
+## [2.1.11](https://github.com/appium/appium-geckodriver/compare/v2.1.10...v2.1.11) (2026-01-28)
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump @appium/eslint-config-appium-ts from 2.0.5 to 3.0.0 ([#154](https://github.com/appium/appium-geckodriver/issues/154)) ([d9d09e6](https://github.com/appium/appium-geckodriver/commit/d9d09e627737998e4b8f9e749683419bad5f5779))
+
 ## [2.1.10](https://github.com/appium/appium-geckodriver/compare/v2.1.9...v2.1.10) (2026-01-27)
 
 ### Miscellaneous Chores
