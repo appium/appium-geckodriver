@@ -1,3 +1,9 @@
+## [2.1.12](https://github.com/appium/appium-geckodriver/compare/v2.1.11...v2.1.12) (2026-02-16)
+
+### Bug Fixes
+
+* format ([#155](https://github.com/appium/appium-geckodriver/issues/155)) ([f61842b](https://github.com/appium/appium-geckodriver/commit/f61842bbf74799a3cb5a87e2409740f70ea97acf))
+
 ## [2.1.11](https://github.com/appium/appium-geckodriver/compare/v2.1.10...v2.1.11) (2026-01-28)
 
 ### Miscellaneous Chores
