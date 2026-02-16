@@ -1,4 +1,4 @@
-import { GeckoDriver } from './driver';
+import {GeckoDriver} from './driver';
 
 export default GeckoDriver;
-export { GeckoDriver };
+export {GeckoDriver};

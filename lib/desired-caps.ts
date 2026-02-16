@@ -1,49 +1,48 @@
-import type { Constraints } from '@appium/types';
-import { VERBOSITY } from './constants';
+import type {Constraints} from '@appium/types';
+import {VERBOSITY} from './constants';
 
 const DESIRED_CAP_CONSTRAINTS = {
   browserName: {
-    isString: true
+    isString: true,
   },
   browserVersion: {
-    isString: true
+    isString: true,
   },
   acceptInsecureCerts: {
-    isBoolean: true
+    isBoolean: true,
   },
   pageLoadStrategy: {
-    isString: true
+    isString: true,
   },
   proxy: {
-    isObject: true
+    isObject: true,
   },
   setWindowRect: {
-    isBoolean: true
+    isBoolean: true,
   },
   timeouts: {
-    isObject: true
+    isObject: true,
   },
   unhandledPromptBehavior: {
-    isString: true
+    isString: true,
   },
   systemPort: {
-    isNumber: true
+    isNumber: true,
   },
   marionettePort: {
-    isNumber: true
+    isNumber: true,
   },
   verbosity: {
     isString: true,
-    inclusionCaseInsensitive: Object.values(VERBOSITY) as [string, ...string[]]
+    inclusionCaseInsensitive: Object.values(VERBOSITY) as [string, ...string[]],
   },
   androidStorage: {
     isString: true,
-    inclusionCaseInsensitive: ['auto', 'app', 'internal', 'sdcard']
+    inclusionCaseInsensitive: ['auto', 'app', 'internal', 'sdcard'],
   },
   'moz:firefoxOptions': {
-    isObject: true
-  }
+    isObject: true,
+  },
 } as const satisfies Constraints;
 
 export const desiredCapConstraints = DESIRED_CAP_CONSTRAINTS;
-

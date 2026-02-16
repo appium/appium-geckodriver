@@ -1,21 +1,21 @@
 import _ from 'lodash';
 import os from 'node:os';
 import path from 'node:path';
-import { JWProxy, errors } from 'appium/driver';
-import { fs, util, system } from 'appium/support';
-import { SubProcess } from 'teen_process';
-import { waitForCondition } from 'asyncbox';
-import { findAPortNotInUse } from 'portscanner';
-import { execSync } from 'node:child_process';
-import type { AppiumLogger, StringRecord, HTTPMethod, HTTPBody } from '@appium/types';
-import { VERBOSITY } from './constants';
+import {JWProxy, errors} from 'appium/driver';
+import {fs, util, system} from 'appium/support';
+import {SubProcess} from 'teen_process';
+import {waitForCondition} from 'asyncbox';
+import {findAPortNotInUse} from 'portscanner';
+import {execSync} from 'node:child_process';
+import type {AppiumLogger, StringRecord, HTTPMethod, HTTPBody} from '@appium/types';
+import {VERBOSITY} from './constants';
 
 const GD_BINARY = `geckodriver${system.isWindows() ? '.exe' : ''}`;
 const STARTUP_TIMEOUT_MS = 10000; // 10 seconds
 const GECKO_PORT_RANGE: [number, number] = [5200, 5300];
 const GECKO_SERVER_GUARD = util.getLockFileGuard(
   path.resolve(os.tmpdir(), 'gecko_server_guard.lock'),
-  {timeout: 5, tryRecovery: true}
+  {timeout: 5, tryRecovery: true},
 );
 const DEFAULT_MARIONETTE_PORT = 2828;
 export const GECKO_SERVER_HOST = '127.0.0.1';
@@ -27,11 +27,12 @@ export interface SessionOptions {
 export class GeckoProxy extends JWProxy {
   didProcessExit?: boolean;
 
-  override async proxyCommand (url: string, method: HTTPMethod, body: HTTPBody = null) {
+  override async proxyCommand(url: string, method: HTTPMethod, body: HTTPBody = null) {
     if (this.didProcessExit) {
       throw new errors.InvalidContextError(
         `'${method} ${url}' cannot be proxied to Gecko Driver server because ` +
-        'its process is not running (probably crashed). Check the Appium log for more details');
+          'its process is not running (probably crashed). Check the Appium log for more details',
+      );
     }
     return await super.proxyCommand(url, method, body);
   }
@@ -46,7 +47,7 @@ class GeckoDriverProcess {
   private readonly log: AppiumLogger;
   private _proc: SubProcess | null = null;
 
-  constructor (log: AppiumLogger, opts: StringRecord = {}) {
+  constructor(log: AppiumLogger, opts: StringRecord = {}) {
     this.noReset = opts.noReset;
     this.verbosity = opts.verbosity;
     this.androidStorage = opts.androidStorage;
@@ -55,19 +56,19 @@ class GeckoDriverProcess {
     this.log = log;
   }
 
-  get isRunning (): boolean {
-    return !!(this._proc?.isRunning);
+  get isRunning(): boolean {
+    return !!this._proc?.isRunning;
   }
 
-  get port (): number | undefined {
+  get port(): number | undefined {
     return this._port;
   }
 
-  get proc (): SubProcess | null {
+  get proc(): SubProcess | null {
     return this._proc;
   }
 
-  async init (): Promise<void> {
+  async init(): Promise<void> {
     if (this.isRunning) {
       return;
     }
@@ -80,8 +81,9 @@ class GeckoDriverProcess {
         } catch {
           throw new Error(
             `Cannot find any free port in range ${startPort}..${endPort}. ` +
-            `Double check the processes that are locking ports within this range and terminate ` +
-            `these which are not needed anymore or set any free port number to the 'systemPort' capability`);
+              `Double check the processes that are locking ports within this range and terminate ` +
+              `these which are not needed anymore or set any free port number to the 'systemPort' capability`,
+          );
         }
       });
     }
@@ -90,8 +92,10 @@ class GeckoDriverProcess {
     try {
       driverBin = await fs.which(GD_BINARY);
     } catch {
-      throw new Error(`${GD_BINARY} binary cannot be found in PATH. ` +
-        `Please make sure it is present on your system`);
+      throw new Error(
+        `${GD_BINARY} binary cannot be found in PATH. ` +
+          `Please make sure it is present on your system`,
+      );
     }
     const args: string[] = [];
     /* #region Options */
@@ -107,8 +111,12 @@ class GeckoDriverProcess {
       args.push('--connect-existing');
       // https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html#code-connect-existing-code
       if (_.isNil(this.marionettePort)) {
-        this.log.info(`'marionettePort' capability value is not provided while 'noReset' is enabled`);
-        this.log.info(`Assigning 'marionettePort' to the default value (${DEFAULT_MARIONETTE_PORT})`);
+        this.log.info(
+          `'marionettePort' capability value is not provided while 'noReset' is enabled`,
+        );
+        this.log.info(
+          `Assigning 'marionettePort' to the default value (${DEFAULT_MARIONETTE_PORT})`,
+        );
       }
       args.push('--marionette-port', `${this.marionettePort ?? DEFAULT_MARIONETTE_PORT}`);
     } else if (!_.isNil(this.marionettePort)) {
@@ -134,13 +142,13 @@ class GeckoDriverProcess {
     await this._proc.start(0);
   }
 
-  async stop (): Promise<void> {
+  async stop(): Promise<void> {
     if (this.isRunning) {
       await this._proc?.stop('SIGTERM');
     }
   }
 
-  async kill (): Promise<void> {
+  async kill(): Promise<void> {
     if (this.isRunning) {
       try {
         await this._proc?.stop('SIGKILL');
@@ -156,7 +164,10 @@ process.once('exit', () => {
   }
 
   const command = system.isWindows()
-    ? ('taskkill.exe ' + RUNNING_PROCESS_IDS.filter((pid): pid is number => pid !== undefined).map((pid) => `/PID ${pid}`).join(' '))
+    ? 'taskkill.exe ' +
+      RUNNING_PROCESS_IDS.filter((pid): pid is number => pid !== undefined)
+        .map((pid) => `/PID ${pid}`)
+        .join(' ')
     : `kill ${RUNNING_PROCESS_IDS.filter((pid): pid is number => pid !== undefined).join(' ')}`;
   try {
     execSync(command);
@@ -168,24 +179,24 @@ export class GeckoDriverServer {
   private readonly _process: GeckoDriverProcess;
   private readonly log: AppiumLogger;
 
-  constructor (log: AppiumLogger, caps: StringRecord) {
+  constructor(log: AppiumLogger, caps: StringRecord) {
     this._process = new GeckoDriverProcess(log, caps);
     this.log = log;
     this._proxy = null;
   }
 
-  get proxy (): GeckoProxy {
+  get proxy(): GeckoProxy {
     if (!this._proxy) {
       throw new Error('Gecko proxy is not initialized');
     }
     return this._proxy;
   }
 
-  get isRunning (): boolean {
-    return !!(this._process?.isRunning);
+  get isRunning(): boolean {
+    return !!this._process?.isRunning;
   }
 
-  async start (geckoCaps: StringRecord, opts: SessionOptions = {}): Promise<StringRecord> {
+  async start(geckoCaps: StringRecord, opts: SessionOptions = {}): Promise<StringRecord> {
     await this._process.init();
 
     const proxyOpts: any = {
@@ -207,28 +218,33 @@ export class GeckoDriverServer {
     });
 
     try {
-      await waitForCondition(async () => {
-        try {
-          await this._proxy?.command('/status', 'GET');
-          return true;
-        } catch (err: any) {
-          if (this._proxy?.didProcessExit) {
-            throw new Error(err.message);
+      await waitForCondition(
+        async () => {
+          try {
+            await this._proxy?.command('/status', 'GET');
+            return true;
+          } catch (err: any) {
+            if (this._proxy?.didProcessExit) {
+              throw new Error(err.message);
+            }
+            return false;
           }
-          return false;
-        }
-      }, {
-        waitMs: STARTUP_TIMEOUT_MS,
-        intervalMs: 1000,
-      });
+        },
+        {
+          waitMs: STARTUP_TIMEOUT_MS,
+          intervalMs: 1000,
+        },
+      );
     } catch (e: any) {
       if (this._process.isRunning) {
         // avoid "frozen" processes,
         await this._process.kill();
       }
       if (/Condition unmet/.test(e.message)) {
-        throw new Error(`Gecko Driver server is not listening within ${STARTUP_TIMEOUT_MS}ms timeout. ` +
-          `Make sure it could be started manually from a terminal`);
+        throw new Error(
+          `Gecko Driver server is not listening within ${STARTUP_TIMEOUT_MS}ms timeout. ` +
+            `Make sure it could be started manually from a terminal`,
+        );
       }
       throw e;
     }
@@ -238,15 +254,15 @@ export class GeckoDriverServer {
       this._process.proc?.on('exit', () => void _.pull(RUNNING_PROCESS_IDS, pid));
     }
 
-    return await this._proxy.command('/session', 'POST', {
+    return (await this._proxy.command('/session', 'POST', {
       capabilities: {
         firstMatch: [{}],
         alwaysMatch: geckoCaps,
-      }
-    }) as StringRecord;
+      },
+    })) as StringRecord;
   }
 
-  async stop (): Promise<void> {
+  async stop(): Promise<void> {
     if (!this.isRunning) {
       this.log.info(`Gecko Driver session cannot be stopped, because the server is not running`);
       return;
@@ -270,4 +286,3 @@ export class GeckoDriverServer {
 }
 
 export default GeckoDriverServer;
-

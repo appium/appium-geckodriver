@@ -17,4 +17,3 @@ export function getPlatformName(): 'mac' | 'linux' | 'windows' {
       throw new Error(`Unsupported platform: ${process.platform}`);
   }
 }
-

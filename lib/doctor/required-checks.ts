@@ -33,4 +33,3 @@ export class GeckodriverCheck implements IDoctorCheck {
   }
 }
 export const geckodriverCheck = new GeckodriverCheck();
-

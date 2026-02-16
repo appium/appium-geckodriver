@@ -78,7 +78,9 @@ export class AndroidSdkCheck implements IDoctorCheck {
     const listOfTools = this.TOOL_NAMES.join(', ');
     const sdkRoot = getSdkRootFromEnv();
     if (!sdkRoot) {
-      return doctor.nokOptional(`${listOfTools} could not be found because ANDROID_HOME is NOT set!`);
+      return doctor.nokOptional(
+        `${listOfTools} could not be found because ANDROID_HOME is NOT set!`,
+      );
     }
 
     this.log.info(`   Checking ${listOfTools}`);
@@ -92,7 +94,9 @@ export class AndroidSdkCheck implements IDoctorCheck {
     }
 
     if (missingBinaries.length > 0) {
-      return doctor.nokOptional(`${missingBinaries.join(', ')} could NOT be found in '${sdkRoot}'!`);
+      return doctor.nokOptional(
+        `${missingBinaries.join(', ')} could NOT be found in '${sdkRoot}'!`,
+      );
     }
 
     return doctor.okOptional(`${listOfTools} exist in '${sdkRoot}'`);
@@ -115,4 +119,3 @@ export class AndroidSdkCheck implements IDoctorCheck {
   }
 }
 export const androidSdkCheck = new AndroidSdkCheck();
-
