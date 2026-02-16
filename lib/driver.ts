@@ -7,11 +7,11 @@ import type {
   ExternalDriver,
   W3CDriverCaps,
 } from '@appium/types';
-import { BaseDriver } from 'appium/driver';
-import { GECKO_SERVER_HOST, GeckoDriverServer } from './gecko';
-import { desiredCapConstraints } from './desired-caps';
+import {BaseDriver} from 'appium/driver';
+import {GECKO_SERVER_HOST, GeckoDriverServer} from './gecko';
+import {desiredCapConstraints} from './desired-caps';
 import * as findCommands from './commands/find';
-import { formatCapsForServer } from './utils';
+import {formatCapsForServer} from './utils';
 
 const NO_PROXY: RouteMatcher[] = [
   ['GET', new RegExp('^/session/[^/]+/appium')],
@@ -31,7 +31,7 @@ export class GeckoDriver
   private _bidiProxyUrl: string | null = null;
   public proxyReqRes: (...args: any) => any;
 
-  constructor (opts: InitialOpts = {} as InitialOpts) {
+  constructor(opts: InitialOpts = {} as InitialOpts) {
     super(opts);
     this.desiredCapConstraints = _.cloneDeep(desiredCapConstraints);
     this.locatorStrategies = [
@@ -48,26 +48,26 @@ export class GeckoDriver
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  override proxyActive (sessionId?: string): boolean {
+  override proxyActive(sessionId?: string): boolean {
     return this.isProxyActive;
   }
 
-  override getProxyAvoidList (): RouteMatcher[] {
+  override getProxyAvoidList(): RouteMatcher[] {
     return NO_PROXY;
   }
 
-  override canProxy (): boolean {
+  override canProxy(): boolean {
     return true;
   }
 
-  get gecko (): GeckoDriverServer {
+  get gecko(): GeckoDriverServer {
     if (!this._gecko) {
       throw new Error('Gecko driver is not initialized');
     }
     return this._gecko;
   }
 
-  override async createSession (
+  override async createSession(
     w3cCaps1: W3CDriverCaps<GeckoConstraints>,
     w3cCaps2?: W3CDriverCaps<GeckoConstraints>,
     ...args: any[]
@@ -96,7 +96,7 @@ export class GeckoDriver
     return this._bidiProxyUrl;
   }
 
-  override async deleteSession (): Promise<void> {
+  override async deleteSession(): Promise<void> {
     this.log.info('Ending Gecko Driver session');
     await this._gecko?.stop();
     this.resetState();
@@ -104,7 +104,7 @@ export class GeckoDriver
     await super.deleteSession();
   }
 
-  private resetState (): void {
+  private resetState(): void {
     this._gecko = null;
     this.proxyReqRes = null as any;
     this.isProxyActive = false;
@@ -131,4 +131,3 @@ export class GeckoDriver
 }
 
 export default GeckoDriver;
-

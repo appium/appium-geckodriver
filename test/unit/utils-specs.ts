@@ -1,5 +1,5 @@
-import { formatCapsForServer } from '../../lib/utils';
-import { expect } from 'chai';
+import {formatCapsForServer} from '../../lib/utils';
+import {expect} from 'chai';
 
 describe('formatCapsForServer', function () {
   it('should format empty caps', function () {
@@ -34,4 +34,3 @@ describe('formatCapsForServer', function () {
     });
   });
 });
-

@@ -1,7 +1,7 @@
-import { remote } from 'webdriverio';
-import { HOST, PORT, MOCHA_TIMEOUT, getPlatformName } from '../utils';
-import { waitForCondition } from 'asyncbox';
-import type { Browser } from 'webdriverio';
+import {remote} from 'webdriverio';
+import {HOST, PORT, MOCHA_TIMEOUT, getPlatformName} from '../utils';
+import {waitForCondition} from 'asyncbox';
+import type {Browser} from 'webdriverio';
 import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 
@@ -48,20 +48,22 @@ describe('Mobile GeckoDriver', function () {
   it('should start and stop a session', async function () {
     await driver!.url('https://appium.io/');
     try {
-      await waitForCondition(async () => {
-        try {
-          const button = await driver!.$('#downloadLink');
-          return (await button.getText()) === 'Download Appium';
-        } catch {
-          return false;
-        }
-      }, {
-        waitMs: 10000,
-        intervalMs: 500,
-      });
+      await waitForCondition(
+        async () => {
+          try {
+            const button = await driver!.$('#downloadLink');
+            return (await button.getText()) === 'Download Appium';
+          } catch {
+            return false;
+          }
+        },
+        {
+          waitMs: 10000,
+          intervalMs: 500,
+        },
+      );
     } catch {
       this.fail('Timeout waiting for download button to load');
     }
   });
 });
-
