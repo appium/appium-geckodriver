@@ -32,6 +32,9 @@ const DESIRED_CAP_CONSTRAINTS = {
   marionettePort: {
     isNumber: true,
   },
+  geckodriverExecutable: {
+    isString: true,
+  },
   verbosity: {
     isString: true,
     inclusionCaseInsensitive: Object.values(VERBOSITY) as [string, ...string[]],

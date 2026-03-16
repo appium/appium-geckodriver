@@ -43,6 +43,7 @@ class GeckoDriverProcess {
   private readonly verbosity?: string;
   private readonly androidStorage?: string;
   private readonly marionettePort?: number;
+  private readonly geckodriverExecutable?: string;
   private _port?: number;
   private readonly log: AppiumLogger;
   private _proc: SubProcess | null = null;
@@ -52,6 +53,7 @@ class GeckoDriverProcess {
     this.verbosity = opts.verbosity;
     this.androidStorage = opts.androidStorage;
     this.marionettePort = opts.marionettePort;
+    this.geckodriverExecutable = opts.geckodriverExecutable;
     this._port = opts.systemPort;
     this.log = log;
   }
@@ -88,15 +90,7 @@ class GeckoDriverProcess {
       });
     }
 
-    let driverBin: string;
-    try {
-      driverBin = await fs.which(GD_BINARY);
-    } catch {
-      throw new Error(
-        `${GD_BINARY} binary cannot be found in PATH. ` +
-          `Please make sure it is present on your system`,
-      );
-    }
+    const driverBin = await this.resolveGeckodriverBinary();
     const args: string[] = [];
     /* #region Options */
     switch (_.toLower(this.verbosity)) {
@@ -153,6 +147,27 @@ class GeckoDriverProcess {
       try {
         await this._proc?.stop('SIGKILL');
       } catch {}
+    }
+  }
+
+  private async resolveGeckodriverBinary(): Promise<string> {
+    if (this.geckodriverExecutable) {
+      if (!(await fs.exists(this.geckodriverExecutable))) {
+        throw new Error(
+          `The custom geckodriver binary at '${this.geckodriverExecutable}' cannot be found. ` +
+            `Make sure the path is correct and accessible to the Appium server process`,
+        );
+      }
+      return this.geckodriverExecutable;
+    }
+
+    try {
+      return await fs.which(GD_BINARY);
+    } catch {
+      throw new Error(
+        `${GD_BINARY} binary cannot be found in PATH. ` +
+          `Please make sure it is present on your system`,
+      );
     }
   }
 }
