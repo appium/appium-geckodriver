@@ -74,7 +74,10 @@ export class GeckoDriver
       return false;
     }
 
-    if (caps.geckodriverExecutable && !this.isFeatureEnabled(INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE)) {
+    if (
+      caps.geckodriverExecutable &&
+      !this.isFeatureEnabled(INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE)
+    ) {
       throw new errors.SessionNotCreatedError(
         `The 'geckodriverExecutable' capability requires the ` +
           `'${INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE}' insecure feature to be enabled ` +

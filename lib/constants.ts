@@ -11,5 +11,4 @@ export const VERBOSITY = {
  * with the automation name prefix (for example
  * `--allow-insecure gecko:custom_geckodriver_executable`).
  */
-export const INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE =
-  'custom_geckodriver_executable' as const;
+export const INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE = 'custom_geckodriver_executable' as const;
