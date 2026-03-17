@@ -50,6 +50,7 @@ appium:marionettePort | Selects the port for Geckodriver’s connection to the M
 appium:systemPort | The number of the port for the driver to listen on. Must be unique for each session. If not provided then Appium will try to detect it automatically.
 appium:verbosity | The verbosity level of driver logging. By default minimum verbosity is applied. Possible values are `debug` or `trace`.
 appium:androidStorage | See https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html#code-android-storage-var-android-storage-var-code
+appium:geckodriverExecutable | Optional full path to the `geckodriver` binary to be used for this session instead of resolving it from `PATH`. Using this capability is considered an insecure feature and requires the Appium server to be started with the `custom_geckodriver_executable` insecure feature enabled (for example via `--allow-insecure gecko:custom_geckodriver_executable` or `--relaxed-security`). If the capability is provided but the insecure feature is not enabled, session creation will fail with a capability validation error.
 moz:firefoxOptions | See https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions
 acceptInsecureCerts | See https://www.w3.org/TR/webdriver/#capabilities
 pageLoadStrategy | See https://www.w3.org/TR/webdriver/#capabilities

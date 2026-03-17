@@ -7,9 +7,10 @@ import type {
   ExternalDriver,
   W3CDriverCaps,
 } from '@appium/types';
-import {BaseDriver} from 'appium/driver';
+import {BaseDriver, errors} from 'appium/driver';
 import {GECKO_SERVER_HOST, GeckoDriverServer} from './gecko';
 import {desiredCapConstraints} from './desired-caps';
+import {INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE} from './constants';
 import * as findCommands from './commands/find';
 import {formatCapsForServer} from './utils';
 
@@ -65,6 +66,25 @@ export class GeckoDriver
       throw new Error('Gecko driver is not initialized');
     }
     return this._gecko;
+  }
+
+  override validateDesiredCaps(caps: any): caps is any {
+    const isValid = super.validateDesiredCaps(caps);
+    if (!isValid) {
+      return false;
+    }
+
+    if (
+      caps.geckodriverExecutable &&
+      !this.isFeatureEnabled(INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE)
+    ) {
+      throw new errors.SessionNotCreatedError(
+        `The 'geckodriverExecutable' capability requires the ` +
+          `'${INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE}' insecure feature to be enabled ` +
+          `on the Appium server.`,
+      );
+    }
+    return true;
   }
 
   override async createSession(
