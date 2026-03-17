@@ -1,3 +1,9 @@
+## [2.2.0](https://github.com/appium/appium-geckodriver/compare/v2.1.12...v2.2.0) (2026-03-17)
+
+### Features
+
+* Add 'geckodriverExecutable' capability ([#157](https://github.com/appium/appium-geckodriver/issues/157)) ([0156715](https://github.com/appium/appium-geckodriver/commit/015671502b595040b242d3775a92fd8c8e0d97dd))
+
 ## [2.1.12](https://github.com/appium/appium-geckodriver/compare/v2.1.11...v2.1.12) (2026-02-16)
 
 ### Bug Fixes
