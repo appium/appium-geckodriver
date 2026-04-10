@@ -1,3 +1,9 @@
+## [2.2.1](https://github.com/appium/appium-geckodriver/compare/v2.2.0...v2.2.1) (2026-04-10)
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump typescript from 5.9.3 to 6.0.2 ([#158](https://github.com/appium/appium-geckodriver/issues/158)) ([bf9246c](https://github.com/appium/appium-geckodriver/commit/bf9246c584c6a477c07c779c75ed6a28affeab8e))
+
 ## [2.2.0](https://github.com/appium/appium-geckodriver/compare/v2.1.12...v2.2.0) (2026-03-17)
 
 ### Features
