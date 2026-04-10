@@ -48,12 +48,11 @@
   },
   "files": [
     "lib",
-    "build",
+    "build/lib",
     "CHANGELOG.md",
     "LICENSE",
     "npm-shrinkwrap.json",
-    "scripts/*.mjs",
-    "!build/test"
+    "scripts/*.mjs"
   ],
   "peerDependencies": {
     "appium": "^3.0.0-rc.2"
@@ -99,7 +98,7 @@
     "prettier": "^3.0.0",
     "semantic-release": "^25.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.4.2",
+    "typescript": "^6.0.2",
     "webdriverio": "^9.0.5"
   },
   "doctor": {
