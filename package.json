@@ -48,12 +48,11 @@
   },
   "files": [
     "lib",
-    "build",
+    "build/lib",
     "CHANGELOG.md",
     "LICENSE",
     "npm-shrinkwrap.json",
-    "scripts/*.mjs",
-    "!build/test"
+    "scripts/*.mjs"
   ],
   "peerDependencies": {
     "appium": "^3.0.0-rc.2"
