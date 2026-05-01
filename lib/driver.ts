@@ -27,10 +27,14 @@ export class GeckoDriver
   extends BaseDriver<GeckoConstraints, StringRecord>
   implements ExternalDriver<GeckoConstraints, string, StringRecord>
 {
+
+  public proxyReqRes: (...args: any) => any;
+
+  findElOrEls = findCommands.findElOrEls;
+
   private isProxyActive: boolean = false;
   private _gecko: GeckoDriverServer | null = null;
   private _bidiProxyUrl: string | null = null;
-  public proxyReqRes: (...args: any) => any;
 
   constructor(opts: InitialOpts = {} as InitialOpts) {
     super(opts);
@@ -48,6 +52,17 @@ export class GeckoDriver
     this.resetState();
   }
 
+  get gecko(): GeckoDriverServer {
+    if (!this._gecko) {
+      throw new Error('Gecko driver is not initialized');
+    }
+    return this._gecko;
+  }
+
+  override get bidiProxyUrl(): string | null {
+    return this._bidiProxyUrl;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   override proxyActive(sessionId?: string): boolean {
     return this.isProxyActive;
@@ -59,13 +74,6 @@ export class GeckoDriver
 
   override canProxy(): boolean {
     return true;
-  }
-
-  get gecko(): GeckoDriverServer {
-    if (!this._gecko) {
-      throw new Error('Gecko driver is not initialized');
-    }
-    return this._gecko;
   }
 
   override validateDesiredCaps(caps: any): caps is any {
@@ -112,10 +120,6 @@ export class GeckoDriver
     return [sessionId, processedCaps];
   }
 
-  override get bidiProxyUrl(): string | null {
-    return this._bidiProxyUrl;
-  }
-
   override async deleteSession(): Promise<void> {
     this.log.info('Ending Gecko Driver session');
     await this._gecko?.stop();
@@ -146,8 +150,6 @@ export class GeckoDriver
       return null;
     }
   }
-
-  findElOrEls = findCommands.findElOrEls;
 }
 
 export default GeckoDriver;
