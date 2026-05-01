@@ -173,9 +173,10 @@ export class GeckoProxy extends JWProxy {
 
 const RUNNING_PROCESS_IDS: (number | undefined)[] = [];
 const removeRunningProcessId = (pid: number): void => {
-  const idx = RUNNING_PROCESS_IDS.indexOf(pid);
-  if (idx >= 0) {
+  let idx = RUNNING_PROCESS_IDS.indexOf(pid);
+  while (idx >= 0) {
     RUNNING_PROCESS_IDS.splice(idx, 1);
+    idx = RUNNING_PROCESS_IDS.indexOf(pid);
   }
 };
 
