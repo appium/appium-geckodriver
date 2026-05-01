@@ -26,7 +26,6 @@ export class GeckoDriver
   extends BaseDriver<GeckoConstraints, StringRecord>
   implements ExternalDriver<GeckoConstraints, string, StringRecord>
 {
-
   public proxyReqRes: (...args: any) => any;
 
   findElOrEls = findCommands.findElOrEls;
