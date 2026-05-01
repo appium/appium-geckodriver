@@ -32,8 +32,6 @@ jobs:
         sudo update-rc.d xvfb defaults
         sudo service xvfb start
       name: Start X virtual frame buffer
-    - run: sudo apt-get install firefox
-      name: Install Firefox
     - run: |
         appium_ver=$(node -p "require('./package.json').peerDependencies?.appium")
         npm install -g "appium@$appium_ver"
