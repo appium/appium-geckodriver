@@ -124,7 +124,7 @@ async function listReleases() {
       const downloadUrl = asset?.browser_download_url;
       if (
         !assetName?.startsWith(ARCHIVE_NAME_PREFIX)
-        || !(assetName.endsWith(EXT_TAR_GZ) || assetName.endsWith(EXT_ZIP))
+        || !(assetName?.endsWith(EXT_TAR_GZ) || assetName?.endsWith(EXT_ZIP))
         || !downloadUrl
       ) {
         continue;
