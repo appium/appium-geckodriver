@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {fs, net, zip, tempDir} from 'appium/support';
 import tar from 'tar-stream';
 import zlib from 'node:zlib';
@@ -14,7 +13,7 @@ const GECKO_CAP_PREFIXES = ['moz:'] as const;
  */
 export function formatCapsForServer(caps: StringRecord): StringRecord {
   const result: StringRecord = {};
-  for (const [name, value] of _.toPairs(caps)) {
+  for (const [name, value] of Object.entries(caps)) {
     if (
       GECKO_CAP_PREFIXES.some((prefix) => name.startsWith(prefix)) ||
       STANDARD_CAPS.has(name as any)
@@ -27,7 +26,7 @@ export function formatCapsForServer(caps: StringRecord): StringRecord {
   }
   if (result.platformName) {
     // Geckodriver only supports lowercase platform names
-    result.platformName = _.toLower(result.platformName);
+    result.platformName = `${result.platformName}`.toLowerCase();
   }
   return result;
 }

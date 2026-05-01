@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import type {
   RouteMatcher,
   DefaultCreateSessionResult,
@@ -38,7 +37,7 @@ export class GeckoDriver
 
   constructor(opts: InitialOpts = {} as InitialOpts) {
     super(opts);
-    this.desiredCapConstraints = _.cloneDeep(desiredCapConstraints);
+    this.desiredCapConstraints = structuredClone(desiredCapConstraints);
     this.locatorStrategies = [
       'xpath',
       'tag name',
@@ -137,7 +136,7 @@ export class GeckoDriver
 
   private _extractWebSocketUrl(response: StringRecord): string | null {
     const webSocketUrl = (response?.capabilities as any)?.webSocketUrl;
-    if (_.isEmpty(webSocketUrl) || !_.isString(webSocketUrl)) {
+    if (typeof webSocketUrl !== 'string' || webSocketUrl.length === 0) {
       return null;
     }
     try {
