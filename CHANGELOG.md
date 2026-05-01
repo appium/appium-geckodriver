@@ -1,3 +1,9 @@
+## [2.2.2](https://github.com/appium/appium-geckodriver/compare/v2.2.1...v2.2.2) (2026-05-01)
+
+### Bug Fixes
+
+* lint ([#159](https://github.com/appium/appium-geckodriver/issues/159)) ([92b7a12](https://github.com/appium/appium-geckodriver/commit/92b7a127b3729cc45e034ce0a08025039e444219))
+
 ## [2.2.1](https://github.com/appium/appium-geckodriver/compare/v2.2.0...v2.2.1) (2026-04-10)
 
 ### Miscellaneous Chores
