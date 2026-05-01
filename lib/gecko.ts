@@ -24,20 +24,6 @@ export interface SessionOptions {
   reqBasePath?: string;
 }
 
-export class GeckoProxy extends JWProxy {
-  didProcessExit?: boolean;
-
-  override async proxyCommand(url: string, method: HTTPMethod, body: HTTPBody = null) {
-    if (this.didProcessExit) {
-      throw new errors.InvalidContextError(
-        `'${method} ${url}' cannot be proxied to Gecko Driver server because ` +
-          'its process is not running (probably crashed). Check the Appium log for more details',
-      );
-    }
-    return await super.proxyCommand(url, method, body);
-  }
-}
-
 class GeckoDriverProcess {
   private readonly noReset?: boolean;
   private readonly verbosity?: string;
@@ -169,6 +155,20 @@ class GeckoDriverProcess {
           `Please make sure it is present on your system`,
       );
     }
+  }
+}
+
+export class GeckoProxy extends JWProxy {
+  didProcessExit?: boolean;
+
+  override async proxyCommand(url: string, method: HTTPMethod, body: HTTPBody = null) {
+    if (this.didProcessExit) {
+      throw new errors.InvalidContextError(
+        `'${method} ${url}' cannot be proxied to Gecko Driver server because ` +
+          'its process is not running (probably crashed). Check the Appium log for more details',
+      );
+    }
+    return await super.proxyCommand(url, method, body);
   }
 }
 

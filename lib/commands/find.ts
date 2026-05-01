@@ -1,7 +1,16 @@
 import {util} from 'appium/support';
 import type {GeckoDriver} from '../driver';
 
-// This is needed to make lookup by image working
+/**
+ * Find element(s) by given strategy and selector. If context is provided, search will be performed within the context element.
+ * This is needed to make lookup by image working.
+ * @this GeckoDriver
+ * @param strategy - The strategy to use for finding the element(s) (e.g., 'css selector', 'xpath', etc.)
+ * @param selector - The selector to use for finding the element(s)
+ * @param mult - Whether to find multiple elements (true) or a single element (false)
+ * @param context - Optional context element ID to search within
+ * @returns A promise that resolves to the found element(s)
+ */
 export async function findElOrEls(
   this: GeckoDriver,
   strategy: string,
