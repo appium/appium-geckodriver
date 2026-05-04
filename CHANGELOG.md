@@ -1,3 +1,9 @@
+## [2.2.3](https://github.com/appium/appium-geckodriver/compare/v2.2.2...v2.2.3) (2026-05-04)
+
+### Miscellaneous Chores
+
+* remove lodash ([#160](https://github.com/appium/appium-geckodriver/issues/160)) ([6a4b9b6](https://github.com/appium/appium-geckodriver/commit/6a4b9b6051dcb4ed21361f6764e174645c8b9a0e))
+
 ## [2.2.2](https://github.com/appium/appium-geckodriver/compare/v2.2.1...v2.2.2) (2026-05-01)
 
 ### Bug Fixes
