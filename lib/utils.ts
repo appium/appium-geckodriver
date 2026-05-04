@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {fs, net, zip, tempDir} from 'appium/support';
 import tar from 'tar-stream';
 import zlib from 'node:zlib';
@@ -14,7 +13,7 @@ const GECKO_CAP_PREFIXES = ['moz:'] as const;
  */
 export function formatCapsForServer(caps: StringRecord): StringRecord {
   const result: StringRecord = {};
-  for (const [name, value] of _.toPairs(caps)) {
+  for (const [name, value] of Object.entries(caps)) {
     if (
       GECKO_CAP_PREFIXES.some((prefix) => name.startsWith(prefix)) ||
       STANDARD_CAPS.has(name as any)
@@ -27,7 +26,7 @@ export function formatCapsForServer(caps: StringRecord): StringRecord {
   }
   if (result.platformName) {
     // Geckodriver only supports lowercase platform names
-    result.platformName = _.toLower(result.platformName);
+    result.platformName = result.platformName.toLowerCase();
   }
   return result;
 }
@@ -50,7 +49,7 @@ export async function mkdirp(p: string): Promise<void> {
  * Extract a specific file from a tar.gz archive
  */
 export async function extractFileFromTarGz(
-  srcAcrhive: string,
+  srcArchive: string,
   fileToExtract: string,
   dstPath: string,
 ): Promise<void> {
@@ -79,7 +78,7 @@ export async function extractFileFromTarGz(
       } else {
         return reject(
           new Error(
-            `The file '${fileToExtract}' could not be found in the '${srcAcrhive}' archive`,
+            `The file '${fileToExtract}' could not be found in the '${srcArchive}' archive`,
           ),
         );
       }
@@ -87,7 +86,7 @@ export async function extractFileFromTarGz(
     });
   });
 
-  fs.createReadStream(srcAcrhive).pipe(zlib.createGunzip()).pipe(extract);
+  fs.createReadStream(srcArchive).pipe(zlib.createGunzip()).pipe(extract);
 
   await extractPromise;
 }
@@ -96,12 +95,12 @@ export async function extractFileFromTarGz(
  * Extract a specific file from a zip archive
  */
 export async function extractFileFromZip(
-  srcAcrhive: string,
+  srcArchive: string,
   fileToExtract: string,
   dstPath: string,
 ): Promise<void> {
   let didFindEntry = false;
-  await zip.readEntries(srcAcrhive, async ({entry, extractEntryTo}) => {
+  await zip.readEntries(srcArchive, async ({entry, extractEntryTo}) => {
     if (didFindEntry || entry.fileName !== fileToExtract) {
       return;
     }
@@ -117,7 +116,7 @@ export async function extractFileFromZip(
   });
   if (!didFindEntry) {
     throw new Error(
-      `The file '${fileToExtract}' could not be found in the '${srcAcrhive}' archive`,
+      `The file '${fileToExtract}' could not be found in the '${srcArchive}' archive`,
     );
   }
 }

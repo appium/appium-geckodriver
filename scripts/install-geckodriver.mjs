@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as semver from 'semver';
-import _ from 'lodash';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
 import { log } from '../build/lib/logger.js';
@@ -21,7 +20,8 @@ const API_TIMEOUT_MS = 45 * 1000;
 const STABLE_VERSION = 'stable';
 const EXT_TAR_GZ = '.tar.gz';
 const EXT_ZIP = '.zip';
-const EXT_REGEXP = new RegExp(`(${_.escapeRegExp(EXT_TAR_GZ)}|${_.escapeRegExp(EXT_ZIP)})$`);
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const EXT_REGEXP = new RegExp(`(${escapeRegExp(EXT_TAR_GZ)}|${escapeRegExp(EXT_ZIP)})$`);
 const ARCHIVE_NAME_PREFIX = 'geckodriver-v';
 const ARCH_MAPPING = Object.freeze({
   ia32: '32',
@@ -56,7 +56,7 @@ function parseNextPageUrl(headers) {
   }
 
   for (const part of headers.link.split(';')) {
-    const [rel, pageUrl] = part.split(',').map(_.trim);
+    const [rel, pageUrl] = part.split(',').map((item) => item.trim());
     if (rel === 'rel="next"' && pageUrl) {
       return pageUrl.replace(/^<|>$/g, '');
     }
@@ -123,8 +123,8 @@ async function listReleases() {
       const assetName = asset?.name;
       const downloadUrl = asset?.browser_download_url;
       if (
-        !_.startsWith(assetName, ARCHIVE_NAME_PREFIX)
-        || !(_.endsWith(assetName, EXT_TAR_GZ) || _.endsWith(assetName, EXT_ZIP))
+        !assetName?.startsWith(ARCHIVE_NAME_PREFIX)
+        || !(assetName?.endsWith(EXT_TAR_GZ) || assetName?.endsWith(EXT_ZIP))
         || !downloadUrl
       ) {
         continue;
@@ -154,7 +154,7 @@ function selectRelease(releases, version) {
     const stableReleasesAsc = releases
       .filter(({isDraft, isPrerelease}) => !isDraft && !isPrerelease)
       .toSorted((a, b) => a.version.compare(b.version));
-    const dstRelease = _.last(stableReleasesAsc);
+    const dstRelease = stableReleasesAsc.at(-1);
     if (!dstRelease) {
       throw new Error(`Cannot find any stable GeckoDriver release: ${JSON.stringify(releases)}`);
     }
@@ -180,7 +180,7 @@ function selectRelease(releases, version) {
  * @returns {ReleaseAsset}
  */
 function selectAsset(release) {
-  if (_.isEmpty(release.assets)) {
+  if (release.assets.length === 0) {
     throw new Error(`GeckoDriver v${release.version} does not contain any matching releases`);
   }
   const dstPlatform = PLATFORM_MAPPING[process.platform];
@@ -189,7 +189,7 @@ function selectAsset(release) {
   /** @type {(filterFunc: (string) => boolean) => null|ReleaseAsset}  */
   const findAssetMatch = (filterFunc) => {
     for (const asset of release.assets) {
-      if (!dstPlatform || !_.includes(asset.name, `-${dstPlatform}`)) {
+      if (!dstPlatform || !asset.name.includes(`-${dstPlatform}`)) {
         continue;
       }
       const nameWoExt = asset.name.replace(EXT_REGEXP, '');
@@ -203,8 +203,8 @@ function selectAsset(release) {
   // Try to find an exact match
   const exactMatch = findAssetMatch(
     (nameWoExt) =>
-      (dstArch === 'aarch64' && _.endsWith(nameWoExt, `-${dstArch}`))
-      || (['64', '32'].includes(dstArch) && _.endsWith(nameWoExt, `-${dstPlatform}${dstArch}`))
+      (dstArch === 'aarch64' && nameWoExt.endsWith(`-${dstArch}`))
+      || (['64', '32'].includes(dstArch) && nameWoExt.endsWith(`-${dstPlatform}${dstArch}`))
   );
   if (exactMatch) {
     return exactMatch;
@@ -212,8 +212,8 @@ function selectAsset(release) {
   // If no exact match has been been found then try a loose one
   const looseMatch = findAssetMatch(
     (nameWoExt) =>
-      _.endsWith(nameWoExt, `-${dstPlatform}`)
-      || (dstArch === '64' && _.endsWith(nameWoExt, `-${dstPlatform}32`))
+      nameWoExt.endsWith(`-${dstPlatform}`)
+      || (dstArch === '64' && nameWoExt.endsWith(`-${dstPlatform}32`))
   );
   if (looseMatch) {
     return looseMatch;

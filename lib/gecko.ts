@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import os from 'node:os';
 import path from 'node:path';
 import {JWProxy, errors} from 'appium/driver';
@@ -79,7 +78,7 @@ class GeckoDriverProcess {
     const driverBin = await this.resolveGeckodriverBinary();
     const args: string[] = [];
     /* #region Options */
-    switch (_.toLower(this.verbosity)) {
+    switch (this.verbosity?.toLowerCase()) {
       case VERBOSITY.DEBUG:
         args.push('-v');
         break;
@@ -90,7 +89,7 @@ class GeckoDriverProcess {
     if (this.noReset) {
       args.push('--connect-existing');
       // https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html#code-connect-existing-code
-      if (_.isNil(this.marionettePort)) {
+      if (this.marionettePort == null) {
         this.log.info(
           `'marionettePort' capability value is not provided while 'noReset' is enabled`,
         );
@@ -99,7 +98,7 @@ class GeckoDriverProcess {
         );
       }
       args.push('--marionette-port', `${this.marionettePort ?? DEFAULT_MARIONETTE_PORT}`);
-    } else if (!_.isNil(this.marionettePort)) {
+    } else if (this.marionettePort != null) {
       args.push('--marionette-port', `${this.marionettePort}`);
     }
     /* #endregion */
@@ -110,7 +109,7 @@ class GeckoDriverProcess {
     }
     this._proc = new SubProcess(driverBin, args);
     this._proc.on('output', (stdout, stderr) => {
-      const line = _.trim(stdout || stderr);
+      const line = (stdout || stderr).trim();
       if (line) {
         this.log.debug(`[${GD_BINARY}] ${line}`);
       }
@@ -173,8 +172,16 @@ export class GeckoProxy extends JWProxy {
 }
 
 const RUNNING_PROCESS_IDS: (number | undefined)[] = [];
+const removeRunningProcessId = (pid: number): void => {
+  let idx = RUNNING_PROCESS_IDS.indexOf(pid);
+  while (idx >= 0) {
+    RUNNING_PROCESS_IDS.splice(idx, 1);
+    idx = RUNNING_PROCESS_IDS.indexOf(pid);
+  }
+};
+
 process.once('exit', () => {
-  if (_.isEmpty(RUNNING_PROCESS_IDS)) {
+  if (RUNNING_PROCESS_IDS.length === 0) {
     return;
   }
 
@@ -266,7 +273,7 @@ export class GeckoDriverServer {
     const pid = this._process.proc?.pid;
     if (pid) {
       RUNNING_PROCESS_IDS.push(pid);
-      this._process.proc?.on('exit', () => void _.pull(RUNNING_PROCESS_IDS, pid));
+      this._process.proc?.on('exit', () => removeRunningProcessId(pid));
     }
 
     return (await this._proxy.command('/session', 'POST', {
