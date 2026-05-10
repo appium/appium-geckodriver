@@ -247,7 +247,7 @@ export class GeckoDriverServer {
             return true;
           } catch (err: any) {
             if (this._proxy?.didProcessExit) {
-              throw new Error(err.message);
+              throw new Error(err.message, {cause: err});
             }
             return false;
           }
@@ -266,6 +266,7 @@ export class GeckoDriverServer {
         throw new Error(
           `Gecko Driver server is not listening within ${STARTUP_TIMEOUT_MS}ms timeout. ` +
             `Make sure it could be started manually from a terminal`,
+          {cause: e},
         );
       }
       throw e;
