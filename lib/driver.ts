@@ -26,7 +26,7 @@ export class GeckoDriver
   extends BaseDriver<GeckoConstraints, StringRecord>
   implements ExternalDriver<GeckoConstraints, string, StringRecord>
 {
-  public proxyReqRes: (...args: any) => any;
+  public proxyReqRes: (...args: any) => any = null as any;
 
   findElOrEls = findCommands.findElOrEls;
 
@@ -100,7 +100,7 @@ export class GeckoDriver
   ): Promise<DefaultCreateSessionResult<GeckoConstraints>> {
     const [sessionId, processedCaps] = await super.createSession(w3cCaps1, w3cCaps2, ...args);
     this._gecko = new GeckoDriverServer(this.log, processedCaps);
-    let response: StringRecord | null = null;
+    let response: StringRecord;
     try {
       response = await this._gecko.start(formatCapsForServer(processedCaps), {
         reqBasePath: this.basePath,
@@ -144,7 +144,8 @@ export class GeckoDriver
         ? webSocketUrl.replace(asUrl.host, GECKO_SERVER_HOST)
         : webSocketUrl;
     } catch (e) {
-      this.log.warn(`Failed to parse WebSocket URL from '${webSocketUrl}': ${e.message}`);
+      const msg = e instanceof Error ? e.message : String(e);
+      this.log.warn(`Failed to parse WebSocket URL from '${webSocketUrl}': ${msg}`);
       return null;
     }
   }

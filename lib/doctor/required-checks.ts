@@ -1,12 +1,12 @@
 import {resolveExecutablePath} from './utils';
 import {system, doctor} from '@appium/support';
-import type {IDoctorCheck} from '@appium/types';
+import type {AppiumLogger, IDoctorCheck} from '@appium/types';
 
 const GD_DOWNLOAD_LINK = 'https://github.com/mozilla/geckodriver/releases';
 const GD_BINARY = `geckodriver${system.isWindows() ? '.exe' : ''}`;
 
 export class GeckodriverCheck implements IDoctorCheck {
-  log!: import('@appium/types').AppiumLogger;
+  log!: AppiumLogger;
 
   async diagnose() {
     const gdPath = await resolveExecutablePath(GD_BINARY);
