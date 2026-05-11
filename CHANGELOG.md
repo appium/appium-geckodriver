@@ -1,3 +1,9 @@
+## [2.2.4](https://github.com/appium/appium-geckodriver/compare/v2.2.3...v2.2.4) (2026-05-11)
+
+### Miscellaneous Chores
+
+* Enable strict TS mode ([#162](https://github.com/appium/appium-geckodriver/issues/162)) ([d6f500a](https://github.com/appium/appium-geckodriver/commit/d6f500a8117dc1ed081859b9427eaf572ad9e0df))
+
 ## [2.2.3](https://github.com/appium/appium-geckodriver/compare/v2.2.2...v2.2.3) (2026-05-04)
 
 ### Miscellaneous Chores
