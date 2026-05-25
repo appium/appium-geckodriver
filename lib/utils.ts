@@ -1,7 +1,6 @@
 import {fs, net, zip, tempDir} from 'appium/support';
 import tar from 'tar-stream';
 import zlib from 'node:zlib';
-import B from 'bluebird';
 import path from 'node:path';
 import type {StringRecord} from '@appium/types';
 import {STANDARD_CAPS} from 'appium/driver';
@@ -55,7 +54,7 @@ export async function extractFileFromTarGz(
 ): Promise<void> {
   const chunks: Buffer[] = [];
   const extract = tar.extract();
-  const extractPromise = new B<void>((resolve, reject) => {
+  const extractPromise = new Promise<void>((resolve, reject) => {
     extract.on('entry', (header, stream, next) => {
       if (header.name === fileToExtract) {
         stream.on('data', (chunk: Buffer) => {
