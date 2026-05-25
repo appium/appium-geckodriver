@@ -1,3 +1,9 @@
+## [2.2.6](https://github.com/appium/appium-geckodriver/compare/v2.2.5...v2.2.6) (2026-05-25)
+
+### Miscellaneous Chores
+
+* Ditch bluebird ([#164](https://github.com/appium/appium-geckodriver/issues/164)) ([d37b6a0](https://github.com/appium/appium-geckodriver/commit/d37b6a029176bd783c55a4aff4b8e425ac8a1939))
+
 ## [2.2.5](https://github.com/appium/appium-geckodriver/compare/v2.2.4...v2.2.5) (2026-05-22)
 
 ### Miscellaneous Chores
