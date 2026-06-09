@@ -41,6 +41,8 @@ class GeckodriverReleaseCatalog {
     darwin: 'macos',
     linux: 'linux',
   });
+  static SUPPORTED_PLATFORMS = Object.keys(GeckodriverReleaseCatalog.PLATFORM_MAPPING).join(', ');
+  static SUPPORTED_ARCHITECTURES = Object.keys(GeckodriverReleaseCatalog.ARCH_MAPPING).join(', ');
 
   /**
    * https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#list-releases
@@ -137,13 +139,25 @@ class GeckodriverReleaseCatalog {
       throw new Error(`GeckoDriver v${release.version} does not contain any matching releases`);
     }
     const dstPlatform = GeckodriverReleaseCatalog.PLATFORM_MAPPING[process.platform];
+    if (!dstPlatform) {
+      throw new Error(
+        `GeckoDriver does not support the ${process.platform} platform. ` +
+        `Supported platforms: ${GeckodriverReleaseCatalog.SUPPORTED_PLATFORMS}.`
+      );
+    }
     const dstArch = GeckodriverReleaseCatalog.ARCH_MAPPING[process.arch];
+    if (!dstArch) {
+      throw new Error(
+        `GeckoDriver does not support the ${process.arch} architecture. ` +
+        `Supported architectures: ${GeckodriverReleaseCatalog.SUPPORTED_ARCHITECTURES}.`
+      );
+    }
     log.info(`Operating system: ${process.platform}@${process.arch}`);
 
     /** @type {(filterFunc: (string) => boolean) => null|ReleaseAsset} */
     const findAssetMatch = (filterFunc) => {
       for (const asset of release.assets) {
-        if (!dstPlatform || !asset.name.includes(`-${dstPlatform}`)) {
+        if (!asset.name.includes(`-${dstPlatform}`)) {
           continue;
         }
         const nameWoExt = asset.name.replace(EXT_REGEXP, '');
@@ -185,8 +199,8 @@ class GeckodriverReleaseCatalog {
       return null;
     }
 
-    for (const part of headers.link.split(';')) {
-      const [rel, pageUrl] = part.split(',').map((item) => item.trim());
+    for (const linkPart of headers.link.split(',')) {
+      const [pageUrl, rel] = linkPart.split(';').map((item) => item.trim());
       if (rel === 'rel="next"' && pageUrl) {
         return pageUrl.replace(/^<|>$/g, '');
       }
@@ -267,6 +281,34 @@ class GeckodriverInstallPath {
   }
 
   /**
+   * @param {string} dirPath
+   * @returns {Promise<boolean>}
+   */
+  async #directoryExists(dirPath) {
+    try {
+      const stats = await fs.stat(dirPath);
+      return stats.isDirectory();
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * @returns {Promise<string[]>}
+   */
+  async #getDarwinCandidates() {
+    const candidates = [
+      path.join('/usr', 'local', 'bin'),
+      path.join(homedir(), '.local', 'bin'),
+    ];
+    const homebrewBin = path.join('/opt', 'homebrew', 'bin');
+    if (await this.#directoryExists(homebrewBin)) {
+      candidates.unshift(homebrewBin);
+    }
+    return candidates;
+  }
+
+  /**
    * @param {string[]} candidates
    * @returns {Promise<string>}
    */
@@ -294,15 +336,11 @@ class GeckodriverInstallPath {
           path.join(homedir(), '.local', 'bin'),
         ]);
       case 'darwin':
-        return this.#selectFromCandidates([
-          path.join('/opt', 'homebrew', 'bin'),
-          path.join('/usr', 'local', 'bin'),
-          path.join(homedir(), '.local', 'bin'),
-        ]);
+        return this.#selectFromCandidates(await this.#getDarwinCandidates());
       default:
         throw new Error(
           `GeckoDriver does not support the ${process.platform} platform. ` +
-          `Only Linux, Windows and macOS are supported.`
+          `Supported platforms: ${GeckodriverReleaseCatalog.SUPPORTED_PLATFORMS}.`
         );
     }
   }
