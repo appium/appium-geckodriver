@@ -1,26 +1,27 @@
-import {formatCapsForServer} from '../../lib/utils';
-import {expect} from 'chai';
+import {describe, it} from 'node:test';
+import assert from 'node:assert/strict';
+import {formatCapsForServer} from '../../lib/utils.js';
 
-describe('formatCapsForServer', function () {
-  it('should format empty caps', function () {
+describe('formatCapsForServer', () => {
+  it('should format empty caps', () => {
     const result = formatCapsForServer({});
-    expect(result).to.eql({});
+    assert.deepEqual(result, {});
   });
 
-  it('should assign default caps', function () {
+  it('should assign default caps', () => {
     const result = formatCapsForServer({
       browserName: 'yolo',
       browserVersion: '52',
       platformName: 'Mac',
     });
-    expect(result).to.eql({
+    assert.deepEqual(result, {
       browserName: 'firefox',
       browserVersion: '52',
       platformName: 'mac',
     });
   });
 
-  it('should only pass caps with supported prefixes', function () {
+  it('should only pass caps with supported prefixes', () => {
     const result = formatCapsForServer({
       browserVersion: '52',
       bar: '67',
@@ -28,7 +29,7 @@ describe('formatCapsForServer', function () {
       'webkit:yolo': '567',
       'appium:bar': '789',
     });
-    expect(result).to.eql({
+    assert.deepEqual(result, {
       browserVersion: '52',
       'moz:foo': '1234',
     });

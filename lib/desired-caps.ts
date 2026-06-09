@@ -1,5 +1,5 @@
 import type {Constraints} from '@appium/types';
-import {VERBOSITY} from './constants';
+import {VERBOSITY} from './constants.js';
 
 const DESIRED_CAP_CONSTRAINTS = {
   browserName: {

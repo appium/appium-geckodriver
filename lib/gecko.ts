@@ -1,13 +1,13 @@
 import os from 'node:os';
 import path from 'node:path';
-import {JWProxy, errors} from 'appium/driver';
-import {fs, util, system} from 'appium/support';
+import {JWProxy, errors} from 'appium/driver.js';
+import {fs, util, system} from 'appium/support.js';
 import {SubProcess} from 'teen_process';
 import {waitForCondition} from 'asyncbox';
 import {findAPortNotInUse} from 'portscanner';
 import {execSync} from 'node:child_process';
 import type {AppiumLogger, StringRecord, HTTPMethod, HTTPBody} from '@appium/types';
-import {VERBOSITY} from './constants';
+import {VERBOSITY} from './constants.js';
 
 const GD_BINARY = `geckodriver${system.isWindows() ? '.exe' : ''}`;
 const STARTUP_TIMEOUT_MS = 10000; // 10 seconds

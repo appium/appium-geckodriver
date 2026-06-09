@@ -1,5 +1,5 @@
-import {util} from 'appium/support';
-import type {GeckoDriver} from '../driver';
+import {util} from 'appium/support.js';
+import type {GeckoDriver} from '../driver.js';
 
 /**
  * Find element(s) by given strategy and selector. If context is provided, search will be performed within the context element.

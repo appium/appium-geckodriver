@@ -6,12 +6,12 @@ import type {
   ExternalDriver,
   W3CDriverCaps,
 } from '@appium/types';
-import {BaseDriver, errors} from 'appium/driver';
-import {GECKO_SERVER_HOST, GeckoDriverServer} from './gecko';
-import {desiredCapConstraints} from './desired-caps';
-import {INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE} from './constants';
-import * as findCommands from './commands/find';
-import {formatCapsForServer} from './utils';
+import {BaseDriver, errors} from 'appium/driver.js';
+import {GECKO_SERVER_HOST, GeckoDriverServer} from './gecko.js';
+import {desiredCapConstraints} from './desired-caps.js';
+import {INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE} from './constants.js';
+import * as findCommands from './commands/find.js';
+import {formatCapsForServer} from './utils.js';
 
 const NO_PROXY: RouteMatcher[] = [
   ['GET', new RegExp('^/session/[^/]+/appium')],
