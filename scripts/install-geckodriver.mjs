@@ -281,34 +281,6 @@ class GeckodriverInstallPath {
   }
 
   /**
-   * @param {string} dirPath
-   * @returns {Promise<boolean>}
-   */
-  async #directoryExists(dirPath) {
-    try {
-      const stats = await fs.stat(dirPath);
-      return stats.isDirectory();
-    } catch {
-      return false;
-    }
-  }
-
-  /**
-   * @returns {Promise<string[]>}
-   */
-  async #getDarwinCandidates() {
-    const candidates = [
-      path.join('/usr', 'local', 'bin'),
-      path.join(homedir(), '.local', 'bin'),
-    ];
-    const homebrewBin = path.join('/opt', 'homebrew', 'bin');
-    if (await this.#directoryExists(homebrewBin)) {
-      candidates.unshift(homebrewBin);
-    }
-    return candidates;
-  }
-
-  /**
    * @param {string[]} candidates
    * @returns {Promise<string>}
    */
@@ -336,7 +308,10 @@ class GeckodriverInstallPath {
           path.join(homedir(), '.local', 'bin'),
         ]);
       case 'darwin':
-        return this.#selectFromCandidates(await this.#getDarwinCandidates());
+        return this.#selectFromCandidates([
+          path.join('/usr', 'local', 'bin'),
+          path.join(homedir(), '.local', 'bin'),
+        ]);
       default:
         throw new Error(
           `GeckoDriver does not support the ${process.platform} platform. ` +
@@ -457,9 +432,8 @@ EXAMPLES:
   appium driver run gecko install-geckodriver --dest ~/.local/bin
 
 NOTE:
-  On macOS, the default location is the first writable directory among:
-  /opt/homebrew/bin, /usr/local/bin, and ~/.local/bin.
-  On Linux, the default location is /usr/local/bin or ~/.local/bin.
+  On macOS and Linux, the default location is the first writable directory among:
+  /usr/local/bin and ~/.local/bin.
   On Windows, the default location is %LOCALAPPDATA%\\Mozilla.`
     )
     .action(async (version, options) => {
