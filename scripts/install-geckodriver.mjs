@@ -303,10 +303,6 @@ class GeckodriverInstallPath {
       case 'win32':
         return path.join(process.env.LOCALAPPDATA, 'Mozilla');
       case 'linux':
-        return this.#selectFromCandidates([
-          path.join('/usr', 'local', 'bin'),
-          path.join(homedir(), '.local', 'bin'),
-        ]);
       case 'darwin':
         return this.#selectFromCandidates([
           path.join('/usr', 'local', 'bin'),
