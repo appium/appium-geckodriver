@@ -1,3 +1,9 @@
+## [2.4.0](https://github.com/appium/appium-geckodriver/compare/v2.3.0...v2.4.0) (2026-06-10)
+
+### Features
+
+* improve geckodriver install script CLI and destination resolution ([#166](https://github.com/appium/appium-geckodriver/issues/166)) ([52c4c3c](https://github.com/appium/appium-geckodriver/commit/52c4c3ce048993b20d07935fca5030eeec6e3cb5))
+
 ## [2.3.0](https://github.com/appium/appium-geckodriver/compare/v2.2.6...v2.3.0) (2026-06-10)
 
 ### Features
