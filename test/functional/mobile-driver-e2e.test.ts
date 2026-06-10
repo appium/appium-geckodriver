@@ -1,11 +1,9 @@
+import {describe, it, beforeEach, afterEach} from 'node:test';
+import assert from 'node:assert/strict';
 import {remote} from 'webdriverio';
-import {HOST, PORT, MOCHA_TIMEOUT, getPlatformName} from '../utils';
+import {HOST, PORT, TEST_TIMEOUT, getPlatformName} from '../utils.js';
 import {waitForCondition} from 'asyncbox';
 import type {Browser} from 'webdriverio';
-import * as chai from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
-
-chai.use(chaiAsPromised.default);
 
 const DEVICE_NAME = process.env.DEVICE_NAME || 'emulator-5554';
 // The Firefox binary could be retrieved from https://www.mozilla.org/en-GB/firefox/all/#product-android-release
@@ -20,32 +18,26 @@ const CAPS = {
   'appium:androidStorage': 'internal',
 } as any;
 
-describe('Mobile GeckoDriver', function () {
-  this.timeout(MOCHA_TIMEOUT);
+const describeMobile = process.env.CI ? describe.skip : describe;
 
+describeMobile('Mobile GeckoDriver', {timeout: TEST_TIMEOUT}, () => {
   let driver: Browser | null = null;
 
-  before(async function () {
-    if (process.env.CI) {
-      // Figure out a way to run this on Azure
-      return this.skip();
-    }
-  });
-  beforeEach(async function () {
+  beforeEach(async () => {
     driver = await remote({
       hostname: HOST,
       port: PORT,
       capabilities: CAPS,
     });
   });
-  afterEach(async function () {
+  afterEach(async () => {
     if (driver) {
       await driver.deleteSession();
       driver = null;
     }
   });
 
-  it('should start and stop a session', async function () {
+  it('should start and stop a session', async () => {
     await driver!.url('https://appium.io/');
     try {
       await waitForCondition(
@@ -63,7 +55,7 @@ describe('Mobile GeckoDriver', function () {
         },
       );
     } catch {
-      this.fail('Timeout waiting for download button to load');
+      assert.fail('Timeout waiting for download button to load');
     }
   });
 });

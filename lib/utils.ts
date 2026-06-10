@@ -1,9 +1,9 @@
-import {fs, net, zip, tempDir} from 'appium/support';
+import {fs, net, zip, tempDir} from 'appium/support.js';
 import tar from 'tar-stream';
 import zlib from 'node:zlib';
 import path from 'node:path';
 import type {StringRecord} from '@appium/types';
-import {STANDARD_CAPS} from 'appium/driver';
+import {STANDARD_CAPS} from 'appium/driver.js';
 
 const GECKO_CAP_PREFIXES = ['moz:'] as const;
 

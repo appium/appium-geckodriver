@@ -1,4 +1,4 @@
-import {resolveExecutablePath} from './utils';
+import {resolveExecutablePath} from './utils.js';
 import {system, doctor} from '@appium/support';
 import type {AppiumLogger, IDoctorCheck} from '@appium/types';
 
