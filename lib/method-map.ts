@@ -18,7 +18,11 @@ export const newMethodMap = {
   '/session/:sessionId/moz/addon/install': {
     POST: {
       command: 'installAddon',
-      payloadParams: {required: ['addon'], optional: ['temporary', 'allowPrivateBrowsing']},
+      payloadParams: {
+        validate: (payloadData) =>
+          !payloadData.addon && !payloadData.path && "Either 'addon' or 'path' must be provided",
+        optional: ['addon', 'path', 'temporary', 'allowPrivateBrowsing'],
+      },
     },
   },
   '/session/:sessionId/moz/addon/uninstall': {
