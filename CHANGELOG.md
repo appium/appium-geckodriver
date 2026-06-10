@@ -1,3 +1,9 @@
+## [2.3.0](https://github.com/appium/appium-geckodriver/compare/v2.2.6...v2.3.0) (2026-06-10)
+
+### Features
+
+* add 5 Firefox WebDriver endpoints ([#167](https://github.com/appium/appium-geckodriver/issues/167)) ([7811050](https://github.com/appium/appium-geckodriver/commit/7811050feb14c35f5aa2dfc6b9ee8e759bc63fb8))
+
 ## [2.2.6](https://github.com/appium/appium-geckodriver/compare/v2.2.5...v2.2.6) (2026-05-25)
 
 ### Miscellaneous Chores

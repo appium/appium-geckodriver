@@ -7,7 +7,7 @@
     "seamonkey",
     "firefox"
   ],
-  "version": "2.2.6",
+  "version": "2.3.0",
   "author": "Appium Contributors",
   "license": "Apache-2.0",
   "repository": {
@@ -68,6 +68,7 @@
     "appium-adb": "^15.0.0",
     "asyncbox": "^6.3.0",
     "axios": "^1.16.1",
+    "commander": "^14.0.3",
     "portscanner": "^2.2.0",
     "semver": "^7.6.3",
     "tar-stream": "^3.1.7",

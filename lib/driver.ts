@@ -9,6 +9,7 @@ import type {
 import {BaseDriver, errors} from 'appium/driver.js';
 import {GECKO_SERVER_HOST, GeckoDriverServer} from './gecko.js';
 import {desiredCapConstraints} from './desired-caps.js';
+import {newMethodMap} from './method-map.js';
 import {INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE} from './constants.js';
 import * as findCommands from './commands/find.js';
 import {formatCapsForServer} from './utils.js';
@@ -26,6 +27,8 @@ export class GeckoDriver
   extends BaseDriver<GeckoConstraints, StringRecord>
   implements ExternalDriver<GeckoConstraints, string, StringRecord>
 {
+  static newMethodMap = newMethodMap;
+
   public proxyReqRes: (...args: any) => any = null as any;
 
   findElOrEls = findCommands.findElOrEls;
