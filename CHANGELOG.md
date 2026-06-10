@@ -1,3 +1,13 @@
+## [3.0.0](https://github.com/appium/appium-geckodriver/compare/v2.4.0...v3.0.0) (2026-06-10)
+
+### ⚠ BREAKING CHANGES
+
+* Migrate the package to native ESM ("type": "module", exports map, NodeNext TypeScript output, .js import extensions, appium/driver.js / appium/support.js subpath imports). Consumers using require() against deep/internal paths will need to switch to ESM import or use the published exports entry point.
+
+### Features
+
+* Migrate package to ESM ([#165](https://github.com/appium/appium-geckodriver/issues/165)) ([47e77ed](https://github.com/appium/appium-geckodriver/commit/47e77ed964b07863d9eb0ccf24b16ed32c7a7d37))
+
 ## [2.4.0](https://github.com/appium/appium-geckodriver/compare/v2.3.0...v2.4.0) (2026-06-10)
 
 ### Features
