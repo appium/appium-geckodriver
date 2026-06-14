@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/appium/appium-geckodriver/compare/v3.0.0...v3.0.1) (2026-06-14)
+
+### Bug Fixes
+
+* Export package.json ([#169](https://github.com/appium/appium-geckodriver/issues/169)) ([8080867](https://github.com/appium/appium-geckodriver/commit/8080867e54418f76dbe3aca03b1399f1643e5199))
+
 ## [3.0.0](https://github.com/appium/appium-geckodriver/compare/v2.4.0...v3.0.0) (2026-06-10)
 
 ### ⚠ BREAKING CHANGES
