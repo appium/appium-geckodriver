@@ -12,8 +12,10 @@ There are four primary requirements to use Appium Geckodriver:
 * macOS, Windows or Linux host machine
 * Appium
 * Gecko-based web browser (desktop or Android), or an Android hybrid application with a Gecko-based webview
-* `geckodriver` binary on the host machine system path
-    * Since driver version 1.4.0, you can use the [`install-geckodriver`](../reference/scripts.md) driver script to automate this process
+* `geckodriver` binary accessible from the host machine PATH
+    * Since driver version 1.4.0, you can use the [`install-geckodriver`](../reference/scripts.md) driver script to download and set up the binary
+    * For older driver versions, the binary can be downloaded from its [GitHub releases page](https://github.com/mozilla/geckodriver/releases). macOS users may need to run `xattr -cr "<binary_path>"` to [avoid notarization issues](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html).
+
 
 If running tests on an Android device, additional requirements apply:
 
