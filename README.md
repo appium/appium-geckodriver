@@ -19,7 +19,7 @@
 <p align="center"><b>
    <a href="https://appium.github.io/appium-geckodriver/">Documentation</a> |
    <a href="https://appium.github.io/appium-geckodriver/latest/getting-started/">Get Started</a> |
-   <a href="https://github.com/appium/appium-geckodriver/blob/main/CHANGELOG.md">Changelog</a>
+   <a href="https://github.com/appium/appium-geckodriver/blob/master/CHANGELOG.md">Changelog</a>
 </b></p>
 
 ---
