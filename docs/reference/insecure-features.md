@@ -20,4 +20,4 @@ For other insecure feature names recognized by the Appium server, see
 
 |<div style="width:16em">Feature Name</div>|Description|
 |------------|-----------|
-|`custom_geckodriver_executable`|Allow specifying a custom `geckodriver` installation directory using the [`appium:geckodriverExecutable` capability](./capabilities.md#appium-specific). Available since driver version 2.2.0.|
+|`custom_geckodriver_executable`|Allow specifying a custom `geckodriver` location using the [`appium:geckodriverExecutable` capability](./capabilities.md#appium-specific). Available since driver version 2.2.0.|

@@ -54,8 +54,8 @@ Installs and activates an addon.
 
 |<div style="width:12em">Name</div>|Description|Type|
 |--|--|--|
-|`addon?`|The addon file as a Base64 string. Either `addon` or `path` must be provided.|string|
-|`path?`|Path to an `.xpi` addon file.  Either `addon` or `path` must be provided.|string|
+|`addon?`|The addon file as a Base64 string. Required if `path` is not provided.|string|
+|`path?`|Path to an `.xpi` addon file.  Required if `addon` is not provided.|string|
 |`temporary?`|Whether the addon should be removed upon restart|boolean|
 |`allowPrivateBrowsing?`|Whether the addon should be activated in Private Browsing|boolean|
 

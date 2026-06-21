@@ -12,8 +12,8 @@ browser and other Gecko-based webviews. This functionality requires the `geckodr
 Before connecting to an Android device, make sure you have set up the Android-specific prerequisites
 described in [the System Requirements](../getting-started/index.md#system-requirements).
 
-Once the prerequisites have been set up, you can connect to an Android device by specifying one or
-more [Android-related options under the `moz:firefoxOptions` capability](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Reference/Capabilities/firefoxOptions#android).
+Once the prerequisites have been set up, you can start a session on an Android device by specifying
+one or more [Android-related options under the `moz:firefoxOptions` capability](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Reference/Capabilities/firefoxOptions#android).
 
 For example, to launch the Firefox browser on the first running Android emulator, you could use
 the following capability set:

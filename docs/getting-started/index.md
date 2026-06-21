@@ -34,7 +34,7 @@ If running tests on an Android device, additional requirements apply:
 ### Appium Server
 
 Make sure to install a version of Appium that supports your target driver version. The requirements
-and prerequisites of Appium itself can be found in [the Appium documentation](https://appium.io/docs/en/latest/quickstart/install/).
+and prerequisites of Appium itself can be found in [the Appium documentation](https://appium.io/docs/en/latest/quickstart/requirements/).
 
 | Geckodriver version | Supported Appium server version |
 | --- | --- |
