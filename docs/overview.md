@@ -25,8 +25,9 @@ Refer to the [Non-Firefox Browsers guide](./guides/other-browsers.md) for more d
 
 ## Technologies Used
 
-Under the hood, Appium Geckodriver is a wrapper/proxy over Mozilla's `geckodriver` binary. Learn
-more about its features here:
+Appium Geckodriver uses the [W3C WebDriver protocol](https://www.w3.org/TR/webdriver/) for session
+management. Under the hood, the driver is a wrapper/proxy over Mozilla's `geckodriver` binary.
+Learn more about its features here:
 
 * [`geckodriver` documentation](https://firefox-source-docs.mozilla.org/testing/geckodriver/index.html)
 * [`geckodriver` release notes](https://github.com/mozilla/geckodriver/releases)
