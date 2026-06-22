@@ -4,7 +4,7 @@
   "keywords": [
     "appium",
     "gecko",
-    "seamonkey",
+    "geckodriver",
     "firefox"
   ],
   "version": "3.0.3",
@@ -16,29 +16,6 @@
   },
   "bugs": {
     "url": "https://github.com/appium/appium-geckodriver/issues"
-  },
-  "engines": {
-    "node": "^20.19.0 || ^22.12.0 || >=24.0.0",
-    "npm": ">=10"
-  },
-  "prettier": {
-    "bracketSpacing": false,
-    "printWidth": 100,
-    "singleQuote": true
-  },
-  "appium": {
-    "driverName": "gecko",
-    "automationName": "Gecko",
-    "platformNames": [
-      "Linux",
-      "Mac",
-      "Android",
-      "Windows"
-    ],
-    "scripts": {
-      "install-geckodriver": "./scripts/install-geckodriver.mjs"
-    },
-    "mainClass": "GeckoDriver"
   },
   "type": "module",
   "main": "./build/lib/index.js",
@@ -62,18 +39,30 @@
     "npm-shrinkwrap.json",
     "scripts/*.mjs"
   ],
-  "peerDependencies": {
-    "appium": "^3.0.0-rc.2"
+  "appium": {
+    "driverName": "gecko",
+    "automationName": "Gecko",
+    "platformNames": [
+      "Linux",
+      "Mac",
+      "Android",
+      "Windows"
+    ],
+    "mainClass": "GeckoDriver",
+    "scripts": {
+      "install-geckodriver": "./scripts/install-geckodriver.mjs"
+    },
+    "doctor": {
+      "checks": [
+        "./build/lib/doctor/required-checks.js",
+        "./build/lib/doctor/optional-checks.js"
+      ]
+    }
   },
-  "dependencies": {
-    "appium-adb": "^15.0.0",
-    "asyncbox": "^6.3.0",
-    "axios": "^1.16.1",
-    "commander": "^14.0.3",
-    "portscanner": "^2.2.0",
-    "semver": "^7.6.3",
-    "tar-stream": "^3.1.7",
-    "teen_process": "^4.0.4"
+  "prettier": {
+    "bracketSpacing": false,
+    "printWidth": 100,
+    "singleQuote": true
   },
   "scripts": {
     "build": "tsc -b",
@@ -93,6 +82,16 @@
     "test": "node --test --test-timeout=60000 \"build/test/unit/**/*.test.js\"",
     "e2e-test": "npm run build && node --test --test-timeout=300000 \"build/test/functional/**/*.test.js\""
   },
+  "dependencies": {
+    "appium-adb": "^15.0.0",
+    "asyncbox": "^6.3.0",
+    "axios": "^1.16.1",
+    "commander": "^14.0.3",
+    "portscanner": "^2.2.0",
+    "semver": "^7.6.3",
+    "tar-stream": "^3.1.7",
+    "teen_process": "^4.0.4"
+  },
   "devDependencies": {
     "@appium/docutils": "^2.5.0",
     "@appium/eslint-config-appium-ts": "^3.0.0",
@@ -109,10 +108,11 @@
     "typescript": "^6.0.2",
     "webdriverio": "^9.0.5"
   },
-  "doctor": {
-    "checks": [
-      "./build/lib/doctor/required-checks.js",
-      "./build/lib/doctor/optional-checks.js"
-    ]
+  "peerDependencies": {
+    "appium": "^3.0.0-rc.2"
+  },
+  "engines": {
+    "node": "^20.19.0 || ^22.12.0 || >=24.0.0",
+    "npm": ">=10"
   }
 }
