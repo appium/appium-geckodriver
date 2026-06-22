@@ -73,3 +73,24 @@ The server log output should include a line like the following:
 ```
 [Appium] GeckoDriver has been successfully loaded in 0.789s
 ```
+
+## Creating a Session
+
+Appium Geckodriver, like all Appium drivers, requires providing [specific capabilities](https://appium.io/docs/en/latest/guides/caps/)
+in order to start a new session. The following example lists the minimum required capabilities for
+a basic session:
+
+```json
+// This will launch Firefox on the host machine and attach to it
+{
+  ...
+  "platformName": "mac", // "mac", "windows", or "linux"
+  "appium:automationName": "gecko",
+  ...
+}
+```
+
+For testing on an Android device, additional capabilities are required - refer to [the Android testing guide](../guides/android.md).
+
+See [the Capabilities reference page](../reference/capabilities.md) for more information on the
+capabilities supported by the driver.
