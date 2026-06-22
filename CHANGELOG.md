@@ -1,3 +1,9 @@
+## [3.0.5](https://github.com/appium/appium-geckodriver/compare/v3.0.4...v3.0.5) (2026-06-22)
+
+### Miscellaneous Chores
+
+* **deps:** bump actions/checkout from 6.0.3 to 7.0.0 ([#177](https://github.com/appium/appium-geckodriver/issues/177)) ([5c7ad1d](https://github.com/appium/appium-geckodriver/commit/5c7ad1d74b746847e279e4e80a58697bee8e261f))
+
 ## [3.0.4](https://github.com/appium/appium-geckodriver/compare/v3.0.3...v3.0.4) (2026-06-22)
 
 ### Bug Fixes
