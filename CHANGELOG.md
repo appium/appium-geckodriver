@@ -1,3 +1,9 @@
+## [3.0.4](https://github.com/appium/appium-geckodriver/compare/v3.0.3...v3.0.4) (2026-06-22)
+
+### Bug Fixes
+
+* actually enable doctor checks ([#176](https://github.com/appium/appium-geckodriver/issues/176)) ([ca23c16](https://github.com/appium/appium-geckodriver/commit/ca23c16db720d4443b3f9458ed22190994238a41))
+
 ## [3.0.3](https://github.com/appium/appium-geckodriver/compare/v3.0.2...v3.0.3) (2026-06-19)
 
 ### Miscellaneous Chores
