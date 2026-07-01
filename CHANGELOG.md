@@ -1,3 +1,9 @@
+## [3.0.8](https://github.com/appium/appium-geckodriver/compare/v3.0.7...v3.0.8) (2026-07-01)
+
+### Miscellaneous Chores
+
+* downgrade conventional-changelog-conventionalcommits to v9 ([#181](https://github.com/appium/appium-geckodriver/issues/181)) ([255fde0](https://github.com/appium/appium-geckodriver/commit/255fde03994d2b49a5dddb16009383ed34e834c4))
+
 ## [3.0.7](https://github.com/appium/appium-geckodriver/compare/v3.0.6...v3.0.7) (2026-06-29)
 
 ## [3.0.6](https://github.com/appium/appium-geckodriver/compare/v3.0.5...v3.0.6) (2026-06-25)
