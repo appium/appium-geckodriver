@@ -85,7 +85,7 @@
     "e2e-test": "npm run build && node --test --test-timeout=300000 \"build/test/functional/**/*.test.js\""
   },
   "dependencies": {
-    "appium-adb": "^15.0.0",
+    "appium-adb": "^16.0.0",
     "asyncbox": "^6.3.0",
     "axios": "^1.16.1",
     "commander": "^14.0.3",
