@@ -1,3 +1,9 @@
+## [3.0.13](https://github.com/appium/appium-geckodriver/compare/v3.0.12...v3.0.13) (2026-07-27)
+
+### Miscellaneous Chores
+
+* Integrate oxc and release configs ([#193](https://github.com/appium/appium-geckodriver/issues/193)) ([22c5399](https://github.com/appium/appium-geckodriver/commit/22c539989a0d85a1c657d343742b66e758fa99a5))
+
 ## [3.0.12](https://github.com/appium/appium-geckodriver/compare/v3.0.11...v3.0.12) (2026-07-23)
 
 ### Miscellaneous Chores
