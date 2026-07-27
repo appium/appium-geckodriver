@@ -148,7 +148,7 @@ class GeckoDriverProcess {
       return await fs.which(GD_BINARY);
     } catch {
       throw new Error(
-        `${GD_BINARY} binary cannot be found in PATH. ` + `Please make sure it is present on your system`,
+        `${GD_BINARY} binary cannot be found in PATH. Please make sure it is present on your system`,
       );
     }
   }
