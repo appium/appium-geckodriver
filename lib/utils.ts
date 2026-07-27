@@ -1,9 +1,10 @@
-import {fs, net, zip, tempDir} from 'appium/support.js';
-import tar from 'tar-stream';
-import zlib from 'node:zlib';
 import path from 'node:path';
+import zlib from 'node:zlib';
+
 import type {StringRecord} from '@appium/types';
 import {STANDARD_CAPS} from 'appium/driver.js';
+import {fs, net, zip, tempDir} from 'appium/support.js';
+import tar from 'tar-stream';
 
 const GECKO_CAP_PREFIXES = ['moz:'] as const;
 
@@ -13,10 +14,7 @@ const GECKO_CAP_PREFIXES = ['moz:'] as const;
 export function formatCapsForServer(caps: StringRecord): StringRecord {
   const result: StringRecord = {};
   for (const [name, value] of Object.entries(caps)) {
-    if (
-      GECKO_CAP_PREFIXES.some((prefix) => name.startsWith(prefix)) ||
-      STANDARD_CAPS.has(name as any)
-    ) {
+    if (GECKO_CAP_PREFIXES.some((prefix) => name.startsWith(prefix)) || STANDARD_CAPS.has(name as any)) {
       result[name] = value;
     }
   }
@@ -47,11 +45,7 @@ export async function mkdirp(p: string): Promise<void> {
 /**
  * Extract a specific file from a tar.gz archive
  */
-export async function extractFileFromTarGz(
-  srcArchive: string,
-  fileToExtract: string,
-  dstPath: string,
-): Promise<void> {
+export async function extractFileFromTarGz(srcArchive: string, fileToExtract: string, dstPath: string): Promise<void> {
   const chunks: Buffer[] = [];
   const extract = tar.extract();
   const extractPromise = new Promise<void>((resolve, reject) => {
@@ -75,11 +69,7 @@ export async function extractFileFromTarGz(
           return reject(e);
         }
       } else {
-        return reject(
-          new Error(
-            `The file '${fileToExtract}' could not be found in the '${srcArchive}' archive`,
-          ),
-        );
+        return reject(new Error(`The file '${fileToExtract}' could not be found in the '${srcArchive}' archive`));
       }
       resolve();
     });
@@ -93,11 +83,7 @@ export async function extractFileFromTarGz(
 /**
  * Extract a specific file from a zip archive
  */
-export async function extractFileFromZip(
-  srcArchive: string,
-  fileToExtract: string,
-  dstPath: string,
-): Promise<void> {
+export async function extractFileFromZip(srcArchive: string, fileToExtract: string, dstPath: string): Promise<void> {
   let didFindEntry = false;
   await zip.readEntries(srcArchive, async ({entry, extractEntryTo}) => {
     if (didFindEntry || entry.fileName !== fileToExtract) {
@@ -114,8 +100,6 @@ export async function extractFileFromZip(
     }
   });
   if (!didFindEntry) {
-    throw new Error(
-      `The file '${fileToExtract}' could not be found in the '${srcArchive}' archive`,
-    );
+    throw new Error(`The file '${fileToExtract}' could not be found in the '${srcArchive}' archive`);
   }
 }

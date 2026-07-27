@@ -1,19 +1,16 @@
 #!/usr/bin/env node
-import axios from 'axios';
-import * as semver from 'semver';
-import path from 'node:path';
-import {homedir, tmpdir} from 'node:os';
 import {constants as fsConstants} from 'node:fs';
 import fs from 'node:fs/promises';
-import {exec} from 'teen_process';
+import {homedir, tmpdir} from 'node:os';
+import path from 'node:path';
+
+import axios from 'axios';
 import {Command} from 'commander';
+import * as semver from 'semver';
+import {exec} from 'teen_process';
+
 import {log} from '../build/lib/logger.js';
-import {
-  downloadToFile,
-  mkdirp,
-  extractFileFromTarGz,
-  extractFileFromZip,
-} from '../build/lib/utils.js';
+import {downloadToFile, mkdirp, extractFileFromTarGz, extractFileFromZip} from '../build/lib/utils.js';
 
 const STABLE_VERSION = 'stable';
 const EXT_TAR_GZ = '.tar.gz';
@@ -77,9 +74,9 @@ class GeckodriverReleaseCatalog {
         const assetName = asset?.name;
         const downloadUrl = asset?.browser_download_url;
         if (
-          !assetName?.startsWith(GeckodriverReleaseCatalog.ARCHIVE_NAME_PREFIX)
-          || !(assetName?.endsWith(EXT_TAR_GZ) || assetName?.endsWith(EXT_ZIP))
-          || !downloadUrl
+          !assetName?.startsWith(GeckodriverReleaseCatalog.ARCHIVE_NAME_PREFIX) ||
+          !(assetName?.endsWith(EXT_TAR_GZ) || assetName?.endsWith(EXT_ZIP)) ||
+          !downloadUrl
         ) {
           continue;
         }
@@ -116,15 +113,13 @@ class GeckodriverReleaseCatalog {
     }
     const coercedVersion = semver.coerce(version);
     if (!coercedVersion) {
-      throw new Error(
-        `The provided version string '${version}' cannot be coerced to a valid SemVer representation`
-      );
+      throw new Error(`The provided version string '${version}' cannot be coerced to a valid SemVer representation`);
     }
     const dstRelease = releases.find((r) => r.version.compare(coercedVersion) === 0);
     if (!dstRelease) {
       throw new Error(
         `The provided version string '${version}' cannot be matched to any available GeckoDriver releases: ` +
-        JSON.stringify(releases)
+          JSON.stringify(releases),
       );
     }
     return dstRelease;
@@ -142,14 +137,14 @@ class GeckodriverReleaseCatalog {
     if (!dstPlatform) {
       throw new Error(
         `GeckoDriver does not support the ${process.platform} platform. ` +
-        `Supported platforms: ${GeckodriverReleaseCatalog.SUPPORTED_PLATFORMS}.`
+          `Supported platforms: ${GeckodriverReleaseCatalog.SUPPORTED_PLATFORMS}.`,
       );
     }
     const dstArch = GeckodriverReleaseCatalog.ARCH_MAPPING[process.arch];
     if (!dstArch) {
       throw new Error(
         `GeckoDriver does not support the ${process.arch} architecture. ` +
-        `Supported architectures: ${GeckodriverReleaseCatalog.SUPPORTED_ARCHITECTURES}.`
+          `Supported architectures: ${GeckodriverReleaseCatalog.SUPPORTED_ARCHITECTURES}.`,
       );
     }
     log.info(`Operating system: ${process.platform}@${process.arch}`);
@@ -170,23 +165,22 @@ class GeckodriverReleaseCatalog {
 
     const exactMatch = findAssetMatch(
       (nameWoExt) =>
-        (dstArch === 'aarch64' && nameWoExt.endsWith(`-${dstArch}`))
-        || (['64', '32'].includes(dstArch) && nameWoExt.endsWith(`-${dstPlatform}${dstArch}`))
+        (dstArch === 'aarch64' && nameWoExt.endsWith(`-${dstArch}`)) ||
+        (['64', '32'].includes(dstArch) && nameWoExt.endsWith(`-${dstPlatform}${dstArch}`)),
     );
     if (exactMatch) {
       return exactMatch;
     }
     const looseMatch = findAssetMatch(
       (nameWoExt) =>
-        nameWoExt.endsWith(`-${dstPlatform}`)
-        || (dstArch === '64' && nameWoExt.endsWith(`-${dstPlatform}32`))
+        nameWoExt.endsWith(`-${dstPlatform}`) || (dstArch === '64' && nameWoExt.endsWith(`-${dstPlatform}32`)),
     );
     if (looseMatch) {
       return looseMatch;
     }
     throw new Error(
       `GeckoDriver v${release.version} does not contain any release matching the ` +
-      `current OS architecture ${process.arch}. Available packages: ${release.assets.map(({name}) => name)}`
+        `current OS architecture ${process.arch}. Available packages: ${release.assets.map(({name}) => name)}`,
     );
   }
 
@@ -225,13 +219,11 @@ class GeckodriverInstallPath {
    * @returns {Promise<{path: string, onPath: boolean}>}
    */
   async resolve(explicitDestDir) {
-    const dstRoot = explicitDestDir
-      ? path.resolve(explicitDestDir)
-      : await this.#resolveDefault();
+    const dstRoot = explicitDestDir ? path.resolve(explicitDestDir) : await this.#resolveDefault();
     if (!(await this.#isInstallable(dstRoot))) {
       throw new Error(
         `The destination directory '${dstRoot}' is not writable or already contains ` +
-        `a non-overwritable geckodriver binary`
+          `a non-overwritable geckodriver binary`,
       );
     }
     return {
@@ -246,9 +238,7 @@ class GeckodriverInstallPath {
    */
   #isOnPath(dstRoot) {
     const pathParts = process.env.PATH ? process.env.PATH.split(path.delimiter) : [];
-    return pathParts
-      .map((pp) => path.normalize(pp))
-      .some((pp) => pp === path.normalize(dstRoot));
+    return pathParts.map((pp) => path.normalize(pp)).some((pp) => pp === path.normalize(dstRoot));
   }
 
   /**
@@ -290,9 +280,7 @@ class GeckodriverInstallPath {
         return candidate;
       }
     }
-    throw new Error(
-      `Could not find a writable installation directory. Tried: ${candidates.join(', ')}`
-    );
+    throw new Error(`Could not find a writable installation directory. Tried: ${candidates.join(', ')}`);
   }
 
   /**
@@ -304,14 +292,11 @@ class GeckodriverInstallPath {
         return path.join(process.env.LOCALAPPDATA, 'Mozilla');
       case 'linux':
       case 'darwin':
-        return this.#selectFromCandidates([
-          path.join('/usr', 'local', 'bin'),
-          path.join(homedir(), '.local', 'bin'),
-        ]);
+        return this.#selectFromCandidates([path.join('/usr', 'local', 'bin'), path.join(homedir(), '.local', 'bin')]);
       default:
         throw new Error(
           `GeckoDriver does not support the ${process.platform} platform. ` +
-          `Supported platforms: ${GeckodriverReleaseCatalog.SUPPORTED_PLATFORMS}.`
+            `Supported platforms: ${GeckodriverReleaseCatalog.SUPPORTED_PLATFORMS}.`,
         );
     }
   }
@@ -325,10 +310,7 @@ class GeckodriverInstaller {
    * @param {GeckodriverReleaseCatalog} [catalog]
    * @param {GeckodriverInstallPath} [installPath]
    */
-  constructor(
-    catalog = new GeckodriverReleaseCatalog(),
-    installPath = new GeckodriverInstallPath(),
-  ) {
+  constructor(catalog = new GeckodriverReleaseCatalog(), installPath = new GeckodriverInstallPath()) {
     this.catalog = catalog;
     this.installPath = installPath;
   }
@@ -353,14 +335,14 @@ class GeckodriverInstaller {
     if (!onPath) {
       log.warning(
         `The folder '${dstFolder}' is not present in the PATH environment variable. ` +
-        `Please add it there manually before starting a session.`
+          `Please add it there manually before starting a session.`,
       );
     }
 
     const archiveName = asset.name.replace(EXT_REGEXP, '');
     const archivePath = path.join(
       tmpdir(),
-      `${archiveName}_${(Math.random() + 1).toString(36).substring(7)}${asset.name.replace(archiveName, '')}`
+      `${archiveName}_${(Math.random() + 1).toString(36).substring(7)}${asset.name.replace(archiveName, '')}`,
     );
     log.info(`Will download and install v${release.version} from ${asset.url}`);
     try {
@@ -430,7 +412,7 @@ EXAMPLES:
 NOTE:
   On macOS and Linux, the default location is the first writable directory among:
   /usr/local/bin and ~/.local/bin.
-  On Windows, the default location is %LOCALAPPDATA%\\Mozilla.`
+  On Windows, the default location is %LOCALAPPDATA%\\Mozilla.`,
     )
     .action(async (version, options) => {
       await installer.install(version, {destDir: options.dest});
