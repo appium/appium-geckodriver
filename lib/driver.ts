@@ -7,11 +7,12 @@ import type {
   W3CDriverCaps,
 } from '@appium/types';
 import {BaseDriver, errors} from 'appium/driver.js';
-import {GECKO_SERVER_HOST, GeckoDriverServer} from './gecko.js';
-import {desiredCapConstraints} from './desired-caps.js';
-import {newMethodMap} from './method-map.js';
-import {INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE} from './constants.js';
+
 import * as findCommands from './commands/find.js';
+import {INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE} from './constants.js';
+import {desiredCapConstraints} from './desired-caps.js';
+import {GECKO_SERVER_HOST, GeckoDriverServer} from './gecko.js';
+import {newMethodMap} from './method-map.js';
 import {formatCapsForServer} from './utils.js';
 
 const NO_PROXY: RouteMatcher[] = [
@@ -83,10 +84,7 @@ export class GeckoDriver
       return false;
     }
 
-    if (
-      caps.geckodriverExecutable &&
-      !this.isFeatureEnabled(INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE)
-    ) {
+    if (caps.geckodriverExecutable && !this.isFeatureEnabled(INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE)) {
       throw new errors.SessionNotCreatedError(
         `The 'geckodriverExecutable' capability requires the ` +
           `'${INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE}' insecure feature to be enabled ` +
@@ -143,9 +141,7 @@ export class GeckoDriver
     }
     try {
       const asUrl = new URL(webSocketUrl);
-      return asUrl.hostname !== GECKO_SERVER_HOST
-        ? webSocketUrl.replace(asUrl.host, GECKO_SERVER_HOST)
-        : webSocketUrl;
+      return asUrl.hostname !== GECKO_SERVER_HOST ? webSocketUrl.replace(asUrl.host, GECKO_SERVER_HOST) : webSocketUrl;
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       this.log.warn(`Failed to parse WebSocket URL from '${webSocketUrl}': ${msg}`);

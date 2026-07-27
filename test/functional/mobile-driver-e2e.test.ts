@@ -1,9 +1,11 @@
-import {describe, it, beforeEach, afterEach} from 'node:test';
 import assert from 'node:assert/strict';
-import {remote} from 'webdriverio';
-import {HOST, PORT, TEST_TIMEOUT, getPlatformName} from '../utils.js';
+import {describe, it, beforeEach, afterEach} from 'node:test';
+
 import {waitForCondition} from 'asyncbox';
+import {remote} from 'webdriverio';
 import type {Browser} from 'webdriverio';
+
+import {HOST, PORT, TEST_TIMEOUT, getPlatformName} from '../utils.js';
 
 const DEVICE_NAME = process.env.DEVICE_NAME || 'emulator-5554';
 // The Firefox binary could be retrieved from https://www.mozilla.org/en-GB/firefox/all/#product-android-release

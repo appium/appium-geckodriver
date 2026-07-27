@@ -1,4 +1,5 @@
 import type {MethodMap} from '@appium/types';
+
 import type {GeckoDriver} from './driver.js';
 
 export const newMethodMap = {

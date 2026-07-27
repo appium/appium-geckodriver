@@ -1,9 +1,8 @@
 import {system, fs, doctor} from '@appium/support';
-import {getAndroidBinaryPath, getSdkRootFromEnv} from 'appium-adb';
 import type {IDoctorCheck, AppiumLogger} from '@appium/types';
+import {getAndroidBinaryPath, getSdkRootFromEnv} from 'appium-adb';
 
-const ENVIRONMENT_VARS_TUTORIAL_URL =
-  'https://github.com/appium/java-client/blob/master/docs/environment.md';
+const ENVIRONMENT_VARS_TUTORIAL_URL = 'https://github.com/appium/java-client/blob/master/docs/environment.md';
 const ANDROID_SDK_LINK1 = 'https://developer.android.com/studio#cmdline-tools';
 const ANDROID_SDK_LINK2 = 'https://developer.android.com/studio/intro/update#sdk-manager';
 
@@ -38,14 +37,10 @@ class EnvVarAndPathCheck implements IDoctorCheck {
 
     const stat = await fs.stat(varValue);
     if (this.opts.expectDir && !stat.isDirectory()) {
-      return doctor.nokOptional(
-        `${this.varName} is expected to be a valid folder, got a file path instead`,
-      );
+      return doctor.nokOptional(`${this.varName} is expected to be a valid folder, got a file path instead`);
     }
     if (this.opts.expectFile && stat.isDirectory()) {
-      return doctor.nokOptional(
-        `${this.varName} is expected to be a valid file, got a folder path instead`,
-      );
+      return doctor.nokOptional(`${this.varName} is expected to be a valid file, got a folder path instead`);
     }
 
     return doctor.okOptional(`${this.varName} is set to: ${varValue}`);
@@ -78,9 +73,7 @@ export class AndroidSdkCheck implements IDoctorCheck {
     const listOfTools = this.TOOL_NAMES.join(', ');
     const sdkRoot = getSdkRootFromEnv();
     if (!sdkRoot) {
-      return doctor.nokOptional(
-        `${listOfTools} could not be found because ANDROID_HOME is NOT set!`,
-      );
+      return doctor.nokOptional(`${listOfTools} could not be found because ANDROID_HOME is NOT set!`);
     }
 
     this.log.info(`   Checking ${listOfTools}`);
@@ -94,9 +87,7 @@ export class AndroidSdkCheck implements IDoctorCheck {
     }
 
     if (missingBinaries.length > 0) {
-      return doctor.nokOptional(
-        `${missingBinaries.join(', ')} could NOT be found in '${sdkRoot}'!`,
-      );
+      return doctor.nokOptional(`${missingBinaries.join(', ')} could NOT be found in '${sdkRoot}'!`);
     }
 
     return doctor.okOptional(`${listOfTools} exist in '${sdkRoot}'`);

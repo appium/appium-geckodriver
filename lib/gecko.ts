@@ -1,21 +1,23 @@
+import {execSync} from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
+
+import type {AppiumLogger, StringRecord, HTTPMethod, HTTPBody} from '@appium/types';
 import {JWProxy, errors} from 'appium/driver.js';
 import {fs, util, system} from 'appium/support.js';
-import {SubProcess} from 'teen_process';
 import {waitForCondition} from 'asyncbox';
 import {findAPortNotInUse} from 'portscanner';
-import {execSync} from 'node:child_process';
-import type {AppiumLogger, StringRecord, HTTPMethod, HTTPBody} from '@appium/types';
+import {SubProcess} from 'teen_process';
+
 import {VERBOSITY} from './constants.js';
 
 const GD_BINARY = `geckodriver${system.isWindows() ? '.exe' : ''}`;
 const STARTUP_TIMEOUT_MS = 10000; // 10 seconds
 const GECKO_PORT_RANGE: [number, number] = [5200, 5300];
-const GECKO_SERVER_GUARD = util.getLockFileGuard(
-  path.resolve(os.tmpdir(), 'gecko_server_guard.lock'),
-  {timeout: 5, tryRecovery: true},
-);
+const GECKO_SERVER_GUARD = util.getLockFileGuard(path.resolve(os.tmpdir(), 'gecko_server_guard.lock'), {
+  timeout: 5,
+  tryRecovery: true,
+});
 const DEFAULT_MARIONETTE_PORT = 2828;
 export const GECKO_SERVER_HOST = '127.0.0.1';
 
@@ -90,12 +92,8 @@ class GeckoDriverProcess {
       args.push('--connect-existing');
       // https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html#code-connect-existing-code
       if (this.marionettePort == null) {
-        this.log.info(
-          `'marionettePort' capability value is not provided while 'noReset' is enabled`,
-        );
-        this.log.info(
-          `Assigning 'marionettePort' to the default value (${DEFAULT_MARIONETTE_PORT})`,
-        );
+        this.log.info(`'marionettePort' capability value is not provided while 'noReset' is enabled`);
+        this.log.info(`Assigning 'marionettePort' to the default value (${DEFAULT_MARIONETTE_PORT})`);
       }
       args.push('--marionette-port', `${this.marionettePort ?? DEFAULT_MARIONETTE_PORT}`);
     } else if (this.marionettePort != null) {
@@ -150,8 +148,7 @@ class GeckoDriverProcess {
       return await fs.which(GD_BINARY);
     } catch {
       throw new Error(
-        `${GD_BINARY} binary cannot be found in PATH. ` +
-          `Please make sure it is present on your system`,
+        `${GD_BINARY} binary cannot be found in PATH. ` + `Please make sure it is present on your system`,
       );
     }
   }
