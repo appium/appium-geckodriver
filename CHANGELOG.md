@@ -1,3 +1,9 @@
+## [3.0.14](https://github.com/appium/appium-geckodriver/compare/v3.0.13...v3.0.14) (2026-07-31)
+
+### Bug Fixes
+
+* logging method name - [#194](https://github.com/appium/appium-geckodriver/issues/194) ([0120ec9](https://github.com/appium/appium-geckodriver/commit/0120ec9c004b92d8c73491e37dccd434e3b1c88f))
+
 ## [3.0.13](https://github.com/appium/appium-geckodriver/compare/v3.0.12...v3.0.13) (2026-07-27)
 
 ### Miscellaneous Chores
