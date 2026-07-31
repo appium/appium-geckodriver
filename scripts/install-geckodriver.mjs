@@ -333,7 +333,7 @@ class GeckodriverInstaller {
     const {path: dstFolder, onPath} = await this.installPath.resolve(options.destDir);
 
     if (!onPath) {
-      log.warning(
+      log.warn(
         `The folder '${dstFolder}' is not present in the PATH environment variable. ` +
           `Please add it there manually before starting a session.`,
       );
