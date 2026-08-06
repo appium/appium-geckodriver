@@ -1,3 +1,9 @@
+## [3.0.15](https://github.com/appium/appium-geckodriver/compare/v3.0.14...v3.0.15) (2026-08-06)
+
+### Miscellaneous Chores
+
+* rename JWProxy to WebDriverProxy ([#195](https://github.com/appium/appium-geckodriver/issues/195)) ([b319027](https://github.com/appium/appium-geckodriver/commit/b319027ca77339523c5b7a9ed64718bc75172865))
+
 ## [3.0.14](https://github.com/appium/appium-geckodriver/compare/v3.0.13...v3.0.14) (2026-07-31)
 
 ### Bug Fixes
