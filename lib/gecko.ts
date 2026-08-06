@@ -3,7 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 
 import type {AppiumLogger, StringRecord, HTTPMethod, HTTPBody} from '@appium/types';
-import {JWProxy, errors} from 'appium/driver.js';
+import {WebDriverProxy, errors} from 'appium/driver.js';
 import {fs, util, system} from 'appium/support.js';
 import {waitForCondition} from 'asyncbox';
 import {findAPortNotInUse} from 'portscanner';
@@ -152,7 +152,7 @@ class GeckoDriverProcess {
   }
 }
 
-export class GeckoProxy extends JWProxy {
+export class GeckoProxy extends WebDriverProxy {
   didProcessExit?: boolean;
 
   override async proxyCommand(url: string, method: HTTPMethod, body: HTTPBody = null) {
