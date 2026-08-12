@@ -10,32 +10,161 @@ For other capabilities recognized by the Appium server, see
 
 ## Standard
 
-| <div style="width:13em">Capability</div> | Description |
-| --- | --- |
-| `platformName` | Must be set to `mac`, `linux` or `windows` (case-insensitive). This capability specifies the host device, not the device under test - in order to run tests on Android, the [`moz:firefoxOptions` capability](#mozilla-specific) must also be configured accordingly. |
-| `browserName` | Any value passed to this capability will be changed to `firefox`. |
-| `browserVersion`| [Refer to the W3C Webdriver documentation](https://www.w3.org/TR/webdriver/#capabilities) |
-| `acceptInsecureCerts` | [Refer to the W3C Webdriver documentation](https://www.w3.org/TR/webdriver/#capabilities) |
-| `pageLoadStrategy` | [Refer to the W3C Webdriver documentation](https://www.w3.org/TR/webdriver/#capabilities) |
-| `proxy` | [Refer to the W3C Webdriver documentation](https://www.w3.org/TR/webdriver/#capabilities) |
-| `setWindowRect` | [Refer to the W3C Webdriver documentation](https://www.w3.org/TR/webdriver/#capabilities) |
-| `timeouts` | [Refer to the W3C Webdriver documentation](https://www.w3.org/TR/webdriver/#capabilities) |
-| `unhandledPromptBehavior` | [Refer to the W3C Webdriver documentation](https://www.w3.org/TR/webdriver/#capabilities) |
+Refer to [the W3C WebDriver documentation](https://w3c.github.io/webdriver/#capabilities)
+for more information about these capabilities.
 
-## Appium-Specific
+### platformName
 
-| <div style="width:15em">Capability</div> | Description |
-| --- | --- |
-| `appium:automationName` | Must be set to `Gecko`. |
-| `appium:noReset` | Being set to `true` adds the `--connect-existing argument` to the `geckodriver` binary, that allows to connect to an existing browser instance instead of starting a new browser instance on session startup. |
-| `appium:marionettePort` | Selects the port for Geckodriver’s connection to the Marionette remote protocol. The existing Firefox instance must have Marionette enabled. To enable the remote protocol in Firefox, you can pass the `-marionette` flag. Unless the `marionette.port` preference has been user-set, Marionette will listen on port 2828, which is the default value for this capability. |
-| `appium:systemPort` | The number of the port for the driver to listen on. Must be unique for each session. If not provided then Appium will try to detect it automatically. |
-| `appium:verbosity` | The verbosity level of driver logging. By default, minimum verbosity is applied. Possible values are `debug` or `trace`. |
-| `appium:androidStorage` | Sets the value of the `--android-storage` `geckodriver` argument ([see documentation](https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html#android-storage-android-storage)). Supported values are `auto`, `app`, `internal`, and `sdcard`. Note that this argument is deprecated. |
-| `appium:geckodriverExecutable` | Custom path to the `geckodriver` binary. The use of this capability is considered an insecure feature and requires the Appium server to be started with the [`custom_geckodriver_executable` insecure feature](../reference/insecure-features.md). If the capability is provided but the insecure feature is not enabled, session creation will fail with a capability validation error. Available since driver version 2.2.0. |
+| Name | Type | Default |
+| -- | -- | -- |
+| `platformName` | `string` | Not specified |
 
-## Mozilla-Specific
+This capability must be set to `mac`, `linux` or `windows` (case-insensitive).
 
-| <div style="width:10em">Capability</div> | Description |
-| --- | --- |
-| `moz:firefoxOptions` | Firefox-specific capabilities. [Refer to the MDN documentation](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Reference/Capabilities/firefoxOptions) for more details. |
+Note that this specifies the _host device_, not the _device under test_. In order to run tests on
+Android, the [`moz:firefoxOptions` capability](#firefoxoptions) must also be configured accordingly.
+
+### browserName
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `browserName` | `string` | Not specified |
+
+Any value passed to this capability will be changed to `firefox`.
+
+### browserVersion
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `browserVersion` | `string` | Not specified |
+
+### acceptInsecureCerts
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `acceptInsecureCerts` | `boolean` | `false` |
+
+### pageLoadStrategy
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `pageLoadStrategy` | `string` | `normal` |
+
+### proxy
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `proxy` | `object` | `{}` |
+
+### setWindowRect
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `setWindowRect` | `boolean` | Not specified |
+
+### timeouts
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `timeouts` | `object` | [Default WebDriver timeouts configuration](https://w3c.github.io/webdriver/#dfn-timeouts-configuration) |
+
+### unhandledPromptBehavior
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `unhandledPromptBehavior` | `string` | `dismiss and notify` |
+
+## General
+
+### automationName
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `appium:automationName` | `string` | Not specified |
+
+Specifies the Appium driver to use. Must be set to `Gecko` (case-insensitive)
+
+## Mozilla
+
+### firefoxOptions
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `moz:firefoxOptions` | `Record<string, any>` | Not specified |
+
+Firefox-specific capabilities. [Refer to the MDN documentation](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Reference/Capabilities/firefoxOptions)
+for more details.
+
+## Geckodriver
+
+Most of these capabilities map to [flags supported by the `geckodriver` binary](https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html).
+
+### geckodriverExecutable
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `appium:geckodriverExecutable` | `string` | Not specified |
+
+Custom path to the `geckodriver` binary. The use of this capability is considered an insecure
+feature and requires the Appium server to be started with the
+[`custom_geckodriver_executable` insecure feature flag](../reference/insecure-features.md).
+
+Available since driver version 2.2.0.
+
+### noReset
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `appium:noReset` | `boolean` | `false` |
+
+Whether to allow connecting to an existing browser instance instead of starting a new browser
+instance on session startup. Maps to the `--connect-existing` flag of the `geckodriver` binary.
+
+### systemPort
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `appium:systemPort` | `number` | `5200` |
+
+The port for `geckodriver`'s WebDriver server to listen on. Maps to the `--port` flag of the
+`geckodriver` binary.
+
+The port must be unique for each session. If not provided, Appium will try the first available
+port in the range `5200..5300`.
+
+### marionettePort
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `appium:marionettePort` | `number` | `2828` (if [`appium:noReset`](#noreset) is specified) |
+
+The port for `geckodriver`'s connection to the Marionette remote protocol. Maps to the
+`--marionette-port` flag of the `geckodriver` binary.
+
+The existing Firefox instance must have Marionette enabled, which can be done by launching the
+browser with the `-marionette` flag.
+
+Note that the default value for this capability can also be overridden by setting the
+`marionette.port` browser preference.
+
+### verbosity
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `appium:verbosity` | `string` | Not specified |
+
+The verbosity level of `geckodriver` logging. Maps to the `-v[v]` flag of the `geckodriver` binary.
+
+By default, minimum verbosity is applied. Possible values are `debug` or `trace`.
+
+### androidStorage
+
+| Name | Type | Default |
+| -- | -- | -- |
+| `appium:androidStorage` | `string` | Not specified |
+
+The location of the test data on the Android device. Only relevant if running tests on Android.
+Maps to the `--android-storage` flag of the `geckodriver` binary.
+
+Supported values are `auto`, `app`, `internal`, and `sdcard`. Note that this argument is deprecated
+from the `geckodriver` side.

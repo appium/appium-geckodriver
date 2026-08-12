@@ -1,11 +1,8 @@
 ---
-hide:
-  - toc
-
 title: Scripts
 ---
 
-Appium drivers can include scripts for executing specific actions. The scripts included in the
+Appium drivers can include scripts for executing specific actions. The scripts included in Appium
 Geckodriver can be run as follows:
 
 ```
