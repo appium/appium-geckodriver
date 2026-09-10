@@ -1,3 +1,9 @@
+## [3.0.16](https://github.com/appium/appium-geckodriver/compare/v3.0.15...v3.0.16) (2026-09-10)
+
+### Miscellaneous Chores
+
+* **ci:** publish via bundled dependencies instead of npm-shrinkwrap ([#198](https://github.com/appium/appium-geckodriver/issues/198)) ([b2c198e](https://github.com/appium/appium-geckodriver/commit/b2c198e8eda6f513c6d0bf88a3cd636dc8b69f30))
+
 ## [3.0.15](https://github.com/appium/appium-geckodriver/compare/v3.0.14...v3.0.15) (2026-08-06)
 
 ### Miscellaneous Chores
