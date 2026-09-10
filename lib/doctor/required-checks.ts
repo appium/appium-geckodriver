@@ -1,5 +1,5 @@
 import {system, doctor} from '@appium/support';
-import type {AppiumLogger, IDoctorCheck} from '@appium/types';
+import type {AppiumLogger, DoctorCheckResult, IDoctorCheck} from '@appium/types';
 
 import {resolveExecutablePath} from './utils.js';
 
@@ -9,7 +9,7 @@ const GD_BINARY = `geckodriver${system.isWindows() ? '.exe' : ''}`;
 export class GeckodriverCheck implements IDoctorCheck {
   log!: AppiumLogger;
 
-  async diagnose() {
+  async diagnose(): Promise<DoctorCheckResult> {
     const gdPath = await resolveExecutablePath(GD_BINARY);
     return gdPath ? doctor.ok(`${GD_BINARY} is installed at: ${gdPath}`) : doctor.nok(`${GD_BINARY} cannot be found`);
   }
