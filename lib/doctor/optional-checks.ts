@@ -1,5 +1,5 @@
 import {system, fs, doctor} from '@appium/support';
-import type {IDoctorCheck, AppiumLogger} from '@appium/types';
+import type {IDoctorCheck, AppiumLogger, DoctorCheckResult} from '@appium/types';
 import {getAndroidBinaryPath, getSdkRootFromEnv} from 'appium-adb';
 
 const ENVIRONMENT_VARS_TUTORIAL_URL = 'https://github.com/appium/java-client/blob/master/docs/environment.md';
@@ -21,7 +21,7 @@ class EnvVarAndPathCheck implements IDoctorCheck {
     this.opts = opts;
   }
 
-  async diagnose() {
+  async diagnose(): Promise<DoctorCheckResult> {
     const varValue = process.env[this.varName];
     if (!varValue) {
       return doctor.nokOptional(`${this.varName} environment variable is NOT set!`);
@@ -69,7 +69,7 @@ export class AndroidSdkCheck implements IDoctorCheck {
 
   TOOL_NAMES = ['adb', 'emulator'] as const;
 
-  async diagnose() {
+  async diagnose(): Promise<DoctorCheckResult> {
     const listOfTools = this.TOOL_NAMES.join(', ');
     const sdkRoot = getSdkRootFromEnv();
     if (!sdkRoot) {

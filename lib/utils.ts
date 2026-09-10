@@ -51,8 +51,8 @@ export async function extractFileFromTarGz(srcArchive: string, fileToExtract: st
   const extractPromise = new Promise<void>((resolve, reject) => {
     extract.on('entry', (header, stream, next) => {
       if (header.name === fileToExtract) {
-        stream.on('data', (chunk: Buffer) => {
-          chunks.push(chunk);
+        stream.on('data', (chunk: unknown) => {
+          chunks.push(chunk as Buffer);
         });
       }
       stream.on('end', function () {
