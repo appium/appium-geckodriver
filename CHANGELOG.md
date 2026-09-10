@@ -1,3 +1,9 @@
+## [3.0.17](https://github.com/appium/appium-geckodriver/compare/v3.0.16...v3.0.17) (2026-09-10)
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump @appium/docutils from 2.5.2 to 3.0.0 ([#197](https://github.com/appium/appium-geckodriver/issues/197)) ([176abd6](https://github.com/appium/appium-geckodriver/commit/176abd6cdcd89f34c6d742e2f654abeb8e4b537c))
+
 ## [3.0.16](https://github.com/appium/appium-geckodriver/compare/v3.0.15...v3.0.16) (2026-09-10)
 
 ### Miscellaneous Chores
