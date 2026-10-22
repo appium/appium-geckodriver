@@ -77,7 +77,7 @@
     "@types/node": "^26.0.0",
     "@types/portscanner": "^2.1.4",
     "@types/tar-stream": "^3.1.4",
-    "webdriverio": "^9.0.5"
+    "webdriverio": "^10.1.0"
   },
   "peerDependencies": {
     "appium": "^3.0.0-rc.2"
