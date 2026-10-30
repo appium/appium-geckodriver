@@ -1,3 +1,9 @@
+## [3.0.18](https://github.com/appium/appium-geckodriver/compare/v3.0.17...v3.0.18) (2026-10-30)
+
+### Miscellaneous Chores
+
+* **deps:** bump actions/setup-python from 7.0.0 to 7.1.0 ([#205](https://github.com/appium/appium-geckodriver/issues/205)) ([e54d557](https://github.com/appium/appium-geckodriver/commit/e54d557e912e842efcb60c0ee4daf19405f625f3))
+
 ## [3.0.17](https://github.com/appium/appium-geckodriver/compare/v3.0.16...v3.0.17) (2026-09-10)
 
 ### Miscellaneous Chores
