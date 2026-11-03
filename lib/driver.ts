@@ -11,7 +11,7 @@ import {BaseDriver, errors} from 'appium/driver.js';
 import * as findCommands from './commands/find.js';
 import {INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE} from './constants.js';
 import {desiredCapConstraints} from './desired-caps.js';
-import {GECKO_SERVER_HOST, GeckoDriverServer} from './gecko.js';
+import {GECKO_SERVER_HOSTNAME, GeckoDriverServer} from './gecko.js';
 import {newMethodMap} from './method-map.js';
 import {formatCapsForServer} from './utils.js';
 
@@ -141,8 +141,8 @@ export class GeckoDriver
     }
     try {
       const asUrl = new URL(webSocketUrl);
-      return asUrl.hostname !== GECKO_SERVER_HOST
-        ? webSocketUrl.replace(asUrl.hostname, GECKO_SERVER_HOST)
+      return asUrl.hostname !== GECKO_SERVER_HOSTNAME
+        ? webSocketUrl.replace(asUrl.hostname, GECKO_SERVER_HOSTNAME)
         : webSocketUrl;
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
