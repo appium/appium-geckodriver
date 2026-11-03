@@ -120,6 +120,10 @@ Available since driver version 2.2.0.
 Whether to allow connecting to an existing browser instance instead of starting a new browser
 instance on session startup. Maps to the `--connect-existing` flag of the `geckodriver` binary.
 
+Note that the `geckodriver` binary does not allow setting this to `true` when testing on an Android
+device. See [the Android testing guide](../guides/android.md#connecting-to-an-existing-android-app)
+for details.
+
 ### systemPort
 
 | Name | Type | Default |
