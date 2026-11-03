@@ -120,10 +120,9 @@ Available since driver version 2.2.0.
 Whether to allow connecting to an existing browser instance instead of starting a new browser
 instance on session startup. Maps to the `--connect-existing` flag of the `geckodriver` binary.
 
-> [!NOTE]
-> `geckodriver` does not support `--connect-existing` when `moz:firefoxOptions.androidPackage` is
-> specified (`Cannot connect to an existing Android App yet`). See [the Android testing guide](../guides/android.md#cannot-connect-to-an-existing-android-app-yet-with-appiumnoreset)
-> for details.
+Note that the `geckodriver` binary does not allow setting this to `true` when testing on an Android
+device. See [the Android testing guide](../guides/android.md#connecting-to-an-existing-android-app)
+for details.
 
 ### systemPort
 
