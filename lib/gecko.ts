@@ -5,7 +5,7 @@ import path from 'node:path';
 import type {AppiumLogger, StringRecord, HTTPMethod, HTTPBody} from '@appium/types';
 import {WebDriverProxy, errors} from 'appium/driver.js';
 import {fs, util, system} from 'appium/support.js';
-import {waitForCondition} from 'asyncbox';
+import {ConditionUnmetError, waitForCondition} from 'asyncbox';
 import {findAPortNotInUse} from 'portscanner';
 import {SubProcess} from 'teen_process';
 
@@ -257,7 +257,7 @@ export class GeckoDriverServer {
         // avoid "frozen" processes,
         await this._process.kill();
       }
-      if (/Condition unmet/.test(e.message)) {
+      if (e instanceof ConditionUnmetError) {
         throw new Error(
           `Gecko Driver server is not listening within ${STARTUP_TIMEOUT_MS}ms timeout. ` +
             `Make sure it could be started manually from a terminal`,

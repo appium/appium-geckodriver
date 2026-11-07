@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "appium-adb": "^16.0.0",
-    "asyncbox": "^6.3.0",
+    "asyncbox": "^6.6.0",
     "axios": "^1.16.1",
     "commander": "^14.0.3",
     "portscanner": "^2.2.0",
