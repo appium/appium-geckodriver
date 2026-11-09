@@ -36,8 +36,9 @@ describe('Desktop Gecko Driver', {timeout: TEST_TIMEOUT}, () => {
       await waitForCondition(
         async () => {
           try {
-            const element = await driver!.$('img[alt="logo"]');
-            return await element.isExisting();
+            // The page has more than one logo, which fails WDIO 10's strict `$`
+            const logos = await driver!.$$('img[alt="logo"]');
+            return logos.length > 0;
           } catch {
             return false;
           }
