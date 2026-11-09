@@ -8,7 +8,7 @@ import type {
 } from '@appium/types';
 import {BaseDriver, errors} from 'appium/driver.js';
 
-import * as findCommands from './commands/find.js';
+import {findElOrEls} from './commands/find.js';
 import {INSECURE_FEAT_CUSTOM_GECKODRIVER_EXECUTABLE} from './constants.js';
 import {desiredCapConstraints} from './desired-caps.js';
 import {GECKO_SERVER_HOST, GeckoDriverServer} from './gecko.js';
@@ -31,8 +31,6 @@ export class GeckoDriver
   static newMethodMap = newMethodMap;
 
   public proxyReqRes: (...args: any) => any = null as any;
-
-  findElOrEls = findCommands.findElOrEls;
 
   private isProxyActive: boolean = false;
   private _gecko: GeckoDriverServer | null = null;
@@ -95,11 +93,9 @@ export class GeckoDriver
   }
 
   override async createSession(
-    w3cCaps1: W3CDriverCaps<GeckoConstraints>,
-    w3cCaps2?: W3CDriverCaps<GeckoConstraints>,
-    ...args: any[]
+    w3cCapabilities: W3CDriverCaps<GeckoConstraints>,
   ): Promise<DefaultCreateSessionResult<GeckoConstraints>> {
-    const [sessionId, processedCaps] = await super.createSession(w3cCaps1, w3cCaps2, ...args);
+    const [sessionId, processedCaps] = await super.createSession(w3cCapabilities);
     this._gecko = new GeckoDriverServer(this.log, processedCaps);
     let response: StringRecord;
     try {
@@ -150,4 +146,6 @@ export class GeckoDriver
   }
 }
 
-export default GeckoDriver;
+Object.assign(GeckoDriver.prototype, {
+  findElOrEls,
+});

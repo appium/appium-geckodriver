@@ -180,7 +180,7 @@ class GeckodriverReleaseCatalog {
     }
     throw new Error(
       `GeckoDriver v${release.version} does not contain any release matching the ` +
-        `current OS architecture ${process.arch}. Available packages: ${release.assets.map(({name}) => name)}`,
+        `current OS architecture ${process.arch}. Available packages: ${release.assets.map(({name}) => name).join(', ')}`,
     );
   }
 
@@ -421,7 +421,7 @@ NOTE:
   await program.parseAsync(process.argv);
 }
 
-(async () => await main())();
+await main();
 
 /**
  * @typedef {Object} ReleaseAsset

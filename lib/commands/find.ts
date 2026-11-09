@@ -2,6 +2,12 @@ import {util} from 'appium/support.js';
 
 import type {GeckoDriver} from '../driver.js';
 
+declare module '../driver.js' {
+  interface GeckoDriver {
+    findElOrEls(...args: Parameters<typeof findElOrEls>): ReturnType<typeof findElOrEls>;
+  }
+}
+
 /**
  * Find element(s) by given strategy and selector. If context is provided, search will be performed within the context element.
  * This is needed to make lookup by image working.
