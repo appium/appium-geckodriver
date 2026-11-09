@@ -1,3 +1,21 @@
+## [4.0.0](https://github.com/appium/appium-geckodriver/compare/v3.0.18...v4.0.0) (2026-11-09)
+
+### ⚠ BREAKING CHANGES
+
+* Requires Appium ^4.0.0-beta.6 (peer dependency). No longer compatible with Appium 3.
+* Drops Node 20. The minimum is now ^22.22.2 || ^24.15.0 || >=26.0.0, matching Appium 4's engine range.
+* Driver API: createSession takes a single w3cCapabilities argument, following the Appium 4 base driver. This only matters to anyone subclassing the driver.
+* Default exports removed: the package no longer has a default export. Use the named export instead: import {GeckoDriver} from 'appium-geckodriver'.
+* Command methods live on the prototype: findElOrEls is attached to GeckoDriver.prototype (with declare module typings) rather than being an instance field, so subclasses can call super for it.
+
+### Features
+
+* add Appium 4 support ([#209](https://github.com/appium/appium-geckodriver/issues/209)) ([ad588cf](https://github.com/appium/appium-geckodriver/commit/ad588cffe4be2219ef57f602cf06978286772581))
+
+### Code Refactoring
+
+* use ConditionUnmetError instead of message matching ([#208](https://github.com/appium/appium-geckodriver/issues/208)) ([05bc271](https://github.com/appium/appium-geckodriver/commit/05bc271eb6f559087ed34260f12b981119db2451))
+
 ## [3.0.18](https://github.com/appium/appium-geckodriver/compare/v3.0.17...v3.0.18) (2026-10-30)
 
 ### Miscellaneous Chores
