@@ -38,7 +38,8 @@ and prerequisites of Appium itself can be found in [the Appium documentation](ht
 
 | Geckodriver version | Supported Appium server version |
 | --- | --- |
-| >= 2.0.0 | Appium 3 |
+| >= 4.0.0 | Appium 4 |
+| 2.0.0 - 3.0.18 | Appium 3 |
 | 1.0.0 - 1.4.4 | Appium 2 |
 
 ## Installation

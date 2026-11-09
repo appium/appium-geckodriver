@@ -302,5 +302,3 @@ export class GeckoDriverServer {
     }
   }
 }
-
-export default GeckoDriverServer;
