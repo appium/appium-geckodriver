@@ -1,3 +1,9 @@
+## [4.0.1](https://github.com/appium/appium-geckodriver/compare/v4.0.0...v4.0.1) (2026-11-12)
+
+### Miscellaneous Chores
+
+* **deps:** bump commander from 14.0.3 to 15.1.0 ([#211](https://github.com/appium/appium-geckodriver/issues/211)) ([9abf665](https://github.com/appium/appium-geckodriver/commit/9abf6653b748d4ead93ed871ea7fd1bdeef45f59))
+
 ## [4.0.0](https://github.com/appium/appium-geckodriver/compare/v3.0.18...v4.0.0) (2026-11-09)
 
 ### ⚠ BREAKING CHANGES
