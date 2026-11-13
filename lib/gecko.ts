@@ -4,9 +4,8 @@ import path from 'node:path';
 
 import type {AppiumLogger, StringRecord, HTTPMethod, HTTPBody} from '@appium/types';
 import {WebDriverProxy, errors} from 'appium/driver.js';
-import {fs, util, system} from 'appium/support.js';
+import {fs, util, system, net} from 'appium/support.js';
 import {ConditionUnmetError, waitForCondition} from 'asyncbox';
-import {findAPortNotInUse} from 'portscanner';
 import {SubProcess} from 'teen_process';
 
 import {VERBOSITY} from './constants.js';
@@ -66,7 +65,7 @@ class GeckoDriverProcess {
       await GECKO_SERVER_GUARD(async () => {
         const [startPort, endPort] = GECKO_PORT_RANGE;
         try {
-          this._port = await findAPortNotInUse(startPort, endPort);
+          this._port = await net.getFreePort({port: [startPort, endPort]});
         } catch {
           throw new Error(
             `Cannot find any free port in range ${startPort}..${endPort}. ` +
