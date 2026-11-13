@@ -1,3 +1,9 @@
+## [4.0.2](https://github.com/appium/appium-geckodriver/compare/v4.0.1...v4.0.2) (2026-11-13)
+
+### Miscellaneous Chores
+
+* **deps:** bump appium to 4.0.0-beta.8 ([#212](https://github.com/appium/appium-geckodriver/issues/212)) ([7e9c636](https://github.com/appium/appium-geckodriver/commit/7e9c636f7adf0faf39cd0bd4b05e43d2f0c42b3a))
+
 ## [4.0.1](https://github.com/appium/appium-geckodriver/compare/v4.0.0...v4.0.1) (2026-11-12)
 
 ### Miscellaneous Chores
