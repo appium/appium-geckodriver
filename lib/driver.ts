@@ -141,9 +141,11 @@ export class GeckoDriver
     }
     try {
       const asUrl = new URL(webSocketUrl);
-      return asUrl.hostname !== GECKO_SERVER_HOSTNAME
-        ? webSocketUrl.replace(asUrl.hostname, GECKO_SERVER_HOSTNAME)
-        : webSocketUrl;
+      if (asUrl.hostname !== GECKO_SERVER_HOSTNAME) {
+        asUrl.hostname = GECKO_SERVER_HOSTNAME;
+        return asUrl.toString();
+      }
+      return webSocketUrl;
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       this.log.warn(`Failed to parse WebSocket URL from '${webSocketUrl}': ${msg}`);

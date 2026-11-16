@@ -17,6 +17,18 @@ describe('GeckoDriver', () => {
       'ws://127.0.0.1:9222/session/abc',
     );
     assert.equal(
+      extract({capabilities: {webSocketUrl: 'ws://LOCALHOST:9222/session/abc'}}),
+      'ws://127.0.0.1:9222/session/abc',
+    );
+    assert.equal(
+      extract({capabilities: {webSocketUrl: 'ws://ws:9222/session/abc'}}),
+      'ws://127.0.0.1:9222/session/abc',
+    );
+    assert.equal(
+      extract({capabilities: {webSocketUrl: 'ws://user:pw@user:9222/session/abc'}}),
+      'ws://user:pw@127.0.0.1:9222/session/abc',
+    );
+    assert.equal(
       extract({capabilities: {webSocketUrl: 'ws://[::1]:9222/session/abc'}}),
       'ws://127.0.0.1:9222/session/abc',
     );
