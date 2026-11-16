@@ -65,7 +65,7 @@
     "commander": "^15.1.0",
     "semver": "^7.6.3",
     "tar-stream": "^3.1.7",
-    "teen_process": "^4.0.4"
+    "teen_process": "^5.0.0"
   },
   "devDependencies": {
     "@appium/docutils": "^4.0.0-beta.7",
