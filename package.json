@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "appium-adb": "^16.0.0",
-    "asyncbox": "^6.6.0",
+    "asyncbox": "^7.0.0",
     "axios": "^1.16.1",
     "commander": "^15.1.0",
     "semver": "^7.6.3",
