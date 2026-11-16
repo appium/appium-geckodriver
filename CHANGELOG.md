@@ -1,3 +1,13 @@
+## [4.0.3](https://github.com/appium/appium-geckodriver/compare/v4.0.2...v4.0.3) (2026-11-16)
+
+### Bug Fixes
+
+* preserve port when normalizing BiDi webSocketUrl hostname ([#204](https://github.com/appium/appium-geckodriver/issues/204)) ([237dcf8](https://github.com/appium/appium-geckodriver/commit/237dcf8f33bdc95997792f57f1294d34f00e27d1))
+
+### Code Refactoring
+
+* use port helpers from appium/support instead of portscanner ([#213](https://github.com/appium/appium-geckodriver/issues/213)) ([23d99d9](https://github.com/appium/appium-geckodriver/commit/23d99d92062b919c14f67c9a5a035f02445e516b))
+
 ## [4.0.2](https://github.com/appium/appium-geckodriver/compare/v4.0.1...v4.0.2) (2026-11-13)
 
 ### Miscellaneous Chores
