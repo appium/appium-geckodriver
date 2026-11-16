@@ -1,3 +1,9 @@
+## [4.0.6](https://github.com/appium/appium-geckodriver/compare/v4.0.5...v4.0.6) (2026-11-16)
+
+### Miscellaneous Chores
+
+* **deps:** bump appium-adb from 16.4.1 to 17.0.1 ([#216](https://github.com/appium/appium-geckodriver/issues/216)) ([5d159ac](https://github.com/appium/appium-geckodriver/commit/5d159acbc434eb3015dbe3b76fff9fa7cee4fe37))
+
 ## [4.0.5](https://github.com/appium/appium-geckodriver/compare/v4.0.4...v4.0.5) (2026-11-16)
 
 ### Miscellaneous Chores
