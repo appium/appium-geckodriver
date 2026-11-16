@@ -18,7 +18,7 @@ const GECKO_SERVER_GUARD = util.getLockFileGuard(path.resolve(os.tmpdir(), 'geck
   tryRecovery: true,
 });
 const DEFAULT_MARIONETTE_PORT = 2828;
-export const GECKO_SERVER_HOST = '127.0.0.1';
+export const GECKO_SERVER_HOSTNAME = '127.0.0.1';
 
 export interface SessionOptions {
   reqBasePath?: string;
@@ -216,7 +216,7 @@ export class GeckoDriverServer {
     await this._process.init();
 
     const proxyOpts: any = {
-      server: GECKO_SERVER_HOST,
+      server: GECKO_SERVER_HOSTNAME,
       port: this._process.port,
       log: this.log,
       base: '',
