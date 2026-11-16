@@ -1,3 +1,9 @@
+## [4.0.5](https://github.com/appium/appium-geckodriver/compare/v4.0.4...v4.0.5) (2026-11-16)
+
+### Miscellaneous Chores
+
+* **deps:** bump asyncbox from 6.6.1 to 7.0.0 ([#215](https://github.com/appium/appium-geckodriver/issues/215)) ([cd875fe](https://github.com/appium/appium-geckodriver/commit/cd875fed5221c0909c54864c8e4f665fb718246d))
+
 ## [4.0.4](https://github.com/appium/appium-geckodriver/compare/v4.0.3...v4.0.4) (2026-11-16)
 
 ### Miscellaneous Chores
