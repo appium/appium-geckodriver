@@ -59,7 +59,7 @@
     "e2e-test": "npm run build && node --enable-source-maps --test --test-timeout=300000 \"build/test/functional/**/*.test.js\""
   },
   "dependencies": {
-    "appium-adb": "^16.0.0",
+    "appium-adb": "^17.0.1",
     "asyncbox": "^7.0.0",
     "axios": "^1.16.1",
     "commander": "^15.1.0",
