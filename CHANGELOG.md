@@ -1,3 +1,9 @@
+## [4.0.4](https://github.com/appium/appium-geckodriver/compare/v4.0.3...v4.0.4) (2026-11-16)
+
+### Miscellaneous Chores
+
+* **deps:** bump teen_process from 4.2.2 to 5.0.0 ([#214](https://github.com/appium/appium-geckodriver/issues/214)) ([85323f0](https://github.com/appium/appium-geckodriver/commit/85323f07e66962b57155eae0438a73973051387b))
+
 ## [4.0.3](https://github.com/appium/appium-geckodriver/compare/v4.0.2...v4.0.3) (2026-11-16)
 
 ### Bug Fixes
