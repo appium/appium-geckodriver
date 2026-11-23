@@ -13,19 +13,17 @@ There are four primary requirements to use Appium Geckodriver:
 * Appium
 * Gecko-based web browser (desktop or Android), or an Android hybrid application with a Gecko-based webview
 * `geckodriver` binary accessible from the host machine PATH
-    * Since driver version 1.4.0, you can use the [`install-geckodriver`](../reference/scripts.md) driver script to download and set up the binary
-    * For older driver versions, the binary can be downloaded from its [GitHub releases page](https://github.com/mozilla/geckodriver/releases). macOS users may need to run `xattr -cr "<binary_path>"` to [avoid notarization issues](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html).
+    * The binary can be downloaded and set up using the built-in [`install-geckodriver`](../reference/scripts.md)
+      driver script, or manually downloaded from the `geckodriver` [GitHub releases page](https://github.com/mozilla/geckodriver/releases).
+      macOS users may need to run `xattr -cr "<binary_path>"` to [avoid notarization issues](https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html).
 
-
-If running tests on an Android device, additional requirements apply:
-
-* Android SDK and `adb` installed on the host machine
-* Real Android devices must have [USB debugging enabled](https://developer.android.com/studio/debug/dev-options)
+If targeting a Gecko-based browser on Android, additional requirements apply - refer to the
+[Android Devices guide](../guides/android.md) for more details.
 
 !!! note
 
-    If you already have the driver installed, since version 1.3.0 you can also verify its
-    requirements with the built-in Appium Doctor support:
+    If you already have the driver installed, you can also verify its requirements with the
+    built-in Appium Doctor support:
 
     ```
     appium driver doctor gecko
@@ -82,16 +80,15 @@ in order to start a new session. The following example lists the minimum require
 a basic session:
 
 ```json
-// This will launch Firefox on the host machine and attach to it
+// This will launch Firefox on a macOS host machine and attach to it
+// "platformName" can be "mac", "windows", or "linux"
 {
-  ...
-  "platformName": "mac", // "mac", "windows", or "linux"
+  "platformName": "mac",
   "appium:automationName": "gecko",
-  ...
 }
 ```
 
-For testing on an Android device, additional capabilities are required - refer to [the Android testing guide](../guides/android.md).
+If testing on an Android device, additional capabilities are required - refer to the [Android Devices guide](../guides/android.md).
 
 See [the Capabilities reference page](../reference/capabilities.md) for more information on the
 capabilities supported by the driver.

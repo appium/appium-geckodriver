@@ -6,7 +6,11 @@ Appium Geckodriver comes with a set of many available endpoints, which are prima
 the Appium base driver, and can be found in [their Appium docs reference pages](https://appium.io/docs/en/latest/reference/api/).
 Refer to the documentation of your Appium client for how to call specific endpoints.
 
-The driver also defines several additional endpoints, which are included in Mozilla's extension of the W3C WebDriver protocol. All of these endpoints are supported since driver version 2.3.0.
+The driver also defines several additional endpoints listed below.
+
+## Mozilla Protocol
+
+The Mozilla protocol is an extension of the W3C WebDriver protocol.
 
 !!! warning
 
