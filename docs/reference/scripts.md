@@ -16,24 +16,24 @@ For more information about the `appium driver run` command, refer to [the Appium
     Script arguments should be provided after an additional double dash (`--`), to ensure they are
     passed to the script itself, instead of the `appium driver run` command.
 
-### `install-geckodriver`
+## `install-geckodriver`
 
 Downloads and installs the `geckodriver` server binary.
 
-#### Usage
+### Usage
 
 ```
 appium driver run gecko install-geckodriver [version]
 ```
 
-##### Optional Arguments
+#### Optional Arguments
 
 |<div style="width:7em">Argument</div>|<div style="width:22em">Description</div>|Type|Default|
 |--|--|--|--|
 |`version`|Specific version of `geckodriver` to download|string|`stable`|
 |`--dest, --d`|Directory where the binary should be installed|string|macOS/Linux: `/usr/local/bin` (fallbacks to `~/.local/bin`), Windows: `%LOCALAPPDATA%\\Mozilla`|
 
-#### Examples
+### Examples
 
 - Install the latest stable version of `geckodriver`:
 

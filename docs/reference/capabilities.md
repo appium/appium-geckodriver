@@ -107,9 +107,7 @@ Most of these capabilities map to [flags supported by the `geckodriver` binary](
 
 Custom path to the `geckodriver` binary. The use of this capability is considered an insecure
 feature and requires the Appium server to be started with the
-[`custom_geckodriver_executable` insecure feature flag](../reference/insecure-features.md).
-
-Available since driver version 2.2.0.
+[`custom_geckodriver_executable` insecure feature flag](../reference/insecure-features.md#custom_geckodriver_executable).
 
 ### noReset
 

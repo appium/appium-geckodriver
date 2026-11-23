@@ -6,7 +6,8 @@ title: Non-Firefox Browsers
 ---
 
 Appium Geckodriver theoretically supports automating any Gecko-based browser, not just Firefox.
-This can be achieved by customizing the path to the browser binary.
+The browser under test can be specified by customizing the path to the browser binary, via the
+[`moz:firefoxOptions`](../reference/capabilities.md#firefoxoptions) capability.
 
 !!! warning
 
