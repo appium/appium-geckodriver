@@ -18,4 +18,3 @@ For other insecure feature names recognized by the Appium server, see
 ## `custom_geckodriver_executable`
 
 Allows specifying a custom `geckodriver` location using the [`appium:geckodriverExecutable` capability](./capabilities.md#geckodriverexecutable).
-
