@@ -1252,6 +1252,8 @@
       
         
       
+        
+      
     
     
     
@@ -1333,7 +1335,7 @@
   <span class="md-ellipsis">
     
   
-    Session Configuration
+    Platforms
   
 
     
@@ -1349,7 +1351,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Session Configuration
+    Platforms
   
 
           </label>
@@ -1369,7 +1371,7 @@
   <span class="md-ellipsis">
     
   
-    Android Testing
+    Android Devices
   
 
     
@@ -1398,6 +1400,98 @@
     
   
     Non-Firefox Browsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Session Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/parallel-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing in Parallel
   
 
     
@@ -1722,20 +1816,18 @@
 <li>Appium</li>
 <li>Gecko-based web browser (desktop or Android), or an Android hybrid application with a Gecko-based webview</li>
 <li><code>geckodriver</code> binary accessible from the host machine PATH<ul>
-<li>Since driver version 1.4.0, you can use the <a href="../reference/scripts/"><code>install-geckodriver</code></a> driver script to download and set up the binary</li>
-<li>For older driver versions, the binary can be downloaded from its <a href="https://github.com/mozilla/geckodriver/releases">GitHub releases page</a>. macOS users may need to run <code>xattr -cr "&lt;binary_path&gt;"</code> to <a href="https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html">avoid notarization issues</a>.</li>
+<li>The binary can be downloaded and set up using the built-in <a href="../reference/scripts/"><code>install-geckodriver</code></a>
+  driver script, or manually downloaded from the <code>geckodriver</code> <a href="https://github.com/mozilla/geckodriver/releases">GitHub releases page</a>.
+  macOS users may need to run <code>xattr -cr "&lt;binary_path&gt;"</code> to <a href="https://firefox-source-docs.mozilla.org/testing/geckodriver/Notarization.html">avoid notarization issues</a>.</li>
 </ul>
 </li>
 </ul>
-<p>If running tests on an Android device, additional requirements apply:</p>
-<ul>
-<li>Android SDK and <code>adb</code> installed on the host machine</li>
-<li>Real Android devices must have <a href="https://developer.android.com/studio/debug/dev-options">USB debugging enabled</a></li>
-</ul>
+<p>If targeting a Gecko-based browser on Android, additional requirements apply - refer to the
+<a href="../guides/android/">Android Devices guide</a> for more details.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you already have the driver installed, since version 1.3.0 you can also verify its
-requirements with the built-in Appium Doctor support:</p>
+<p>If you already have the driver installed, you can also verify its requirements with the
+built-in Appium Doctor support:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>appium driver doctor gecko
 </span></code></pre></div>
 </div>
@@ -1786,15 +1878,14 @@ for more information about this approach.</p>
 <p>Appium Geckodriver, like all Appium drivers, requires providing <a href="https://appium.io/docs/en/latest/guides/caps/">specific capabilities</a>
 in order to start a new session. The following example lists the minimum required capabilities for
 a basic session:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// This will launch Firefox on the host machine and attach to it</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">{</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="err">...</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">"platformName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mac"</span><span class="p">,</span><span class="w"> </span><span class="c1">// "mac", "windows", or "linux"</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// This will launch Firefox on a macOS host machine and attach to it</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">// "platformName" can be "mac", "windows", or "linux"</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">{</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">"platformName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mac"</span><span class="p">,</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">"appium:automationName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gecko"</span><span class="p">,</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="err">...</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">}</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>For testing on an Android device, additional capabilities are required - refer to <a href="../guides/android/">the Android testing guide</a>.</p>
+<p>If testing on an Android device, additional capabilities are required - refer to the <a href="../guides/android/">Android Devices guide</a>.</p>
 <p>See <a href="../reference/capabilities/">the Capabilities reference page</a> for more information on the
 capabilities supported by the driver.</p>
 
@@ -1817,7 +1908,7 @@ capabilities supported by the driver.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 9, 2026 21:32:43 UTC"><span class="timeago" datetime="2026-11-09T21:32:43+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 9, 2026 21:32:43 UTC">2026-11-09</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 23, 2026 16:47:58 UTC"><span class="timeago" datetime="2026-11-23T16:47:58+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 23, 2026 16:47:58 UTC">2026-11-23</span>
   </span>
 
     
