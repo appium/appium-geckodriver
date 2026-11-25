@@ -3,9 +3,9 @@ import {constants as fsConstants} from 'node:fs';
 import fs from 'node:fs/promises';
 import {homedir, tmpdir} from 'node:os';
 import path from 'node:path';
+import {parseArgs} from 'node:util';
 
 import axios from 'axios';
-import {Command} from 'commander';
 import * as semver from 'semver';
 import {exec} from 'teen_process';
 
@@ -384,41 +384,59 @@ class GeckodriverInstaller {
   }
 }
 
-/**
- * CLI with Commander.js
- */
-async function main() {
-  const installer = new GeckodriverInstaller();
-  const program = new Command();
+const PROG_NAME = 'appium driver run gecko install-geckodriver';
+const USAGE = `Usage: ${PROG_NAME} [options] [version]
 
-  program
-    .name('appium driver run gecko install-geckodriver')
-    .description('Download and install Geckodriver from GitHub releases')
-    .argument('[version]', 'Geckodriver version to install (default: latest stable)', STABLE_VERSION)
-    .option('-d, --dest <path>', 'Destination directory for the geckodriver binary')
-    .addHelpText(
-      'after',
-      `
+Download and install Geckodriver from GitHub releases
+
+Arguments:
+  version              Geckodriver version to install (default: latest stable)
+
+Options:
+  -d, --dest <path>    Destination directory for the geckodriver binary
+  -h, --help           Display help for command
+
 EXAMPLES:
   # Install the latest stable Geckodriver to the default location
-  appium driver run gecko install-geckodriver
+  ${PROG_NAME}
 
   # Install a specific version
-  appium driver run gecko install-geckodriver 0.36.0
+  ${PROG_NAME} 0.36.0
 
   # Install to a custom directory
-  appium driver run gecko install-geckodriver --dest ~/.local/bin
+  ${PROG_NAME} --dest ~/.local/bin
 
 NOTE:
   On macOS and Linux, the default location is the first writable directory among:
   /usr/local/bin and ~/.local/bin.
-  On Windows, the default location is %LOCALAPPDATA%\\Mozilla.`,
-    )
-    .action(async (version, options) => {
-      await installer.install(version, {destDir: options.dest});
-    });
+  On Windows, the default location is %LOCALAPPDATA%\\Mozilla.`;
 
-  await program.parseAsync(process.argv);
+/**
+ * CLI built on util.parseArgs
+ */
+async function main() {
+  let values, positionals;
+  try {
+    ({values, positionals} = parseArgs({
+      options: {
+        dest: {type: 'string', short: 'd'},
+        help: {type: 'boolean', short: 'h'},
+      },
+      allowPositionals: true,
+    }));
+    if (!values.help && positionals.length > 1) {
+      throw new Error(`Too many arguments: expected at most 1, got ${positionals.length}`);
+    }
+  } catch (err) {
+    process.stderr.write(`error: ${err.message}\n\n${USAGE}\n`);
+    process.exitCode = 1;
+    return;
+  }
+  if (values.help) {
+    process.stdout.write(`${USAGE}\n`);
+    return;
+  }
+  await new GeckodriverInstaller().install(positionals[0] ?? STABLE_VERSION, {destDir: values.dest});
 }
 
 await main();
