@@ -424,7 +424,7 @@ async function main() {
       },
       allowPositionals: true,
     }));
-    if (positionals.length > 1) {
+    if (!values.help && positionals.length > 1) {
       throw new Error(`Too many arguments: expected at most 1, got ${positionals.length}`);
     }
   } catch (err) {
