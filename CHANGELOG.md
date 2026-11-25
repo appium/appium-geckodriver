@@ -1,3 +1,9 @@
+## [4.0.7](https://github.com/appium/appium-geckodriver/compare/v4.0.6...v4.0.7) (2026-11-25)
+
+### Miscellaneous Chores
+
+* replace commander with util.parseArgs ([#218](https://github.com/appium/appium-geckodriver/issues/218)) ([24a0f86](https://github.com/appium/appium-geckodriver/commit/24a0f866b2346eb8a71a948ed61fe8e7b9356659))
+
 ## [4.0.6](https://github.com/appium/appium-geckodriver/compare/v4.0.5...v4.0.6) (2026-11-16)
 
 ### Miscellaneous Chores
