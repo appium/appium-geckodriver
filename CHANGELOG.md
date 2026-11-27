@@ -1,3 +1,9 @@
+## [4.0.8](https://github.com/appium/appium-geckodriver/compare/v4.0.7...v4.0.8) (2026-11-27)
+
+### Miscellaneous Chores
+
+* bump @appium/types to v3 ([#219](https://github.com/appium/appium-geckodriver/issues/219)) ([0a1222c](https://github.com/appium/appium-geckodriver/commit/0a1222cb1f8f7f04a2b63aac8603212e7b0c366b))
+
 ## [4.0.7](https://github.com/appium/appium-geckodriver/compare/v4.0.6...v4.0.7) (2026-11-25)
 
 ### Miscellaneous Chores
