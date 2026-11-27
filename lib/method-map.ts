@@ -37,4 +37,4 @@ export const newMethodMap = {
       command: 'takeFullScreenshot',
     },
   },
-} as const satisfies MethodMap<GeckoDriver>;
+} as const satisfies MethodMap<GeckoDriver, true>;
